@@ -132,8 +132,11 @@ final class SchemaGraph
             'description' => $this->plain($product->short_description ?: $product->description),
             'sku' => $offer->sku,
             'brand' => ['@type' => 'Brand', 'name' => $product->brand ?: 'Glow Halal'],
-            'manufacturer' => ['@id' => url('/').'/#organization'],
-            'countryOfOrigin' => ['@type' => 'Country', 'name' => 'Pakistan'],
+            // No `manufacturer` and no `countryOfOrigin` claim here on purpose:
+            // Glow Halal is a RESELLER — the flagship oil is manufactured by
+            // M.U. Amrelia (India). Claiming ourselves as manufacturer or
+            // "made in Pakistan" would be false structured data. The seller
+            // relationship is expressed truthfully on the offer node below.
         ];
 
         if ($category) {

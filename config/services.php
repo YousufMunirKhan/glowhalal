@@ -41,6 +41,15 @@ return [
     // ⚠️ The client_secret is committed here by request; rotate it in Google
     // Cloud → Credentials if this repo is ever shared publicly, and prefer .env
     // on the live server.
+    // Google AI Studio (Gemini) — used for blog cover image generation.
+    // Key comes ONLY from .env; free tier (~100 requests/day) is ample for
+    // the store's ~2 posts/day. No key → the generator falls back to the
+    // free keyless Pollinations API automatically.
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'image_model' => env('GEMINI_IMAGE_MODEL', 'gemini-2.5-flash-image'),
+    ],
+
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID', '613174641872-q0sv3bbvkb6tgedgfkvfo58937rlh3hn.apps.googleusercontent.com'),
         // Secret is NEVER hard-coded — it comes from the production .env (and the

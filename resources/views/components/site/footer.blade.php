@@ -31,8 +31,8 @@
                     <x-wordmark tone="dark" class="h-12 w-auto" />
                 </a>
                 <p class="mt-5 max-w-xs text-body text-text-secondary">
-                    Halal skincare made in Karachi. The full INCI list is published on every product, and so is
-                    the list of ingredients we never formulate with — the two claims you can check for yourself.
+                    Karachi-based halal beauty store. The full ingredient list is published on every product, and
+                    so is the list of ingredients we never stock — the two claims you can check for yourself.
                 </p>
                 <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-meta">
                     <a href="mailto:{{ $email }}"

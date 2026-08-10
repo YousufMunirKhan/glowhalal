@@ -244,7 +244,7 @@
                     ['icon' => 'document', 'title' => 'Every ingredient published', 'body' => 'The full INCI list on every product page — nothing left off.', 'href' => '/halal-ingredients'],
                     ['icon' => 'cross', 'title' => 'What we never use', 'body' => 'The complete list of the '.$neverUseTotal.' ingredients we won\'t formulate with.', 'href' => '/what-we-never-use'],
                     ['icon' => 'check', 'title' => 'Skin-loving formulas', 'body' => 'Gentle, considered ingredients — and we tell you exactly what is in them.', 'href' => null],
-                    ['icon' => 'home', 'title' => 'Made in Karachi', 'body' => 'Formulated in Pakistan for Pakistani skin, delivered across the country.', 'href' => null],
+                    ['icon' => 'home', 'title' => 'Karachi-based store', 'body' => 'Genuine products, honestly described, delivered across Pakistan.', 'href' => null],
                 ] as $feature)
                     <li class="flex gap-4">
                         <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-champagne/40 bg-cream text-champagne">
