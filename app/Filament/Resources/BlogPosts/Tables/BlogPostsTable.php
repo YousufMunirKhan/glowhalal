@@ -8,7 +8,6 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -19,35 +18,41 @@ class BlogPostsTable
     {
         return $table
             ->columns([
-                TextColumn::make('blog_category_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('author.name')
-                    ->searchable(),
                 TextColumn::make('title')
-                    ->searchable(),
+                    ->searchable()
+                    ->limit(50)
+                    ->wrap()
+                    ->weight('medium'),
+                // The category NAME, not the raw id.
+                TextColumn::make('category.name')
+                    ->label('Category')
+                    ->badge()
+                    ->sortable()
+                    ->placeholder('—'),
+                TextColumn::make('author.name')
+                    ->label('Author')
+                    ->toggleable(),
+                // Which language version this post is (EN vs Roman Urdu mirror).
+                TextColumn::make('locale')
+                    ->label('Language')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state) => $state === 'ur-Latn' ? 'Roman Urdu' : 'English')
+                    ->toggleable(),
                 TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('excerpt')
-                    ->searchable(),
-                ImageColumn::make('cover_image_path'),
-                ImageColumn::make('cover_image_alt'),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('status')
                     ->badge()
-                    ->searchable(),
-                TextColumn::make('published_at')
-                    ->dateTime()
-                    ->sortable(),
-                TextColumn::make('reading_time_minutes')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('views_count')
-                    ->numeric()
                     ->sortable(),
                 IconColumn::make('is_featured')
-                    ->boolean(),
-                IconColumn::make('allow_comments')
-                    ->boolean(),
+                    ->label('Featured')
+                    ->boolean()
+                    ->toggleable(),
+                TextColumn::make('published_at')
+                    ->label('Published')
+                    ->dateTime('j M Y')
+                    ->sortable()
+                    ->placeholder('Not published'),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -56,11 +61,8 @@ class BlogPostsTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('deleted_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
+            ->defaultSort('published_at', 'desc')
             ->filters([
                 TrashedFilter::make(),
             ])
