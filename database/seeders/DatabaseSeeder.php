@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             LookmanBlogSeeder::class,
             BilingualBlogSeeder::class,
             WinnableBlogSeeder::class,
+            WinnableBlogUrduSeeder::class,
             // After the posts, so it backfills category + author onto every one.
             BlogDefaultsSeeder::class,
             RedirectSeeder::class,

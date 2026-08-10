@@ -101,10 +101,15 @@
             {{-- Account: a person icon in the utility row (matches the mockup).
                  Guest → sign in; signed-in → sign out. Icon-only with a label. --}}
             @auth
-                <a href="{{ route('account') }}" aria-label="My account"
-                    class="tap-safe grid h-10 w-10 place-items-center rounded-sm text-charcoal hover:bg-champagne/10
+                {{-- Signed in: show the person icon PLUS the first name so the
+                     shopper can see they are logged in. Name hides on very small
+                     screens to keep the mobile bar tidy. --}}
+                <a href="{{ route('account') }}"
+                    aria-label="My account — {{ auth()->user()->name }}"
+                    class="tap-safe flex h-10 items-center gap-1.5 rounded-sm px-2 text-charcoal hover:bg-champagne/10
                         transition-[background-color] duration-[var(--motion-fast)] ease-standard">
                     <x-ui.icon name="user" />
+                    <span class="hidden text-meta font-medium sm:inline">{{ \Illuminate\Support\Str::before(trim(auth()->user()->name), ' ') ?: 'Account' }}</span>
                 </a>
             @else
                 <a href="{{ route('login') }}" aria-label="Sign in"
