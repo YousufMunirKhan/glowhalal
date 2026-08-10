@@ -190,13 +190,15 @@
         class="pointer-events-none fixed inset-x-4 bottom-20 z-[var(--z-toast)] flex flex-col items-center gap-2">
     </div>
 
-    {{-- Google One Tap auto sign-in prompt (guests only). Scoped to the
-         auth-relevant pages so it does not load the GSI client across the whole
-         shopping path — guest Cash-on-Delivery checkout works without it, and
-         the sign-in intent only exists on /login and /account. --}}
-    @if (request()->routeIs('login', 'account', 'account.*'))
+    {{-- Google One Tap auto sign-in prompt. The partial is itself @guest-gated
+         (never shown to logged-in users). Shown across the storefront so it
+         greets visitors, EXCEPT during the cart/checkout funnel where a prompt
+         would interrupt a purchase. NOTE: for the prompt to actually appear,
+         https://glowhalal.com must be listed under the OAuth client's
+         "Authorised JavaScript origins" in Google Cloud Console. --}}
+    @unless (request()->routeIs('checkout.*', 'cart.*', 'orders.*'))
         @include('partials.google-one-tap')
-    @endif
+    @endunless
     @include('partials.cookie-consent')
 </body>
 
