@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600" role="img" aria-label="Placeholder product photograph">
+  <rect width="900" height="600" fill="#FFFFFF"/>
+  <rect width="900" height="600" fill="#FBF6EA"/>
+  <ellipse cx="450" cy="470" rx="215" ry="26" fill="#C9A961" opacity="0.16"/>
+  <g stroke="#1A1A1A" stroke-width="3" fill="#FFFFFF" stroke-linejoin="round">
+    <rect x="322" y="228" width="256" height="242" rx="16"/>
+    <rect x="300" y="182" width="300" height="52" rx="12" fill="#FAF9F7"/>
+  </g>
+  <rect x="300" y="182" width="300" height="10" rx="5" fill="#C9A961" opacity="0.85"/>
+  <g fill="none" stroke="#C9A961" stroke-width="3" opacity="0.9">
+    <path d="M370 300h160M370 322h108"/>
+  </g>
+  <text x="450" y="392" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#1A1A1A">Glow Halal</text>
+  <text x="450" y="424" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" letter-spacing="2.4" fill="#4A4A4A">NOURISHING FACE CREAM</text>
+  <text x="450" y="546" text-anchor="middle" font-family="Arial, sans-serif" font-size="15" letter-spacing="1.6" fill="#6E6E6E">PLACEHOLDER — PRODUCT PHOTOGRAPH ON WHITE</text>
+</svg>

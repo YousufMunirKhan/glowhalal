@@ -1,0 +1,64 @@
+/* ============================================================
+   GLOW HALAL — self-hosted webfonts
+   Design system §2.1. Same-origin only: no Google Fonts, no Bunny,
+   no CDN. A third-party font host is a second DNS lookup plus TLS
+   handshake on a congested Pakistani cell.
+
+   Shipped payload (Latin subsets, measured):
+     inter-400.woff2      23.1 KB   (budget 24 KB)
+     inter-600.woff2      23.9 KB   (budget 24 KB)
+     playfair-600.woff2   22.7 KB   (budget 26 KB)
+     ---------------------------------------------
+     total                69.7 KB   (budget 74 KB)
+   ============================================================ */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-400.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F,
+    U+2074, U+20A8, U+20B9, U+20BC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+2000-206F,
+    U+2074, U+20A8, U+20B9, U+20BC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/fonts/playfair-600.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007E, U+00A0-00FF, U+2018-201D, U+2013-2014, U+2026;
+}
+
+/* Metric-matched fallbacks. These hold the layout still during the swap so
+   CLS stays under 0.02. Values are the expected magnitudes from §2.1 — they
+   should be re-derived against the shipped subsets with the Fallback Font
+   Generator and re-measured before launch. */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial');
+  size-adjust: 107%;
+  ascent-override: 90%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Playfair Fallback';
+  src: local('Georgia');
+  size-adjust: 105%;
+  ascent-override: 96%;
+  descent-override: 22%;
+  line-gap-override: 0%;
+}

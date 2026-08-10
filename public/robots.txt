@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account
+Disallow: /login
+Disallow: /search
+Disallow: /feed
+
+Sitemap: https://glowhalal.com/sitemap.xml

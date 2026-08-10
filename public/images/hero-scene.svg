@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800" fill="none" role="img" aria-label="Glow Halal face wash and serum on a stone plinth with botanical accents">
+  <defs>
+    <linearGradient id="hs-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B8974E"/><stop offset="35%" stop-color="#EFD89A"/>
+      <stop offset="70%" stop-color="#D2B266"/><stop offset="100%" stop-color="#A8863F"/>
+    </linearGradient>
+    <linearGradient id="hs-body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="55%" stop-color="#FBF7EE"/><stop offset="100%" stop-color="#EFE6D2"/>
+    </linearGradient>
+    <linearGradient id="hs-glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8A6D28"/><stop offset="45%" stop-color="#C9A961"/><stop offset="100%" stop-color="#6A5320"/>
+    </linearGradient>
+    <linearGradient id="hs-plinth" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E9E2D3"/><stop offset="100%" stop-color="#CFC4AC"/>
+    </linearGradient>
+    <linearGradient id="hs-leaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C7BE7E"/><stop offset="100%" stop-color="#9A8B45"/>
+    </linearGradient>
+  </defs>
+
+  <!-- soft ground shadow (stronger, so products read as lit objects on the plate) -->
+  <ellipse cx="400" cy="672" rx="250" ry="34" fill="#8A6D28" opacity="0.22"/>
+  <!-- contact shadows under each product -->
+  <ellipse cx="321" cy="566" rx="70" ry="12" fill="#8A6D28" opacity="0.18"/>
+  <ellipse cx="500" cy="566" rx="66" ry="11" fill="#8A6D28" opacity="0.18"/>
+
+  <!-- botanical sprigs behind -->
+  <g stroke="#9A8B45" stroke-width="4" stroke-linecap="round" opacity="0.9">
+    <path d="M612 560 C 636 470 648 420 632 360" fill="none"/>
+    <path d="M632 360 C 604 372 588 356 600 330" fill="url(#hs-leaf)" stroke="none"/>
+    <path d="M628 402 C 662 402 678 384 672 356" fill="url(#hs-leaf)" stroke="none"/>
+    <path d="M624 452 C 596 456 582 438 592 412" fill="url(#hs-leaf)" stroke="none"/>
+    <path d="M620 500 C 654 502 670 484 664 458" fill="url(#hs-leaf)" stroke="none"/>
+  </g>
+  <g opacity="0.85">
+    <path d="M176 566 C 150 486 140 436 156 380 C 176 402 186 452 180 512 Z" fill="url(#hs-leaf)"/>
+    <path d="M196 566 C 232 500 260 470 300 456 C 286 500 250 544 208 566 Z" fill="url(#hs-leaf)"/>
+  </g>
+
+  <!-- stone plinth -->
+  <rect x="150" y="566" width="500" height="86" rx="16" fill="url(#hs-plinth)"/>
+  <rect x="150" y="566" width="500" height="14" rx="7" fill="#F2ECDD"/>
+
+  <!-- FACE WASH tube (stands cap-down) -->
+  <g>
+    <rect x="262" y="516" width="118" height="52" rx="12" fill="url(#hs-gold)"/>
+    <rect x="270" y="250" width="102" height="272" rx="10" fill="url(#hs-body)" stroke="#CDB98E" stroke-width="2.5"/>
+    <rect x="270" y="242" width="102" height="18" rx="5" fill="url(#hs-gold)"/>
+    <rect x="270" y="360" width="102" height="4" fill="#C9A961" opacity="0.6"/>
+    <text x="321" y="332" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#8A6D28">glow</text>
+    <text x="321" y="352" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" letter-spacing="3" fill="#6A5320">HALAL</text>
+    <text x="321" y="392" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="2.5" fill="#6E6E6E">FACE WASH</text>
+  </g>
+
+  <!-- SERUM dropper bottle -->
+  <g>
+    <rect x="436" y="372" width="128" height="196" rx="20" fill="url(#hs-glass)"/>
+    <rect x="448" y="384" width="30" height="172" rx="14" fill="#FFFFFF" opacity="0.16"/>
+    <rect x="470" y="346" width="60" height="34" rx="6" fill="#6A5320"/>
+    <rect x="452" y="300" width="96" height="52" rx="12" fill="#2E2E2E"/>
+    <rect x="452" y="322" width="96" height="8" fill="url(#hs-gold)"/>
+    <rect x="488" y="256" width="24" height="52" rx="10" fill="url(#hs-gold)"/>
+    <rect x="464" y="392" width="72" height="150" rx="10" fill="#FBF7EE" opacity="0.92"/>
+    <text x="500" y="452" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="22" fill="#8A6D28">glow</text>
+    <text x="500" y="470" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" letter-spacing="2.5" fill="#6A5320">HALAL</text>
+    <text x="500" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" letter-spacing="1.5" fill="#6E6E6E">SERUM</text>
+  </g>
+
+  <!-- flower accent -->
+  <g transform="translate(596 560)">
+    <g fill="#FFFFFF" stroke="#EADFC4" stroke-width="1.5">
+      <ellipse cx="0" cy="-15" rx="10" ry="16"/><ellipse cx="14" cy="-5" rx="10" ry="16" transform="rotate(72 14 -5)"/>
+      <ellipse cx="9" cy="13" rx="10" ry="16" transform="rotate(144 9 13)"/><ellipse cx="-9" cy="13" rx="10" ry="16" transform="rotate(216 -9 13)"/>
+      <ellipse cx="-14" cy="-5" rx="10" ry="16" transform="rotate(288 -14 -5)"/>
+    </g>
+    <circle cx="0" cy="0" r="7" fill="url(#hs-gold)"/>
+  </g>
+
+  <!-- sparkles -->
+  <g stroke="url(#hs-gold)" stroke-width="4" stroke-linecap="round">
+    <path d="M330 210 v22 M319 221 h22"/>
+    <path d="M540 232 v16 M532 240 h16"/>
+  </g>
+</svg>

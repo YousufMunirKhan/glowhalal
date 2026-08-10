@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" fill="none" role="img" aria-label="Glow Halal face wash tube">
+  <defs>
+    <linearGradient id="tube-gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#B8974E"/><stop offset="38%" stop-color="#EFD89A"/>
+      <stop offset="72%" stop-color="#D2B266"/><stop offset="100%" stop-color="#A8863F"/>
+    </linearGradient>
+    <linearGradient id="tube-body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFFFFF"/><stop offset="55%" stop-color="#FBF7EE"/><stop offset="100%" stop-color="#ECE2CD"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="300" cy="510" rx="110" ry="22" fill="#A8863F" opacity="0.16"/>
+  <rect x="240" y="470" width="120" height="52" rx="12" fill="url(#tube-gold)"/>
+  <rect x="248" y="150" width="104" height="326" rx="10" fill="url(#tube-body)" stroke="#E4D8BC" stroke-width="2"/>
+  <rect x="248" y="142" width="104" height="18" rx="5" fill="url(#tube-gold)"/>
+  <rect x="248" y="286" width="104" height="4" fill="#C9A961" opacity="0.6"/>
+  <text x="300" y="252" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#8A6D28">glow</text>
+  <text x="300" y="274" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="3.5" fill="#6A5320">HALAL</text>
+  <text x="300" y="318" text-anchor="middle" font-family="Arial, sans-serif" font-size="13" letter-spacing="2.2" fill="#6E6E6E">FACE WASH</text>
+</svg>
