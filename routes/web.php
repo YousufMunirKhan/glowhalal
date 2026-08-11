@@ -169,6 +169,9 @@ Route::get('/', function () {
     // publishes a post in the admin.
     $journal = \App\Models\BlogPost::query()
         ->published()
+        // English homepage shows English posts only — the Roman-Urdu mirror
+        // lives under /ur-roman and must never leak into this list.
+        ->forLocale('en')
         ->orderByDesc('published_at')
         ->take(2)
         ->get()
