@@ -3,6 +3,15 @@
 **Date:** 11 August 2026 · **Site:** https://glowhalal.com · All evidence below was
 collected live from the production server on this date.
 
+> **Update (same day):** a 7-agent adversarial on-site audit passed 42 checks and
+> surfaced 13 issues — every one fixed and live-verified the same day: robots
+> Allow for merchant feeds, PDP→guide internal links, slug-case 301s, pagination
+> soft-404 guard, Offer handlingTime + visible Rs 300 shipping line, transit
+> 2–7 days, one-hop www redirect, shop heading hierarchy, hand-written legal
+> meta descriptions, PDP titles ≤65 chars, postalCode 74400, all 11 blog covers
+> upscaled to 1200px (Discover/large-image eligible), and the cover generator
+> now upscales future drip images automatically.
+
 ---
 
 ## 1. Verdict at a glance
