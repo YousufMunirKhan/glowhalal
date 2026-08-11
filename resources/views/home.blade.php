@@ -269,6 +269,59 @@
 
     {{-- Trust rail row 2 — the black service bar. Ivory text, champagne icons;
          both PASS AAA on luxe-black. --}}
+    {{-- ── Latest from the Journal ─────────────────────────────────────────
+         Not just content marketing: Google crawls the homepage more often than
+         any other page, so linking each new post here gets it DISCOVERED the
+         same day it goes live — no manual "Request Indexing" needed. The
+         $journal list is the two newest published English posts and updates
+         itself the morning a scheduled post drips out. --}}
+    @if (!empty($journal))
+        <section aria-labelledby="journal-heading" class="section-y bg-cream">
+            <div class="container-page">
+                <div class="flex flex-wrap items-end justify-between gap-4">
+                    <div>
+                        <p class="text-overline uppercase tracking-caps text-champagne">Journal</p>
+                        <h2 id="journal-heading" class="mt-2 font-display text-display tracking-display text-charcoal">
+                            Latest guides
+                        </h2>
+                    </div>
+                    <a href="/blog"
+                        class="text-body font-semibold text-charcoal underline decoration-champagne decoration-1 underline-offset-[3px] hover:decoration-2">
+                        All articles
+                    </a>
+                </div>
+
+                <ul class="mt-8 grid gap-6 md:grid-cols-2">
+                    @foreach ($journal as $post)
+                        <li>
+                            <article class="relative h-full rounded-lg border border-luxe-border bg-ivory p-6
+                                    transition-[border-color,box-shadow] duration-[var(--motion-fast)] ease-standard
+                                    hover:border-champagne hover:shadow-md">
+                                <p class="flex flex-wrap items-center gap-x-2 text-meta text-muted-warm">
+                                    @if (!empty($post['date_iso']))
+                                        <time datetime="{{ $post['date_iso'] }}">{{ $post['date'] }}</time>
+                                    @endif
+                                    @if (!empty($post['read_time']))
+                                        <span aria-hidden="true" class="text-champagne">·</span>
+                                        <span>{{ $post['read_time'] }}</span>
+                                    @endif
+                                </p>
+                                <h3 class="mt-3 font-display text-title tracking-display text-charcoal">
+                                    <a href="/blog/{{ $post['slug'] }}"
+                                        class="no-underline after:absolute after:inset-0 after:content-[''] hover:underline
+                                            hover:decoration-champagne hover:underline-offset-[3px]">{{ $post['title'] }}</a>
+                                </h3>
+                                @if (!empty($post['excerpt']))
+                                    <p class="clamp-2 mt-3 text-body text-muted-warm">{{ $post['excerpt'] }}</p>
+                                @endif
+                            </article>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        </section>
+    @endif
+
     <section aria-label="Service and delivery" class="bg-luxe-black">
         <div class="container-page py-10 md:py-12">
             <ul class="grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
