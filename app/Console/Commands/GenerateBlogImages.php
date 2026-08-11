@@ -94,6 +94,15 @@ class GenerateBlogImages extends Command
                 }
 
                 $image = $manager->decodeBinary($binary);
+
+                // Providers sometimes return smaller than requested (Pollinations
+                // delivered 928px for a 1216px ask). Google's large-image Article
+                // rich result / Discover needs >=1200px wide — upscale BEFORE the
+                // watermark so the logo is never softened by resampling.
+                if ($image->width() < 1200) {
+                    $image = $image->scale(width: 1200);
+                }
+
                 $logo = $manager->decodePath($logoPath)->scaleDown(width: 200);
                 // Brand watermark bottom-right on EVERY image — non-negotiable.
                 $image->insert($logo, x: 28, y: 24, alignment: Alignment::BOTTOM_RIGHT, transparency: 0.9);
