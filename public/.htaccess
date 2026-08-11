@@ -1,9 +1,27 @@
+# ── Production (Hostinger/LiteSpeed) rules ──────────────────────────────────
+# Origin full-page cache OFF: this is a dynamic COD store — one shopper's cart
+# must never be served to another. Static assets stay cacheable below.
+<IfModule LiteSpeed>
+    CacheDisable public /
+    CacheLookup off
+</IfModule>
+
+# Dynamic HTML is never cached by the CDN/browser; css/js/images/fonts are.
+<IfModule mod_headers.c>
+    SetEnvIf Request_URI "\.(css|js|mjs|jpg|jpeg|png|webp|svg|woff2?|ttf|ico|gif|map|txt|xml)$" GLOW_ASSET
+    Header set Cache-Control "no-cache, private, must-revalidate" env=!GLOW_ASSET
+</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
     RewriteEngine On
+
+    # Canonical host: www duplicates the whole site in Google — 301 to apex.
+    RewriteCond %{HTTP_HOST} ^www\.glowhalal\.com [NC]
+    RewriteRule ^(.*)$ https://glowhalal.com/$1 [R=301,L]
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
