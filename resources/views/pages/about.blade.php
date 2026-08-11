@@ -37,13 +37,26 @@
                 product is published in full, under the name printed on the pack, and so is the list of ingredients
                 we refuse to formulate with. We hold no third-party halal accreditation and we do not claim one.
             </p>
+
+            @if ($page && filled($page->content))
+                <p class="mt-4 text-meta">
+                    <a href="#hamari-kahani" lang="ur-Latn"
+                        class="text-text-gold underline decoration-1 underline-offset-4">Roman Urdu mein parhein ↓</a>
+                </p>
+            @endif
         </div>
     </x-ui.section>
 
-    {{-- ── Editor-written body, when there is one ────────────────────────── --}}
+    {{-- ── Editor-written body (Roman Urdu narrative) ─────────────────────
+         lang="ur-Latn" makes this a correctly-tagged Urdu-Latin block inside
+         the lang="en" document — the fix for mixed-language ambiguity is
+         tagging, not a second URL (SEO consult, Aug 2026). ur-Latn is Latin
+         script: LTR, never dir="rtl". --}}
     @if ($page && filled($page->content))
         <x-ui.section surface="default" class="!pt-0">
-            @include('pages.partials.rich-text', ['html' => $page->content])
+            <section lang="ur-Latn" id="hamari-kahani">
+                @include('pages.partials.rich-text', ['html' => $page->content])
+            </section>
         </x-ui.section>
     @endif
 

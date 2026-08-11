@@ -62,6 +62,9 @@ class AboutController extends Controller
             'schema' => $this->schema([
                 JsonLd::webPage($canonical, $title, $description, 'AboutPage', [
                     'dateModified' => $page?->updated_at?->toIso8601String(),
+                    // One URL carrying both languages — deliberate (no hreflang
+                    // pair: /about has no per-language search demand to route).
+                    'inLanguage' => $page && filled($page->content) ? ['en', 'ur-Latn'] : 'en',
                 ]),
                 JsonLd::breadcrumbs($canonical, $crumbs),
             ]),

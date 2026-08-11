@@ -44,7 +44,7 @@ class AboutPageSeeder extends Seeder
 
         if (! $page->seoMeta) {
             $page->seoMeta()->create([
-                'meta_description' => 'Glow Halal is a Karachi-based halal personal care brand — full ingredient lists on every product, no medical claims, COD across Pakistan. Read our three promises.',
+                'meta_description' => 'Glow Halal is a Karachi-based halal personal care brand — no medical claims, COD across Pakistan. Har product par poori ingredient list, koi jhoothe wade nahi.',
             ]);
         }
     }
