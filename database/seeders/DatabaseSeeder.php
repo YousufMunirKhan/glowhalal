@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             HalalReferenceSeeder::class,
             StaticPageSeeder::class,
             LegalPagesSeeder::class,
+            AboutPageSeeder::class,
             OwnerProductSeeder::class,
             LookmanBlogSeeder::class,
             BilingualBlogSeeder::class,
