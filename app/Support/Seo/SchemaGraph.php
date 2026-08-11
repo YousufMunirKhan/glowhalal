@@ -147,6 +147,17 @@ final class SchemaGraph
             $node['image'] = [asset('storage/'.ltrim($image, '/'))];
         }
 
+        // Global identifier for merchant listings. Only a REAL barcode from the
+        // packaging (admin: variant → barcode field) is ever emitted — an
+        // invented GTIN is false data and a Merchant Center suspension risk.
+        // Until one is entered, brand + sku remain the identifiers.
+        $barcode = trim((string) ($product->defaultVariant?->barcode
+            ?? $product->variants->firstWhere('is_default', true)?->barcode));
+
+        if ($barcode !== '' && preg_match('/^\d{8}(\d{4,6})?$/', $barcode)) {
+            $node['gtin'] = $barcode;
+        }
+
         // Only verified exclusions become claims. `is_verified = false` means
         // nobody has checked, and an unchecked claim is not a claim.
         $properties = $product->verifiedFreeFromAttributes
@@ -168,6 +179,9 @@ final class SchemaGraph
             'availability' => $offer->availability(),
             'itemCondition' => 'https://schema.org/NewCondition',
             'seller' => ['@id' => url('/').'/#organization'],
+            // The price has certainly been in force since the product row was
+            // last saved — an honest validFrom without a price-history table.
+            'validFrom' => $product->updated_at?->toDateString(),
         ];
 
         if ($offer->isRange()) {
