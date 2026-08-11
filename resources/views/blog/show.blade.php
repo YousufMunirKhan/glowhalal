@@ -16,6 +16,7 @@
     $bp = app()->getLocale() === 'ur-Latn' ? '/ur-roman' : '';
 @endphp
 <x-layouts.app :title="$title" :description="$description" :canonical="$canonical" :current="$current"
+    :og-image="$ogImage ?? null"
     :products="$products" :company="$company" :founder="$founder">
 
     <x-slot:head>
@@ -38,7 +39,16 @@
                 @endif
 
                 @if ($post->author)
-                    <p class="mt-4 text-meta text-text-muted">By {{ $post->author->name }}</p>
+                    <p class="mt-4 text-meta text-text-muted">
+                        By {{ $post->author->name }}
+                        {{-- Visible freshness that matches JSON-LD dateModified —
+                             answer engines cross-check the two. Only shown when a
+                             real later edit exists. --}}
+                        @if ($post->updated_at && $post->published_at && $post->updated_at->gt($post->published_at->addHours(12)))
+                            <span aria-hidden="true" class="mx-1">·</span>
+                            Updated <time datetime="{{ $post->updated_at->toDateString() }}">{{ $post->updated_at->format('j F Y') }}</time>
+                        @endif
+                    </p>
                 @endif
 
                 {{-- Language switcher — offers the reader the same article in the

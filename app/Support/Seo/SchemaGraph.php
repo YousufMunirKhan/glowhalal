@@ -179,6 +179,25 @@ final class SchemaGraph
             $offerNode['priceValidUntil'] = now()->endOfYear()->toDateString();
         }
 
+        // Shipping + returns on the offer node feed Google's merchant listing
+        // rich result and give answer engines concrete delivery facts. Both are
+        // read from live sources — the admin-managed shipping rate and the
+        // published Shipping & Returns policy — never hard-coded promises.
+        if ($shipping = $this->shippingDetails()) {
+            $offerNode['shippingDetails'] = $shipping;
+        }
+
+        $offerNode['hasMerchantReturnPolicy'] = [
+            '@type' => 'MerchantReturnPolicy',
+            // Mirrors /shipping-returns: 7 days for unopened or damaged items,
+            // return delivery paid by the customer unless the error is ours.
+            'applicableCountry' => 'PK',
+            'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
+            'merchantReturnDays' => 7,
+            'returnMethod' => 'https://schema.org/ReturnByMail',
+            'returnFees' => 'https://schema.org/ReturnShippingFees',
+        ];
+
         $node['offers'] = $offerNode;
 
         // aggregateRating is emitted only when real, visible reviews exist.
@@ -197,6 +216,51 @@ final class SchemaGraph
         $this->nodes[] = $node;
 
         return $this;
+    }
+
+    /**
+     * OfferShippingDetails from the live fallback-zone rate — the same numbers
+     * the cart quotes, so an admin change to the flat rate or free-over
+     * threshold updates the schema on the next request. Returns null when no
+     * active rate exists rather than inventing a figure.
+     *
+     * @return array<string, mixed>|null
+     */
+    private function shippingDetails(): ?array
+    {
+        $rate = app(\App\Services\Shipping\ShippingCalculator::class)
+            ->quote(\App\Support\Money::zero())->rate;
+
+        if (! $rate || $rate->amount === null) {
+            return null;
+        }
+
+        $details = [
+            '@type' => 'OfferShippingDetails',
+            'shippingRate' => [
+                '@type' => 'MonetaryAmount',
+                'value' => number_format($rate->amount->toRupees(), 2, '.', ''),
+                'currency' => 'PKR',
+            ],
+            'shippingDestination' => [
+                '@type' => 'DefinedRegion',
+                'addressCountry' => 'PK',
+            ],
+        ];
+
+        if ($rate->min_delivery_days !== null && $rate->max_delivery_days !== null) {
+            $details['deliveryTime'] = [
+                '@type' => 'ShippingDeliveryTime',
+                'transitTime' => [
+                    '@type' => 'QuantitativeValue',
+                    'minValue' => (int) $rate->min_delivery_days,
+                    'maxValue' => (int) $rate->max_delivery_days,
+                    'unitCode' => 'DAY',
+                ],
+            ];
+        }
+
+        return $details;
     }
 
     /**

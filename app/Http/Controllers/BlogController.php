@@ -231,9 +231,17 @@ class BlogController extends Controller
         // the cluster (publisher is the shared #organization node).
         $inLanguage = $this->schemaLanguage($locale);
 
+        // The post's own cover drives og:image + BlogPosting.image, so a share
+        // (and an AI answer card) shows THIS article's picture, not the
+        // sitewide product fallback.
+        $coverUrl = $post->cover_image_path
+            ? url('/storage/'.ltrim($post->cover_image_path, '/'))
+            : null;
+
         return view('blog.show', [
             'contentLocale' => $locale,
             'hreflang' => $hreflang,
+            'ogImage' => $coverUrl,
             ...$this->layoutData('journal'),
             'title' => str($title)->limit(65, '')->trim()->toString(),
             'description' => $description ? str($description)->limit(158)->toString() : null,
@@ -251,6 +259,7 @@ class BlogController extends Controller
                 JsonLd::breadcrumbs($canonical, $crumbs),
                 JsonLd::blogPosting($canonical, [
                     'inLanguage' => $inLanguage,
+                    'image' => $coverUrl,
                     'headline' => str($post->title)->limit(110, '')->toString(),
                     'description' => $description,
                     'articleSection' => $post->category?->name,
