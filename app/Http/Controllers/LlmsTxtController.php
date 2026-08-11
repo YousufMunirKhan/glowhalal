@@ -43,6 +43,7 @@ class LlmsTxtController extends Controller
             // never leave a stale number in the AI fact sheet.
             .'Cash on Delivery across Pakistan; orders via the website'
             .(filled($store->whatsapp_number ?? null) ? ' or WhatsApp '.$store->whatsapp_number : '')
+            .(filled($store->contact_email ?? null) ? '; support email '.$store->contact_email : '')
             .'. Content is bilingual: English and Roman Urdu.';
         $lines[] = '';
         $lines[] = 'Key facts:';
