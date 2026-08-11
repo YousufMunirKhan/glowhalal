@@ -148,50 +148,43 @@
         </div>
     </x-ui.section>
 
-    {{-- ── The people ────────────────────────────────────────────────────── --}}
-    <x-ui.section surface="default">
-        <div class="max-w-[var(--container-read)]">
-            <h2 class="text-title-lg text-text-primary">Who is behind this</h2>
+    {{-- ── The people — renders ONLY when a real founder is set in Store
+         settings. No placeholder person and no "coming soon" apology either:
+         the owner chose not to publish a founder, so the section simply does
+         not exist until real data does. --}}
+    @if ($store->hasFounder() || filled($store->brand_story))
+        <x-ui.section surface="default">
+            <div class="max-w-[var(--container-read)]">
+                <h2 class="text-title-lg text-text-primary">Who is behind this</h2>
 
-            @if ($store->hasFounder())
-                <div class="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
-                    <img src="{{ \App\Support\StorefrontChrome::founderPhoto() }}"
-                        alt="{{ $store->founder_name }}, founder of Glow Halal" width="160" height="160"
-                        loading="lazy" decoding="async"
-                        class="h-40 w-40 shrink-0 rounded-sm bg-surface-sunken object-cover object-top">
+                @if ($store->hasFounder())
+                    <div class="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
+                        <img src="{{ \App\Support\StorefrontChrome::founderPhoto() }}"
+                            alt="{{ $store->founder_name }}, founder of Glow Halal" width="160" height="160"
+                            loading="lazy" decoding="async"
+                            class="h-40 w-40 shrink-0 rounded-sm bg-surface-sunken object-cover object-top">
 
-                    <div>
-                        <p class="text-display-sm text-text-primary">{{ $store->founder_name }}</p>
-                        @if ($store->founder_title)
-                            <p class="mt-1 text-body text-text-secondary">{{ $store->founder_title }}</p>
-                        @endif
-                        @if ($store->city)
-                            <p class="mt-1 text-meta text-text-muted">{{ $store->city }}</p>
-                        @endif
-                        <p class="mt-4 text-body text-text-secondary">{{ $store->founder_bio }}</p>
+                        <div>
+                            <p class="text-display-sm text-text-primary">{{ $store->founder_name }}</p>
+                            @if ($store->founder_title)
+                                <p class="mt-1 text-body text-text-secondary">{{ $store->founder_title }}</p>
+                            @endif
+                            @if ($store->city)
+                                <p class="mt-1 text-meta text-text-muted">{{ $store->city }}</p>
+                            @endif
+                            <p class="mt-4 text-body text-text-secondary">{{ $store->founder_bio }}</p>
+                        </div>
                     </div>
-                </div>
-            @else
-                {{-- TODO (owner): fill Founder name, title, bio and photo in the
-                     admin under Store settings. Nothing is invented here on
-                     purpose — a fabricated founder was removed from this site
-                     once already. --}}
-                <div class="evidence-plate mt-6">
-                    <p class="text-body text-text-secondary">
-                        The founder profile has not been published yet. It will carry a real name, a real photograph
-                        and a real background &mdash; there is deliberately no placeholder person standing in for one
-                        here.
-                    </p>
-                </div>
-            @endif
+                @endif
 
-            @if (filled($store->brand_story))
-                <div class="mt-8">
-                    @include('pages.partials.rich-text', ['html' => $store->brand_story])
-                </div>
-            @endif
-        </div>
-    </x-ui.section>
+                @if (filled($store->brand_story))
+                    <div class="mt-8">
+                        @include('pages.partials.rich-text', ['html' => $store->brand_story])
+                    </div>
+                @endif
+            </div>
+        </x-ui.section>
+    @endif
 
     {{-- ── Where we are ──────────────────────────────────────────────────── --}}
     <x-ui.section surface="sunken">
