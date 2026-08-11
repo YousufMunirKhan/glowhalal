@@ -70,7 +70,10 @@ class CatalogueExpansionBlogSeeder extends Seeder
                     'translation_group_id' => $article['translation_group_id'],
                     'excerpt' => $article['excerpt'],
                     'status' => 'published',
-                    'published_at' => $base->copy()->addDays($i),
+                    // ->timezone('UTC') matters: the datetime cast stores the
+                    // wall-clock value without converting, so a Karachi-tz
+                    // Carbon would land 5 hours late. Convert first.
+                    'published_at' => $base->copy()->addDays($i)->timezone('UTC'),
                     'reading_time_minutes' => $article['reading_time_minutes'],
                     'content' => $article['content'],
                 ],
