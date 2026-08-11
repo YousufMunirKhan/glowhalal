@@ -76,7 +76,11 @@ class BlogPostForm
                     ->default('draft')
                     ->required(),
                 DateTimePicker::make('published_at')
-                    ->helperText('Set a past date and status “Published” for the post to go live.'),
+                    ->label('Published at (auto-publish)')
+                    ->helperText('AUTO-PUBLISH: set a FUTURE date & time with status "Published" and the post '
+                        .'goes live by itself at that exact moment — its AI cover image is generated right '
+                        .'then (Gemini first, free fallback; see Settings → Blog & AI Images). '
+                        .'A past date publishes immediately.'),
                 TextInput::make('reading_time_minutes')
                     ->label('Reading time (minutes)')
                     ->numeric()
