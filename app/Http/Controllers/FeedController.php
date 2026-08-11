@@ -48,6 +48,10 @@ class FeedController extends Controller
 
             $body .= '      <g:availability>'.$this->xml($offer['availability_google'])."</g:availability>\n";
             $body .= '      <g:price>'.$this->xml($offer['price'])."</g:price>\n";
+
+            if ($offer['sale_price']) {
+                $body .= '      <g:sale_price>'.$this->xml($offer['sale_price'])."</g:sale_price>\n";
+            }
             $body .= '      <g:brand>'.$this->xml($offer['brand'])."</g:brand>\n";
             $body .= '      <g:condition>'.$this->xml($offer['condition'])."</g:condition>\n";
             // No GTIN/MPN in the catalogue → declare it honestly rather than fake one.
@@ -85,7 +89,7 @@ class FeedController extends Controller
     {
         $handle = fopen('php://temp', 'r+');
 
-        fputcsv($handle, ['id', 'title', 'description', 'availability', 'condition', 'price', 'link', 'image_link', 'brand']);
+        fputcsv($handle, ['id', 'title', 'description', 'availability', 'condition', 'price', 'sale_price', 'link', 'image_link', 'brand'], escape: '\\');
 
         foreach ($this->offers() as $offer) {
             fputcsv($handle, [
@@ -95,10 +99,11 @@ class FeedController extends Controller
                 $offer['availability_meta'],
                 $offer['condition'],
                 $offer['price'],
+                $offer['sale_price'] ?? '',
                 $offer['link'],
                 $offer['image_link'],
                 $offer['brand'],
-            ]);
+            ], escape: '\\');
         }
 
         rewind($handle);
@@ -151,6 +156,12 @@ class FeedController extends Controller
 
         $inStock = $variant->allow_backorder || ($variant->available_quantity ?? 0) > 0;
 
+        // Discount mapping per Google/Meta spec: when compare-at is set, the
+        // regular price goes in `price` and the actual selling price in
+        // `sale_price` — that is what renders the strikethrough in listings.
+        $compareAt = $variant->compare_at_amount;
+        $onSale = $compareAt !== null && $compareAt->minorUnits > $price->minorUnits;
+
         return [
             'id' => $variant->sku,
             'title' => trim($product->name),
@@ -160,7 +171,8 @@ class FeedController extends Controller
             'availability_google' => $inStock ? 'in_stock' : 'out_of_stock',
             'availability_meta' => $inStock ? 'in stock' : 'out of stock',
             // Rupees, two decimals + ISO currency, e.g. "1800.00 PKR".
-            'price' => number_format($price->toRupees(), 2, '.', '').' PKR',
+            'price' => number_format(($onSale ? $compareAt : $price)->toRupees(), 2, '.', '').' PKR',
+            'sale_price' => $onSale ? number_format($price->toRupees(), 2, '.', '').' PKR' : null,
             'brand' => $product->brand ?: 'Glow Halal',
             'condition' => 'new',
             'product_type' => $product->primaryCategory?->name,

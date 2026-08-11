@@ -26,59 +26,76 @@ class VariantsRelationManager extends RelationManager
 {
     protected static string $relationship = 'variants';
 
-    protected static ?string $title = 'Variants';
+    // "Variants" is developer jargon for a store that mostly sells simple
+    // one-size products — the owner reads this as the place where price,
+    // discount and stock live, so the tab says exactly that.
+    protected static ?string $title = 'Price, sizes & stock';
 
     protected static ?string $recordTitleAttribute = 'name';
 
     public function form(Schema $schema): Schema
     {
         return $schema->components([
-            Section::make()->schema([
+            Section::make('Basics')->schema([
                 Grid::make(2)->schema([
                     TextInput::make('name')
-                        ->label('Variant name')
+                        ->label('Size / label')
                         ->required()
                         ->maxLength(150)
-                        ->helperText('The shade or size, e.g. "Nude Rose" or "50 ml".'),
+                        ->helperText('Jo customer ko dikhta hai — e.g. "50 ml" ya "100 ml".'),
 
                     TextInput::make('sku')
-                        ->label('SKU')
+                        ->label('SKU (item code)')
                         ->required()
                         ->maxLength(64)
                         ->unique(ignoreRecord: true),
                 ]),
-
-                Grid::make(3)->schema([
-                    // Stored as integer paisa; entered and displayed in rupees.
-                    MoneyInput::make('price_amount', 'Price')->required(),
-
-                    MoneyInput::make('compare_at_amount', 'Compare at')
-                        ->helperText('Must be at or above the price — enforced by the database.'),
-
-                    MoneyInput::make('cost_amount', 'Unit cost'),
-                ]),
-
-                Grid::make(3)->schema([
-                    TextInput::make('barcode')->maxLength(64),
-                    TextInput::make('weight_grams')->numeric()->minValue(0)->default(0),
-                    TextInput::make('position')->numeric()->minValue(0)->default(0),
-                ]),
-
-                Select::make('attributeValues')
-                    ->label('Options')
-                    ->relationship('attributeValues', 'value')
-                    ->multiple()
-                    ->preload()
-                    ->helperText('Shade, size and other variant-defining option values.'),
-
-                Grid::make(4)->schema([
-                    Toggle::make('is_active')->default(true),
-                    Toggle::make('is_default')
-                        ->helperText('Exactly one per product; setting this clears the others.'),
-                    Toggle::make('track_inventory')->default(true),
-                    Toggle::make('allow_backorder'),
-                ]),
             ]),
+
+            Section::make('Price & discount')
+                ->description('Discount dene ke liye: "Old price" mein purani qeemat likhein aur "Selling price" mein nayi — website, Google aur Facebook har jagah purani qeemat cut ho kar "Rs X off" ke sath dikhegi. Discount khatam karna ho to Old price khali kar dein.')
+                ->schema([
+                    Grid::make(2)->schema([
+                        // Stored as integer paisa; entered and displayed in rupees.
+                        MoneyInput::make('price_amount', 'Selling price')
+                            ->required()
+                            ->helperText('Jo qeemat customer ada karega.'),
+
+                        MoneyInput::make('compare_at_amount', 'Old price (for discount)')
+                            ->helperText('Optional — selling price se zyada honi chahiye, warna save nahi hogi.'),
+                    ]),
+                ]),
+
+            Section::make('Advanced')
+                ->description('Aam tor par inhe chherne ki zaroorat nahi.')
+                ->collapsed()
+                ->schema([
+                    Grid::make(3)->schema([
+                        MoneyInput::make('cost_amount', 'Unit cost (aap ki lagat)'),
+                        TextInput::make('barcode')
+                            ->maxLength(64)
+                            ->helperText('Packaging ka asli barcode number — schema gtin isi se banta hai.'),
+                        TextInput::make('weight_grams')->numeric()->minValue(0)->default(0),
+                    ]),
+
+                    Grid::make(2)->schema([
+                        TextInput::make('position')->numeric()->minValue(0)->default(0),
+                        Select::make('attributeValues')
+                            ->label('Options')
+                            ->relationship('attributeValues', 'value')
+                            ->multiple()
+                            ->preload()
+                            ->helperText('Sirf multi-variant products (shades waghera) ke liye. Simple product mein khali chhorein.'),
+                    ]),
+
+                    Grid::make(4)->schema([
+                        Toggle::make('is_active')->default(true),
+                        Toggle::make('is_default')
+                            ->helperText('Exactly one per product; setting this clears the others.'),
+                        Toggle::make('track_inventory')->default(true),
+                        Toggle::make('allow_backorder'),
+                    ]),
+                ]),
         ]);
     }
 

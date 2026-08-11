@@ -27,7 +27,9 @@
         @if ($variant?->compare_at_amount && $variant->compare_at_amount->minorUnits > $variant->price_amount->minorUnits)
             <p class="mt-1 text-meta text-text-secondary">
                 <s class="tabular-nums">{{ $variant->compare_at_amount->format() }}</s>
-                <span class="ms-2">Introductory price</span>
+                <span class="ms-2 font-semibold text-text-gold">
+                    {{ $variant->compare_at_amount->minus($variant->price_amount)->format() }} off
+                </span>
             </p>
         @endif
 

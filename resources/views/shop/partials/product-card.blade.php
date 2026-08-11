@@ -62,10 +62,24 @@
             </ul>
         @endif
 
+        @php
+            // Discount display: default (or only) variant's compare-at price,
+            // shown struck-through when it beats the selling price.
+            $cardVariant = $variants->firstWhere('is_default', true) ?? $variants->first();
+            $cardCompareAt = ! $hasRange
+                && $min
+                && $cardVariant?->compare_at_amount
+                && $cardVariant->compare_at_amount->minorUnits > $min->minorUnits
+                    ? $cardVariant->compare_at_amount
+                    : null;
+        @endphp
         <p class="mt-auto pt-3 text-price-sm tabular-nums text-text-primary">
             @if ($hasRange)
                 {{ $min->format() }} – {{ $max->format() }}
             @else
+                @if ($cardCompareAt)
+                    <s class="me-1 text-meta font-normal text-text-muted">{{ $cardCompareAt->format() }}</s>
+                @endif
                 {{ ($min ?? $max)?->format() ?? '—' }}
             @endif
 
