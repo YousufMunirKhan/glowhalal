@@ -160,8 +160,16 @@
 
                                         <div class="mt-auto pt-5">
                                             <p class="tnum text-price text-charcoal">
+                                                @if (!empty($product['compare_at']))
+                                                    <s class="me-1 text-meta font-normal text-muted-warm">PKR&nbsp;{{ number_format($product['compare_at']) }}</s>
+                                                @endif
                                                 PKR&nbsp;{{ number_format($product['price']) }}
                                             </p>
+                                            @if (!empty($product['compare_at']))
+                                                <p class="mt-1 text-meta font-semibold text-charcoal">
+                                                    Save PKR {{ number_format($product['compare_at'] - $product['price']) }}
+                                                </p>
+                                            @endif
 
                                             {{-- Two CTAs: Buy now (POST → detached cart → checkout) and
                                                  Shop now (→ product page, where Add-to-bag + drawer live).

@@ -76,6 +76,13 @@ Route::get('/', function () {
             // cannot be divided. toRupees() is the supported conversion; the
             // views then format with number_format(), so pass whole rupees.
             'price' => (int) round($p->price_min_amount?->toRupees() ?? 0),
+            // Old price for the strikethrough — only when it genuinely beats
+            // the selling price, same rule as the shop cards and buy box.
+            'compare_at' => ($p->defaultVariant?->compare_at_amount
+                && $p->price_min_amount
+                && $p->defaultVariant->compare_at_amount->minorUnits > $p->price_min_amount->minorUnits)
+                    ? (int) round($p->defaultVariant->compare_at_amount->toRupees())
+                    : null,
             'ingredient_count' => $p->ingredients_count,
             'free_from' => $p->verifiedFreeFromAttributes->pluck('name')->take(3)->all(),
             // ->url() resolves to /storage/<path>; the raw ->path is relative and
