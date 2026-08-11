@@ -38,7 +38,11 @@ class PageController extends Controller
 
         $canonical = $this->canonical();
         $title = $page->seoMeta?->meta_title ?: $page->title.' | Glow Halal';
-        $description = $page->seoMeta?->meta_description ?: null;
+        // Fall back to the page's own opening text so no CMS page ever ships
+        // without a meta description (a Bing Webmaster error otherwise).
+        $description = $page->seoMeta?->meta_description
+            ?: str(trim(strip_tags((string) $page->content)))->squish()->limit(155, '…')->toString()
+            ?: null;
 
         $crumbs = [
             ['name' => 'Home', 'url' => url('/')],

@@ -1,4 +1,7 @@
-<x-layouts.app title="Sign in" :bottom-nav="false">
+<x-layouts.app
+    title="Sign in to your account | Glow Halal"
+    description="Sign in to Glow Halal with Google to track orders and check out faster — or continue as a guest with Cash on Delivery across Pakistan."
+    :bottom-nav="false">
     <x-slot:head>
         <meta name="robots" content="noindex,nofollow">
     </x-slot:head>
