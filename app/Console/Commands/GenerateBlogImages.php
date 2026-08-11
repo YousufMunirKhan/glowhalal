@@ -26,7 +26,8 @@ class GenerateBlogImages extends Command
 {
     protected $signature = 'blog:generate-images
                             {--force : Regenerate even when a cover already exists}
-                            {--only= : Limit to a single post slug}';
+                            {--only= : Limit to a single post slug}
+                            {--salt= : Vary the generation seed to get a different image}';
 
     protected $description = 'Generate watermarked AI cover images for blog posts (free Pollinations API + brand logo)';
 
@@ -83,8 +84,16 @@ class GenerateBlogImages extends Command
                 // Brand watermark bottom-right on EVERY image — non-negotiable.
                 $image->insert($logo, x: 28, y: 24, alignment: Alignment::BOTTOM_RIGHT, transparency: 0.9);
 
-                $relative = 'blog/'.$post->slug.'.jpg';
+                // Content-hashed filename so a regenerated cover always gets a
+                // NEW URL — busting the CDN/browser cache of the old image.
+                $relative = 'blog/'.$post->slug.'-'.substr(md5($binary), 0, 6).'.jpg';
                 Storage::disk('public')->put($relative, (string) $image->encode(new JpegEncoder(quality: 82)));
+
+                // Remove the superseded cover file (different name) if any.
+                $old = $post->cover_image_path;
+                if ($old && $old !== $relative && Storage::disk('public')->exists($old)) {
+                    Storage::disk('public')->delete($old);
+                }
 
                 $post->cover_image_path = $relative;
                 $post->cover_image_alt = $post->cover_image_alt ?: $this->altFor($post);
@@ -112,21 +121,25 @@ class GenerateBlogImages extends Command
 
         $theme = match (true) {
             str_contains($slug, 'jodon') || str_contains($slug, 'joint')
-                => 'warm herbal massage oil being poured into an open palm, spa towels, soft focus',
+                => 'plain unlabeled amber glass bottle of golden massage oil beside a stack of smooth dark grey spa stones and a rolled beige towel on light wood',
             str_contains($slug, 'baalon') || str_contains($slug, 'hair') || str_contains($slug, 'champi')
-                => 'traditional hair oiling flat lay, wooden comb, small plain amber glass oil bottle, jasmine flowers',
+                => 'completely unlabeled plain amber glass bottle of golden hair oil on cream linen, golden oil dripping from a glass rod, fresh white jasmine flowers scattered',
             str_contains($slug, 'jalne') || str_contains($slug, 'cuts') || str_contains($slug, 'burns')
-                => 'gentle skincare still life, aloe vera leaves, soft cotton pads, calm neutral tones',
+                => 'plain unlabeled amber glass bottle of golden herbal oil on white marble with folded soft white cotton cloths beside it, blurred green leaves far in background',
             str_contains($slug, 'price') || str_contains($slug, 'kahan')
-                => 'plain unlabeled amber glass bottle of golden herbal oil, sesame seeds scattered, flat lay',
+                => 'single plain amber glass apothecary bottle of golden oil, warm sunlight streaming across, sesame seeds in a tiny wooden spoon beside it',
             str_contains($slug, 'behtareen') || str_contains($slug, 'best-halal')
-                => 'assorted plain glass bottles of natural carrier oils with fresh herbs, elegant flat lay',
+                => 'three small clear glass bottles filled with golden yellow oil in slightly different depths of amber, cork stoppers, fresh rosemary sprigs, bright airy marble surface',
             default
-                => 'golden herbal oil in a plain glass bottle with sesame seeds and green herbs, editorial still life',
+                => 'plain amber glass bottle of golden herbal oil with a wooden bowl of sesame seeds and fresh green herbs, silk cloth beneath',
         };
 
-        return $theme.', luxury minimal editorial product photography, warm golden light,'
-            .' cream ivory background, high detail, no text, no labels, no logos, no people, no watermark';
+        return 'Professional commercial product photography, '.$theme
+            .', shot on a full-frame camera with 85mm lens at f/2.8, shallow depth of field,'
+            .' soft diffused window light from the left, warm golden hour tones,'
+            .' cream ivory seamless background, styled like a luxury skincare magazine editorial,'
+            .' photorealistic, ultra sharp focus, 8k detail.'
+            .' Absolutely no text, no words, no letters, no labels on bottles, no logos, no people, no hands.';
     }
 
     private function altFor(BlogPost $post): string
@@ -186,9 +199,10 @@ class GenerateBlogImages extends Command
     private function generateViaPollinations(string $prompt, string $slug): ?string
     {
         try {
-            // Deterministic seed per slug so re-runs stay stable.
+            // Deterministic seed per slug (vary with --salt for a fresh take).
+            $seed = crc32($slug.(string) $this->option('salt')) % 99999;
             $url = 'https://image.pollinations.ai/prompt/'.rawurlencode($prompt)
-                .'?width=1200&height=800&nologo=true&seed='.(crc32($slug) % 99999);
+                .'?width=1216&height=832&nologo=true&enhance=true&model=flux&seed='.$seed;
 
             $response = Http::timeout(120)->retry(2, 3000)->get($url);
 
