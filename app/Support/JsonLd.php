@@ -101,11 +101,27 @@ final class JsonLd
             'telephone' => $store->contact_phone,
             'address' => $hasAddress ? $address : null,
             'founder' => $founder,
+            // Entity-resolution helpers for answer engines: the alternate
+            // spelling, a sales contact point (real number from settings) and
+            // the subjects this store actually publishes about. knowsAbout is
+            // subject expertise — never a certification claim.
+            'alternateName' => 'GlowHalal',
+            'contactPoint' => $store->contact_phone ? self::clean([
+                '@type' => 'ContactPoint',
+                'contactType' => 'sales',
+                'telephone' => preg_replace('/[^+\d]/', '', $store->contact_phone),
+                'availableLanguage' => ['en', 'ur'],
+                'areaServed' => 'PK',
+            ]) : null,
             'knowsAbout' => [
-                'Cosmetic ingredient sourcing',
+                'halal cosmetics',
+                'herbal oils',
+                'Lookman-e-Hayat oil',
+                'champi (hair oiling)',
+                'sesame (til) oil skincare',
+                'cosmetic ingredient sourcing',
                 'INCI nomenclature',
-                'Alcohol-free skincare',
-                'Animal-derived cosmetic ingredients',
+                'cash on delivery shopping in Pakistan',
             ],
             'sameAs' => $sameAs,
         ]);

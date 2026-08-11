@@ -20,3 +20,9 @@ Schedule::command('social:due-digest')
 Schedule::command('inventory:release-expired')
     ->dailyAt('03:00')
     ->timezone('Asia/Karachi');
+
+// AEO: keep Bing (and Copilot/ChatGPT search, which ride its index) fresh on
+// every public URL. Cheap, idempotent, and critical for a brand-new domain.
+Schedule::command('indexnow:ping')
+    ->weeklyOn(1, '04:00')
+    ->timezone('Asia/Karachi');

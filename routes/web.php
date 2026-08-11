@@ -399,6 +399,11 @@ Route::prefix('ur-roman')
 */
 Route::get('/sitemap.xml', \App\Http\Controllers\SitemapController::class)->name('sitemap');
 
+// Machine-readable fact sheet for AI answer engines — generated dynamically
+// from the live catalogue + blog, so every new product/post appears here
+// automatically. Same reason as the sitemap for sitting above the catch-all.
+Route::get('/llms.txt', \App\Http\Controllers\LlmsTxtController::class)->name('llms');
+
 /*
 |--------------------------------------------------------------------------
 | Product feeds — Shopping / catalogue / carousel ads
