@@ -21,6 +21,14 @@ Schedule::command('inventory:release-expired')
     ->dailyAt('03:00')
     ->timezone('Asia/Karachi');
 
+// Queue worker, cron-driven: shared hosting cannot keep a daemon alive, so the
+// scheduler drains the database queue every minute and exits. This means ONE
+// hPanel cron entry (schedule:run) powers everything — queue, reminders,
+// covers, IndexNow.
+Schedule::command('queue:work --stop-when-empty --max-time=50 --tries=3')
+    ->everyMinute()
+    ->withoutOverlapping();
+
 // Publish-time cover images: scheduled posts go live automatically the moment
 // their published_at passes (the published() scope handles it — no command
 // needed for the publish itself). Five minutes later this generates the cover
