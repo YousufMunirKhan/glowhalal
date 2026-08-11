@@ -41,7 +41,7 @@ class PageController extends Controller
         // Fall back to the page's own opening text so no CMS page ever ships
         // without a meta description (a Bing Webmaster error otherwise).
         $description = $page->seoMeta?->meta_description
-            ?: str(trim(strip_tags((string) $page->content)))->squish()->limit(155, '…')->toString()
+            ?: str(trim(strip_tags((string) $page->content)))->squish()->limit(155, '…', preserveWords: true)->toString()
             ?: null;
 
         $crumbs = [

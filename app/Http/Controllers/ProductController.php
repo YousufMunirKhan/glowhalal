@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Support\Seo\ProductOffer;
 use App\Support\Seo\SchemaGraph;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * The product detail page. Everything indexable — name, price, the full INCI
@@ -16,8 +17,15 @@ use Illuminate\Contracts\View\View;
  */
 class ProductController extends Controller
 {
-    public function show(Product $product): View
+    public function show(Product $product): View|RedirectResponse
     {
+        // MySQL's ci collation resolves any case variant of the slug, which
+        // would serve duplicate 200 content on infinite URL spellings — force
+        // the canonical casing with a single 301 instead.
+        if (request()->segment(2) !== $product->slug) {
+            return redirect()->route('products.show', $product->slug, 301);
+        }
+
         $product->load([
             'variants' => fn ($q) => $q->where('is_active', true)->orderBy('position'),
             'variants.inventory',
@@ -66,6 +74,25 @@ class ProductController extends Controller
             // Same Q&As the page renders visibly below — never an invisible set.
             ->faqPage($canonical, $product->faqs ?? []);
 
+        // Money page → guide links close the internal-linking loop: posts link
+        // the PDPs, and this passes authority (and a crawl path) back. EN only —
+        // the PDP itself is an English page.
+        $guides = $product->blogPosts()
+            ->published()
+            ->forLocale('en')
+            ->orderByDesc('published_at')
+            ->limit(3)
+            ->get(['blog_posts.id', 'blog_posts.title', 'blog_posts.slug']);
+
+        if ($guides->isEmpty()) {
+            $guides = \App\Models\BlogPost::query()
+                ->published()
+                ->forLocale('en')
+                ->orderByDesc('published_at')
+                ->limit(3)
+                ->get(['id', 'title', 'slug']);
+        }
+
         // Out of stock keeps its URL, stays index,follow, and reports
         // availability honestly (seo.md §2.6). Never 404 or noindex a
         // temporarily sold-out product — the ranking is re-earned from scratch.
@@ -73,6 +100,7 @@ class ProductController extends Controller
             'product' => $product,
             'offer' => $offer,
             'category' => $category,
+            'guides' => $guides,
             'trail' => $trail,
             'canonical' => $canonical,
             'robots' => $product->isIndexable() ? 'index,follow' : 'noindex,follow',

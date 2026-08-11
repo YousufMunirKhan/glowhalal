@@ -8,6 +8,7 @@ use App\Models\BlogPost;
 use App\Support\JsonLd;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
@@ -42,6 +43,10 @@ class BlogController extends Controller
             ->with(['category', 'author'])
             ->orderByDesc('published_at')
             ->paginate(self::PER_PAGE);
+
+        // Out-of-range page numbers would otherwise render an empty page with a
+        // self-canonical — an indexable soft-404 for every integer.
+        abort_if($posts->currentPage() > 1 && $posts->isEmpty(), 404);
 
         // The featured treatment is page-1 only; on page 2 the same post would
         // be the second-newest and the layout would lie about it.
@@ -131,6 +136,7 @@ class BlogController extends Controller
             ->paginate(self::PER_PAGE);
 
         abort_if($posts->total() === 0, 404);
+        abort_if($posts->currentPage() > 1 && $posts->isEmpty(), 404);
 
         $page = $posts->currentPage();
         $canonical = $this->paginatedCanonical($page);
@@ -165,7 +171,7 @@ class BlogController extends Controller
         ]);
     }
 
-    public function show(string $slug): View
+    public function show(string $slug): View|RedirectResponse
     {
         $locale = $this->contentLocale();
 
@@ -178,6 +184,12 @@ class BlogController extends Controller
             ->where('slug', $slug)
             ->with(['category', 'author', 'tags', 'products'])
             ->firstOrFail();
+
+        // ci collation resolves any casing of the slug — 301 to canonical case
+        // so case variants never serve duplicate 200 content.
+        if ($slug !== $post->slug) {
+            return redirect(url($this->localePrefix($locale).'/blog/'.$post->slug), 301);
+        }
 
         // Same-locale related posts only, so a Roman-Urdu post never links out to
         // an English article as "read next".

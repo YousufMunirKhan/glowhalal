@@ -265,6 +265,15 @@ final class SchemaGraph
         if ($rate->min_delivery_days !== null && $rate->max_delivery_days !== null) {
             $details['deliveryTime'] = [
                 '@type' => 'ShippingDeliveryTime',
+                // Orders are dispatched same or next working day; without a
+                // handlingTime Google cannot compute the total estimate and
+                // drops the delivery-speed annotation entirely.
+                'handlingTime' => [
+                    '@type' => 'QuantitativeValue',
+                    'minValue' => 0,
+                    'maxValue' => 1,
+                    'unitCode' => 'DAY',
+                ],
                 'transitTime' => [
                     '@type' => 'QuantitativeValue',
                     'minValue' => (int) $rate->min_delivery_days,

@@ -36,7 +36,7 @@ class LookmanBlogSeeder extends Seeder
     private function body(): string
     {
         return <<<'HTML'
-<p><strong>Lookman-e-Hayat oil</strong> (also spelled <strong>Luqman-e-Hayat</strong> or <strong>Lukman-e-Hayat Tel</strong>) is a traditional herbal oil made from a sesame (til) oil base infused with guggul resin. It is used as a massage oil for tired muscles and joints and as a soothing oil for dry skin, scalp and hair. It is a herbal comfort oil for external use — not a medicine.</p>
+<p><strong>Lookman-e-Hayat oil</strong> (also spelled <strong>Luqman-e-Hayat</strong>) is a traditional herbal oil made from a sesame (til) oil base infused with guggul resin. It is used as a massage oil for tired muscles and joints and as a soothing oil for dry skin, scalp and hair. It is a herbal comfort oil for external use — not a medicine.</p>
 
 <h2>What is Lookman-e-Hayat oil?</h2>
 <p>Lookman-e-Hayat Tel is a warm, amber herbal oil that South Asian households have reached for over generations. Its two signature ingredients are <strong>Til (sesame) oil</strong> — a light, easily absorbed carrier oil rich in natural fatty acids — and <strong>guggul</strong> (the resin of <em>Commiphora mukul</em>), which gives the oil its distinctive resinous note. Together they make a nourishing oil that sinks into the skin without feeling heavy or sticky.</p>

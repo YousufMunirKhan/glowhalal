@@ -19,8 +19,11 @@
 
     RewriteEngine On
 
-    # Canonical host: www duplicates the whole site in Google — 301 to apex.
-    RewriteCond %{HTTP_HOST} ^www\.glowhalal\.com [NC]
+    # Canonical host+scheme in ONE hop: any www or plain-http request 301s
+    # straight to the https apex (chained redirects waste crawl budget).
+    RewriteCond %{HTTP_HOST} ^www\.glowhalal\.com [NC,OR]
+    RewriteCond %{HTTPS} !on
+    RewriteCond %{HTTP_HOST} glowhalal\.com [NC]
     RewriteRule ^(.*)$ https://glowhalal.com/$1 [R=301,L]
 
     # Handle Authorization Header

@@ -5,5 +5,9 @@ Disallow: /account
 Disallow: /login
 Disallow: /search
 Disallow: /feed
+# Merchant feeds must stay fetchable (Google Merchant Center / Meta honour
+# robots.txt on scheduled feed fetches) — Allow wins over the /feed prefix.
+Allow: /feed/google.xml
+Allow: /feed/meta.csv
 
 Sitemap: https://glowhalal.com/sitemap.xml

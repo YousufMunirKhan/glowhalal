@@ -138,7 +138,10 @@
                 <dl class="grid gap-3 border-t border-border-subtle pt-6 text-meta text-text-secondary">
                     <div class="flex gap-3">
                         <dt class="font-semibold text-text-primary">Delivery</dt>
-                        <dd>2–4 working days to Karachi, Lahore, Islamabad, Rawalpindi and Faisalabad. 4–7 days elsewhere in Pakistan.</dd>
+                        {{-- The Rs 300 / free-over figures also live in the Offer's
+                             shippingDetails schema — page and schema must agree. --}}
+                        <dd>Flat Rs 300 nationwide — FREE on orders over Rs 5,000.
+                            2–4 working days to Karachi, Lahore, Islamabad, Rawalpindi and Faisalabad. 4–7 days elsewhere in Pakistan.</dd>
                     </div>
                     <div class="flex gap-3">
                         <dt class="font-semibold text-text-primary">Payment</dt>
@@ -241,6 +244,24 @@
                     @endforeach
                 </div>
             </div>
+        </x-ui.section>
+    @endif
+
+    {{-- Guides — money page links back to supporting content so authority and
+         crawl paths flow both ways (posts already link the PDPs). --}}
+    @if (($guides ?? collect())->isNotEmpty())
+        <x-ui.section aria-labelledby="guides-heading">
+            <h2 id="guides-heading" class="text-title-lg text-text-primary">From the Journal</h2>
+            <ul class="mt-6 grid gap-4 sm:grid-cols-3">
+                @foreach ($guides as $guide)
+                    <li class="border-t border-border-subtle pt-4">
+                        <p class="text-title-sm text-text-primary">
+                            <a href="/blog/{{ $guide->slug }}"
+                                class="underline decoration-1 underline-offset-[3px] hover:decoration-2">{{ $guide->title }}</a>
+                        </p>
+                    </li>
+                @endforeach
+            </ul>
         </x-ui.section>
     @endif
 

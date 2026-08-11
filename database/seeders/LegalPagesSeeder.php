@@ -47,37 +47,51 @@ class LegalPagesSeeder extends Seeder
             }
 
             $page->save();
+
+            // Hand-written meta description (auto-truncated body text ends
+            // mid-word — a Bing/GSC appearance issue). firstOrCreate so an
+            // owner edit in admin is never clobbered by re-seeding.
+            if (! empty($data['meta_description']) && ! $page->seoMeta) {
+                $page->seoMeta()->create(['meta_description' => $data['meta_description']]);
+            }
         }
     }
 
     /** @return array<string, array{title:string, position:int, content:string}> */
     private function pages(): array
     {
+        // Real business facts only — the store operates from Saddar, Karachi.
+        // (An earlier draft had a fabricated Lahore address here; the live DB
+        // was corrected, and this source must never re-seed wrong data.)
         $email = 'hello@glowhalal.com';
-        $addr = '2nd Floor, 14-C Main Boulevard, Gulberg III, Lahore 54660, Pakistan';
-        $phone = '+92 42 3577 1120';
-        $mobile = '+92 300 1234567';
+        $addr = 'Saddar, Karachi 74400';
+        $phone = '+92 341 7164556';
+        $mobile = '+92 341 7164556';
 
         return [
             'terms' => [
                 'title' => 'Terms & Conditions',
                 'position' => 40,
                 'content' => $this->terms($email, $addr),
+                'meta_description' => 'The terms that govern shopping at Glow Halal — ordering, COD payment, pricing, cancellations and your rights when buying from our Karachi store.',
             ],
             'privacy' => [
                 'title' => 'Privacy Policy',
                 'position' => 30,
                 'content' => $this->privacy($email),
+                'meta_description' => 'How Glow Halal collects, uses and protects your personal information when you browse or order — including COD order data, cookies and your choices.',
             ],
             'shipping-returns' => [
                 'title' => 'Shipping & Returns',
                 'position' => 10,
                 'content' => $this->shipping($email),
+                'meta_description' => 'Delivery timelines across Pakistan, flat Rs 300 nationwide shipping (free over Rs 5,000), and our 7-day return policy for unopened or damaged items.',
             ],
             'disclaimer' => [
                 'title' => 'Disclaimer',
                 'position' => 45,
                 'content' => $this->disclaimer($email),
+                'meta_description' => 'What our herbal products are and are not: traditional-use cosmetics sold in original packaging — not medicines, and no disease-treatment claims.',
             ],
         ];
     }

@@ -43,12 +43,12 @@
     </a>
 
     <div class="flex flex-1 flex-col gap-2 pt-4">
-        <h3 class="text-title-sm">
+        <h2 class="text-title-sm">
             <a href="{{ route('products.show', $product->slug) }}"
                 class="no-underline text-text-primary hover:underline decoration-1 underline-offset-4">
                 {{ $product->name }}
             </a>
-        </h3>
+        </h2>
 
         @if ($product->short_description)
             <p class="clamp-2 text-meta text-text-secondary">{{ $product->short_description }}</p>
