@@ -21,8 +21,17 @@ Schedule::command('inventory:release-expired')
     ->dailyAt('03:00')
     ->timezone('Asia/Karachi');
 
+// Publish-time cover images: scheduled posts go live automatically the moment
+// their published_at passes (the published() scope handles it — no command
+// needed for the publish itself). Five minutes later this generates the cover
+// for any newly-live post that has none — Gemini first (when billing enables
+// its quota), free Pollinations fallback — with the brand watermark stamped on.
+Schedule::command('blog:generate-images')
+    ->dailyAt('06:05')
+    ->timezone('Asia/Karachi');
+
 // AEO: keep Bing (and Copilot/ChatGPT search, which ride its index) fresh on
-// every public URL. Cheap, idempotent, and critical for a brand-new domain.
+// every public URL — daily now that a post goes live every morning.
 Schedule::command('indexnow:ping')
-    ->weeklyOn(1, '04:00')
+    ->dailyAt('06:20')
     ->timezone('Asia/Karachi');
