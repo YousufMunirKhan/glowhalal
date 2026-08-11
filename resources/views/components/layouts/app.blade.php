@@ -3,6 +3,9 @@
     'description' => null,
     'canonical' => null,
     'ogImage' => null,
+    // Open Graph object type — pages override (e.g. the PDP passes 'product')
+    // so the document never carries two conflicting og:type tags.
+    'ogType' => 'website',
     'current' => null,
     'cartCount' => 0,
     'products' => [],
@@ -101,7 +104,7 @@
     <link rel="preload" href="/fonts/inter-400.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-600.woff2" as="font" type="font/woff2" crossorigin>
 
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="{{ $ogType }}">
     <meta property="og:site_name" content="Glow Halal">
     <meta property="og:title" content="{{ $title }}">
     @if ($description)

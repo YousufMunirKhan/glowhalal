@@ -58,13 +58,31 @@ class BlogController extends Controller
         $page = $posts->currentPage();
         $canonical = $this->paginatedCanonical($page);
 
-        $title = $page > 1
-            ? 'The Glow Halal Journal - Page '.$page
-            : 'Journal - Ingredient Guides & Halal Formulation Notes';
+        // Locale-distinct meta: the two hubs must never read as duplicates.
+        $isUr = $locale === 'ur-Latn';
 
-        $description = 'What we are learning about halal cosmetic formulation, published as we go: '
-            .'ingredient breakdowns, how to read an INCI list, and what we changed and why.'
-            .($page > 1 ? ' Page '.$page.' of '.$posts->lastPage().'.' : '');
+        $title = $isUr
+            ? ($page > 1
+                ? 'Roman Urdu Journal - Page '.$page.' | Glow Halal'
+                : 'Roman Urdu Journal - Herbal Tel Ke Guides | Glow Halal')
+            : ($page > 1
+                ? 'The Glow Halal Journal - Page '.$page
+                : 'Journal - Ingredient Guides & Halal Formulation Notes');
+
+        $description = $isUr
+            ? ('Glow Halal ka Roman Urdu Journal: herbal tel ke istemal, qeemat aur khareedari ke asaan guides — Cash on Delivery poore Pakistan mein.'
+                .($page > 1 ? ' Page '.$page.' of '.$posts->lastPage().'.' : ''))
+            : ('What we are learning about halal cosmetic formulation, published as we go: '
+                .'ingredient breakdowns, how to read an INCI list, and what we changed and why.'
+                .($page > 1 ? ' Page '.$page.' of '.$posts->lastPage().'.' : ''));
+
+        // Reciprocal hub-level hreflang (page 1 only): the two Journals are
+        // language alternates of each other, exactly like the post pairs.
+        $hubHreflang = $page === 1 ? [
+            ['hreflang' => 'en', 'href' => url('/blog')],
+            ['hreflang' => 'ur-Latn', 'href' => url('/ur-roman/blog')],
+            ['hreflang' => 'x-default', 'href' => url('/blog')],
+        ] : [];
 
         $crumbs = [
             ['name' => 'Home', 'url' => url('/')],
@@ -82,10 +100,15 @@ class BlogController extends Controller
             'rest' => $rest,
             'categories' => $categories,
             'crumbs' => $crumbs,
-            'heading' => 'Journal',
-            'intro' => 'What we are learning about halal formulation, published as we go.',
+            'heading' => $isUr ? 'Roman Urdu Journal' : 'Journal',
+            'intro' => $isUr
+                ? 'Herbal tel ke asaan Roman Urdu guides — istemal, qeemat aur mehfooz khareedari.'
+                : 'What we are learning about halal formulation, published as we go.',
+            'hreflang' => $hubHreflang,
             'schema' => $this->schema([
-                JsonLd::webPage($canonical, $title, $description, 'Blog'),
+                JsonLd::webPage($canonical, $title, $description, 'Blog', [
+                    'inLanguage' => $isUr ? 'ur-Latn' : 'en-PK',
+                ]),
                 JsonLd::breadcrumbs($canonical, $crumbs),
                 $this->postItemList($canonical, $posts),
             ]),
@@ -314,7 +337,9 @@ class BlogController extends Controller
         return JsonLd::itemList(
             $canonical,
             'Glow Halal Journal',
-            $posts->getCollection()->map(fn (BlogPost $p) => url('/blog/'.$p->slug))->all(),
+            // Locale-correct URLs: a Roman-Urdu post lives under /ur-roman —
+            // pointing its English path here fed Google five 404s per crawl.
+            $posts->getCollection()->map(fn (BlogPost $p) => url($this->localePrefix($p->locale).'/blog/'.$p->slug))->all(),
             ($posts->currentPage() - 1) * self::PER_PAGE + 1,
         );
     }

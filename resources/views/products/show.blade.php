@@ -54,12 +54,9 @@
     :canonical="$canonical"
     :og-image="$ogImage"
     :robots="$robots"
+    og-type="product"
     current="shop"
     :bottom-nav="false">
-
-    <x-slot:head>
-        <meta property="og:type" content="product">
-    </x-slot:head>
 
     <x-ui.section>
         <nav aria-label="Breadcrumb" class="mb-8">

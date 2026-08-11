@@ -240,7 +240,7 @@ final class SchemaGraph
         return json_encode([
             '@context' => 'https://schema.org',
             '@graph' => $this->nodes,
-        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
     }
 
     private function plain(?string $html): ?string

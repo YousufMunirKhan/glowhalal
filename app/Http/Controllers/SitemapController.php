@@ -65,6 +65,7 @@ class SitemapController extends Controller
             ['/what-we-never-use', 0.7, Url::CHANGE_FREQUENCY_MONTHLY],
             ['/blog', 0.7, Url::CHANGE_FREQUENCY_WEEKLY],
             ['/ur-roman/blog', 0.6, Url::CHANGE_FREQUENCY_WEEKLY],
+            ['/contact', 0.5, Url::CHANGE_FREQUENCY_MONTHLY],
         ] as [$path, $priority, $freq]) {
             $sitemap->add(
                 Url::create(url($path))
@@ -72,6 +73,27 @@ class SitemapController extends Controller
                     ->setPriority($priority)
             );
         }
+
+        // Category hubs — shop categories with published products, and blog
+        // categories with published posts (they are indexable, internally
+        // linked, and were missing from the sitemap).
+        \App\Models\Category::query()
+            ->where('is_active', true)
+            ->whereHas('products', fn ($q) => $q->published())
+            ->each(fn ($c) => $sitemap->add(
+                Url::create(url('/shop/'.$c->slug))
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                    ->setPriority(0.6)
+            ));
+
+        \App\Models\BlogCategory::query()
+            ->where('is_active', true)
+            ->whereHas('posts', fn ($q) => $q->published())
+            ->each(fn ($c) => $sitemap->add(
+                Url::create(url('/blog/category/'.$c->slug))
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                    ->setPriority(0.5)
+            ));
 
         // ── Products ──────────────────────────────────────────────────────
         Product::query()

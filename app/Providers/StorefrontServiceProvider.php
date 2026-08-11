@@ -99,21 +99,31 @@ class StorefrontServiceProvider extends ServiceProvider
         ];
     }
 
+    /**
+     * REAL founder data only — from Store settings. No invented name, city,
+     * quotes or origin story: a fabricated persona is a lie the honesty rules
+     * forbid. Blank settings mean an empty array, and every consuming view
+     * already renders nothing for an absent founder.
+     */
     private function founder(): array
     {
         $store = $this->settings();
 
+        if (blank($store?->founder_name)) {
+            return [];
+        }
+
         return [
-            'name' => $store?->founder_name ?? 'Ayesha Siddiqui',
-            'city' => $store?->city ?? 'Lahore',
-            'photo' => $store?->founder_photo_path
+            'name' => $store->founder_name,
+            'city' => $store->city,
+            'photo' => $store->founder_photo_path
                 ? asset('storage/'.ltrim($store->founder_photo_path, '/'))
-                : '/images/placeholder/founder.svg',
-            'photo_large' => '/images/placeholder/founder.svg',
-            'photo_alt' => 'Ayesha Siddiqui, founder of Glow Halal, in her Lahore workshop',
-            'pull_quote' => 'I could not get a straight answer about one ingredient. So I published all of ours.',
-            'footer_quote' => 'Every ingredient we use is named on the page. That is the whole company.',
-            'origin' => $store?->brand_story ?? '',
+                : null,
+            'photo_large' => null,
+            'photo_alt' => $store->founder_name.', founder of Glow Halal',
+            'pull_quote' => '',
+            'footer_quote' => '',
+            'origin' => $store->brand_story ?? '',
         ];
     }
 

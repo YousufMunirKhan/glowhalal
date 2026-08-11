@@ -202,16 +202,10 @@ Route::get('/', function () {
         'email' => $storeSettings?->contact_email,
     ];
 
-    $founder = [
-        'name' => 'Ayesha Siddiqui',
-        'city' => 'Lahore',
-        'photo' => '/images/placeholder/founder.svg',
-        'photo_large' => '/images/placeholder/founder.svg',
-        'photo_alt' => 'Ayesha Siddiqui, founder of Glow Halal, in her Lahore workshop',
-        'pull_quote' => 'I could not get a straight answer about one ingredient. So I published all of ours.',
-        'footer_quote' => 'Every ingredient we use is named on the page. That is the whole company.',
-        'origin' => 'In 2023 I emailed four cosmetics brands to ask whether the glycerin in their moisturiser was plant or tallow derived. Three never replied. The fourth said it was “compliant”. I am a chemist; “compliant” is not an answer. Glow Halal exists so that nobody in Pakistan has to send that email again — every formula we sell publishes its full INCI list and the source of every ingredient in it, and the list of what we will not put in a formula is published too.',
-    ];
+    // No founder persona: a fabricated person would breach the honesty rules.
+    // If the owner ever wants a real founder section, it comes from Store
+    // settings, not from hardcoded fiction.
+    $founder = [];
 
     $meta = [
         'title' => 'Glow Halal — Halal Beauty & Cosmetics in Pakistan',
