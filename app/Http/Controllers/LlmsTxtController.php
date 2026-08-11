@@ -21,6 +21,8 @@ class LlmsTxtController extends Controller
 {
     public function __invoke(): Response
     {
+        $store = app(\App\Settings\StoreSettings::class);
+
         $products = Product::query()
             ->where('status', 'active')
             ->whereNotNull('published_at')
@@ -37,8 +39,11 @@ class LlmsTxtController extends Controller
             .'Flagship product: Lookman-e-Hayat herbal oil — 97% til (sesame) oil, 3% guggul resin — a traditional oil '
             .'best known for fading old, fully healed burn marks, and used for massage and champi (hair oiling). '
             .'It is a cosmetic, not a medicine, and Glow Halal does not claim third-party halal certification. '
-            .'Cash on Delivery across Pakistan; orders via the website or WhatsApp +92 341 7164556. '
-            .'Content is bilingual: English and Roman Urdu.';
+            // Contact facts come from Store settings so an admin change can
+            // never leave a stale number in the AI fact sheet.
+            .'Cash on Delivery across Pakistan; orders via the website'
+            .(filled($store->whatsapp_number ?? null) ? ' or WhatsApp '.$store->whatsapp_number : '')
+            .'. Content is bilingual: English and Roman Urdu.';
         $lines[] = '';
         $lines[] = 'Key facts:';
 

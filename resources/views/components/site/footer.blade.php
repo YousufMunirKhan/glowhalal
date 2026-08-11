@@ -16,7 +16,10 @@
 
 @php
     // Single source of truth: Admin → Store settings.
-    $email = ($store ?? null)?->contact_email ?? ($company['email'] ?? 'hello@glowhalal.com');
+    // Email renders ONLY when the owner has set one in Store settings — no
+    // hardcoded fallback: an unmonitored inbox shown to customers is worse
+    // than none.
+    $email = ($store ?? null)?->contact_email ?: ($company['email'] ?? null);
     $whatsappHref = ($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923001234567';
 @endphp
 
@@ -35,8 +38,10 @@
                     so is the list of ingredients we never stock — the two claims you can check for yourself.
                 </p>
                 <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-meta">
-                    <a href="mailto:{{ $email }}"
-                        class="text-ivory underline decoration-champagne decoration-1 underline-offset-[3px] hover:text-soft-gold">{{ $email }}</a>
+                    @if (filled($email))
+                        <a href="mailto:{{ $email }}"
+                            class="text-ivory underline decoration-champagne decoration-1 underline-offset-[3px] hover:text-soft-gold">{{ $email }}</a>
+                    @endif
                     <a href="{{ $whatsappHref }}"
                         target="_blank" rel="noopener"
                         class="inline-flex items-center gap-1.5 text-ivory hover:text-soft-gold">

@@ -224,10 +224,10 @@ class CatalogueExpansionBlogSeeder extends Seeder
 <h3>Kya sidr powder shampoo ki jagah le sakta hai?</h3>
 <p>Bohot log isay shampoo ke naram mutabadil ke tor par istemal karte hain, lekin jhaag kam hota hai aur aadat banne mein waqt lagta hai. Pehle hafte mein aik baar shampoo ki jagah try karein.</p>
 <h3>Beri ke patton ka powder kahan se milega?</h3>
-<p>Pansari ki dukanon par mil jata hai, lekin safai aur milawat ka khayal rakhein. Hamari shop par sidr leaf powder jald aa raha hai — <a href="https://wa.me/923417164556">WhatsApp par poochein</a>, jaise hi aaye ga hum aap ko bata denge.</p>
+<p>Pansari ki dukanon par mil jata hai, lekin safai aur milawat ka khayal rakhein. Hamari shop par sidr leaf powder jald aa raha hai — <a href="https://wa.me/923012973886">WhatsApp par poochein</a>, jaise hi aaye ga hum aap ko bata denge.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Glow Halal se poore Pakistan mein Cash on Delivery par order karein — paisay parcel milne par dein. Herbal tel ke liye hamari <a href="/shop/oils">oils shop</a> dekhein, ya kisi bhi sawal ke liye <a href="https://wa.me/923417164556">WhatsApp par message karein</a> — jawab ek asli insaan deta hai.</p>
+<p>Glow Halal se poore Pakistan mein Cash on Delivery par order karein — paisay parcel milne par dein. Herbal tel ke liye hamari <a href="/shop/oils">oils shop</a> dekhein, ya kisi bhi sawal ke liye <a href="https://wa.me/923012973886">WhatsApp par message karein</a> — jawab ek asli insaan deta hai.</p>
 
 <p class="article-disclaimer"><em>Notice: Ye mazmoon sirf maloomat aur rivayati istemal ke liye hai, dawai ya ilaj ka mashwara nahi. Beri (sidr) ke patte kisi bimari ki tashkhees, ilaj ya rokthaam ke liye nahi hain. Nataij har shakhs mein alag hote hain. Jild ya balon ke kisi bhi barhte masle ke liye qualified doctor se rujoo karein.</em></p>
 HTML;
@@ -281,10 +281,10 @@ HTML;
 <h3>Are sidr and beri leaves the same thing?</h3>
 <p>Yes. Sidr (Arabic), beri (Urdu) and lote tree (English) all refer to the same tree.</p>
 <h3>Where can I buy sidr leaf powder in Pakistan?</h3>
-<p>Herbal (pansari) shops often stock it, though cleanliness and quality vary. Sidr leaf powder is coming soon to our shop — <a href="https://wa.me/923417164556">ask us on WhatsApp</a> and we will message you when it arrives.</p>
+<p>Herbal (pansari) shops often stock it, though cleanliness and quality vary. Sidr leaf powder is coming soon to our shop — <a href="https://wa.me/923012973886">ask us on WhatsApp</a> and we will message you when it arrives.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Glow Halal delivers across Pakistan with Cash on Delivery — you pay when the parcel reaches your door. Browse our <a href="/shop/oils">herbal oils</a>, or <a href="https://wa.me/923417164556">chat with us on WhatsApp</a> for questions and product requests; a real person replies.</p>
+<p>Glow Halal delivers across Pakistan with Cash on Delivery — you pay when the parcel reaches your door. Browse our <a href="/shop/oils">herbal oils</a>, or <a href="https://wa.me/923012973886">chat with us on WhatsApp</a> for questions and product requests; a real person replies.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: This article describes traditional use for information only and is not medical advice. Sidr (lote tree) leaves are not intended to diagnose, treat, cure or prevent any disease. Results vary from person to person. For any persistent skin or hair concern, please consult a qualified doctor or dermatologist.</em></p>
 HTML;
@@ -343,7 +343,7 @@ HTML;
 <p>There are well-known home checks — warm-water solubility with no sandy residue, softening with palm heat, turning brittle when cold. Our Roman Urdu guide <a href="/ur-roman/blog/asli-salajeet-ki-pehchan">asli salajeet ki pehchan</a> walks through all five tests.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Glow Halal delivers nationwide with Cash on Delivery — you pay only when the parcel is in your hands. Shilajit is coming soon to our shop; <a href="https://wa.me/923417164556">message us on WhatsApp</a> to be told the moment it is available, or browse what is live today on our <a href="/shop">shop</a>.</p>
+<p>Glow Halal delivers nationwide with Cash on Delivery — you pay only when the parcel is in your hands. Shilajit is coming soon to our shop; <a href="https://wa.me/923012973886">message us on WhatsApp</a> to be told the moment it is available, or browse what is live today on our <a href="/shop">shop</a>.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: This article is general information about traditional use and commonly reported experiences; it is not medical advice and mentions no complete list of risks. Shilajit is a supplement, not a medicine, and is not intended to diagnose, treat, cure or prevent any disease. Consult a qualified doctor before use, especially if you are pregnant, breastfeeding, have a medical condition or take medication.</em></p>
 HTML;
@@ -395,10 +395,10 @@ HTML;
 <h3>Salajeet ki taseer kya hoti hai?</h3>
 <p>Rivayati tor par salajeet ki taseer garam maani jati hai, is liye log garmiyon mein miqdar kam kar dete hain. Ye rivayati baat hai, medical mashwara nahi.</p>
 <h3>Kya Glow Halal salajeet bechta hai?</h3>
-<p>Abhi nahi — hamari shop par jald aa raha hai, aur hum sirf DRAP-enlisted supplements rakhein ge. <a href="https://wa.me/923417164556">WhatsApp par poochein</a>, aate hi hum aap ko khabar kar denge.</p>
+<p>Abhi nahi — hamari shop par jald aa raha hai, aur hum sirf DRAP-enlisted supplements rakhein ge. <a href="https://wa.me/923012973886">WhatsApp par poochein</a>, aate hi hum aap ko khabar kar denge.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Glow Halal poore Pakistan mein Cash on Delivery par deliver karta hai — paisay parcel haath mein aane par dein. Aaj jo products live hain wo <a href="/shop">shop</a> par dekhein, ya kisi bhi sawal ke liye <a href="https://wa.me/923417164556">WhatsApp par message karein</a>.</p>
+<p>Glow Halal poore Pakistan mein Cash on Delivery par deliver karta hai — paisay parcel haath mein aane par dein. Aaj jo products live hain wo <a href="/shop">shop</a> par dekhein, ya kisi bhi sawal ke liye <a href="https://wa.me/923012973886">WhatsApp par message karein</a>.</p>
 
 <p class="article-disclaimer"><em>Notice: Ye mazmoon aam maloomat aur jaane pehchane gharelu andazon ke liye hai — ye lab test ka mutabadil hai na medical mashwara. Salajeet ek supplement hai, dawai nahi, aur kisi bimari ki tashkhees, ilaj ya rokthaam ke liye nahi hai. Istemal se pehle, khaas kar kisi bimari ya dawai ki soorat mein, qualified doctor se rujoo karein.</em></p>
 HTML;
@@ -448,10 +448,10 @@ HTML;
 <h3>Can I take ashwagandha every day?</h3>
 <p>It is commonly taken daily for a stretch of weeks, and many people then take a break. If you have a health condition or take medication, ask your doctor first.</p>
 <h3>Does Glow Halal sell ashwagandha?</h3>
-<p>Not yet — supplements are coming to our shop soon, and when they arrive we will stock DRAP-enlisted products only. <a href="https://wa.me/923417164556">Message us on WhatsApp</a> and we will tell you the moment it is available.</p>
+<p>Not yet — supplements are coming to our shop soon, and when they arrive we will stock DRAP-enlisted products only. <a href="https://wa.me/923012973886">Message us on WhatsApp</a> and we will tell you the moment it is available.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Glow Halal delivers across Pakistan with Cash on Delivery — you pay only when the parcel is in your hands. Browse what is live today on our <a href="/shop">shop</a>, or <a href="https://wa.me/923417164556">chat with us on WhatsApp</a> to ask about upcoming products.</p>
+<p>Glow Halal delivers across Pakistan with Cash on Delivery — you pay only when the parcel is in your hands. Browse what is live today on our <a href="/shop">shop</a>, or <a href="https://wa.me/923012973886">chat with us on WhatsApp</a> to ask about upcoming products.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: This article describes traditional use and general research directions for information only; it is not medical advice. Ashwagandha is a herbal supplement, not a medicine, and is not intended to diagnose, treat, cure or prevent any disease. Effects vary from person to person. Consult a qualified doctor before use, especially if you have a medical condition or take medication.</em></p>
 HTML;
@@ -514,7 +514,7 @@ HTML;
 <p>Kuch herbal blends dono ke liye banaye jate hain — jaise hamara Lookman e Hayat oil, jo maalish aur champi dono mein istemal hota hai. Label parh kar tasdeeq zaroor karein.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Poore Pakistan mein Cash on Delivery — paisay parcel milne par dein. <a href="/shop/oils">Oils shop</a> se order karein ya <a href="https://wa.me/923417164556">WhatsApp par message karein</a>, hum size chunne mein bhi madad kar dete hain.</p>
+<p>Poore Pakistan mein Cash on Delivery — paisay parcel milne par dein. <a href="/shop/oils">Oils shop</a> se order karein ya <a href="https://wa.me/923012973886">WhatsApp par message karein</a>, hum size chunne mein bhi madad kar dete hain.</p>
 
 <p class="article-disclaimer"><em>Notice: Ye mazmoon rivayati istemal aur aam maloomat ke liye hai, medical mashwara nahi. Koi bhi tel kisi bimari ki tashkhees, ilaj ya rokthaam ke liye nahi hai, aur baal girne ka ilaj nahi karta. Nataij har shakhs mein alag hote hain. Balon ya scalp ke barhte masle ke liye qualified doctor se rujoo karein.</em></p>
 HTML;
@@ -570,7 +570,7 @@ HTML;
 </ol>
 
 <h2>Does Glow Halal sell a herbal face cream?</h2>
-<p>Not yet — and we will not pretend otherwise. A face cream is planned for our shop, built the way everything we sell is built: full ingredient list published, nothing from our <a href="/what-we-never-use">never-use list</a>, and no overnight-miracle claims. <a href="https://wa.me/923417164556">Ask us on WhatsApp</a> and we will message you when it launches; until then you can browse what is live on our <a href="/shop">shop</a>.</p>
+<p>Not yet — and we will not pretend otherwise. A face cream is planned for our shop, built the way everything we sell is built: full ingredient list published, nothing from our <a href="/what-we-never-use">never-use list</a>, and no overnight-miracle claims. <a href="https://wa.me/923012973886">Ask us on WhatsApp</a> and we will message you when it launches; until then you can browse what is live on our <a href="/shop">shop</a>.</p>
 
 <h2>Frequently asked questions</h2>
 <h3>Which herbal face cream is best for acne-prone skin in Pakistan?</h3>
@@ -583,7 +583,7 @@ HTML;
 <p>Generally yes, when the ingredient list is clean and you have patch tested. "Herbal" does not guarantee safety, so introduce any new cream gradually.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Glow Halal delivers nationwide with Cash on Delivery — pay when the parcel arrives at your door. See the current range on our <a href="/shop">shop</a>, or <a href="https://wa.me/923417164556">message us on WhatsApp</a> to ask about the upcoming face cream.</p>
+<p>Glow Halal delivers nationwide with Cash on Delivery — pay when the parcel arrives at your door. See the current range on our <a href="/shop">shop</a>, or <a href="https://wa.me/923012973886">message us on WhatsApp</a> to ask about the upcoming face cream.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: This article is cosmetic information only, not medical advice, and does not review or endorse specific third-party brands. Cosmetic creams are not medicines and are not intended to diagnose, treat, cure or prevent any disease or skin condition. Always patch test new products, and consult a qualified dermatologist for persistent skin concerns.</em></p>
 HTML;
@@ -648,10 +648,10 @@ HTML;
 <h3>Kya ek hi cream din aur raat dono waqt chal sakti hai?</h3>
 <p>Chal sakti hai, lekin din mein cream ke sath sunscreen zaroor lagayein. Raat ke liye zara rich cream behtar rehti hai, khaas kar khushk skin par.</p>
 <h3>Glow Halal ki apni face cream kab aa rahi hai?</h3>
-<p>Hamari shop par herbal face cream jald aa rahi hai — poori ingredient list ke saath aur hamari <a href="/what-we-never-use">never-use list</a> ke usoolon par. <a href="https://wa.me/923417164556">WhatsApp par poochein</a>, launch hote hi hum aap ko batayein ge.</p>
+<p>Hamari shop par herbal face cream jald aa rahi hai — poori ingredient list ke saath aur hamari <a href="/what-we-never-use">never-use list</a> ke usoolon par. <a href="https://wa.me/923012973886">WhatsApp par poochein</a>, launch hote hi hum aap ko batayein ge.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Glow Halal poore Pakistan mein Cash on Delivery par deliver karta hai — paisay parcel milne par dein. Aaj ke products <a href="/shop">shop</a> par dekhein, ya kisi bhi sawal ke liye <a href="https://wa.me/923417164556">WhatsApp par message karein</a> — jawab ek asli insaan deta hai.</p>
+<p>Glow Halal poore Pakistan mein Cash on Delivery par deliver karta hai — paisay parcel milne par dein. Aaj ke products <a href="/shop">shop</a> par dekhein, ya kisi bhi sawal ke liye <a href="https://wa.me/923012973886">WhatsApp par message karein</a> — jawab ek asli insaan deta hai.</p>
 
 <p class="article-disclaimer"><em>Notice: Ye mazmoon sirf cosmetic maloomat ke liye hai, medical mashwara nahi, aur kisi teesre brand ka review ya ranking nahi karta. Cosmetic cream dawai nahi hoti aur kisi bimari ya jild ke marz ki tashkhees, ilaj ya rokthaam ke liye nahi hai. Nayi cream ka hamesha patch test karein aur jild ke barhte masle ke liye qualified skin specialist se rujoo karein.</em></p>
 HTML;

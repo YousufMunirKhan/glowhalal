@@ -65,8 +65,8 @@ class LegalPagesSeeder extends Seeder
         // was corrected, and this source must never re-seed wrong data.)
         $email = 'hello@glowhalal.com';
         $addr = 'Saddar, Karachi 74400';
-        $phone = '+92 341 7164556';
-        $mobile = '+92 341 7164556';
+        $phone = '+92 301 2973886';
+        $mobile = '+92 301 2973886';
 
         return [
             'terms' => [
@@ -102,7 +102,7 @@ class LegalPagesSeeder extends Seeder
 <p>These Terms &amp; Conditions ("Terms") govern your access to and use of the Glow Halal website and your purchase of any product from us. By browsing this website or placing an order, you agree to these Terms. Please read them carefully. If you do not agree, please do not use this website or place an order.</p>
 
 <h2>1. Who we are</h2>
-<p>"Glow Halal", "we", "us" and "our" refer to the Glow Halal online store, operating from {$addr}, Pakistan. You can reach us at <a href="mailto:{$email}">{$email}</a>. "You" and "your" mean the person browsing this website or placing an order.</p>
+<p>"Glow Halal", "we", "us" and "our" refer to the Glow Halal online store, operating from {$addr}, Pakistan. You can reach us through our <a href="/contact">contact page</a> or on WhatsApp. "You" and "your" mean the person browsing this website or placing an order.</p>
 
 <h2>2. We are a seller, not a manufacturer</h2>
 <p>Glow Halal is a <strong>retailer and reseller</strong>. Several products we offer — including herbal, ayurvedic and traditional oils and similar items — are <strong>manufactured, formulated and packaged by third parties</strong>, not by us. We sell these products in their original manufacturer packaging. We do not manufacture, compound, alter or make any medical or therapeutic representation about them beyond the information provided by the manufacturer and published on the product page.</p>
@@ -160,7 +160,7 @@ class LegalPagesSeeder extends Seeder
 <p>If any part of these Terms is found to be unenforceable, the remaining provisions continue in full force.</p>
 
 <h2>16. Contact</h2>
-<p>Questions about these Terms? Email <a href="mailto:{$email}">{$email}</a> or use our <a href="/contact">contact page</a>.</p>
+<p>Questions about these Terms? Use our <a href="/contact">contact page</a> or message us on WhatsApp.</p>
 HTML;
     }
 
@@ -208,7 +208,7 @@ HTML;
 <p>We take reasonable measures to protect your information. No method of transmission or storage is completely secure, but we work to keep your data safe and to limit who can access it.</p>
 
 <h2>8. Your rights</h2>
-<p>You may ask us to access, correct or delete the personal information we hold about you, or to stop marketing to you. Email <a href="mailto:{$email}">{$email}</a> and we will respond within a reasonable time.</p>
+<p>You may ask us to access, correct or delete the personal information we hold about you, or to stop marketing to you. Contact us via our <a href="/contact">contact page</a> and we will respond within a reasonable time.</p>
 
 <h2>9. Children</h2>
 <p>This website is intended for adults. We do not knowingly collect information from children. If you believe a child has provided us information, contact us and we will remove it.</p>
@@ -217,7 +217,7 @@ HTML;
 <p>We may update this policy; the version on this page is the one that applies. The "last updated" date below reflects the current version.</p>
 
 <h2>11. Contact</h2>
-<p>Questions about your privacy? Email <a href="mailto:{$email}">{$email}</a> or use our <a href="/contact">contact page</a>.</p>
+<p>Questions about your privacy? Use our <a href="/contact">contact page</a> or message us on WhatsApp.</p>
 HTML;
     }
 
@@ -257,7 +257,7 @@ HTML;
 <p>You can cancel an order before it is dispatched — just message us as soon as possible. Once an order is handed to the courier it can no longer be cancelled, but you may refuse a COD parcel at the door.</p>
 
 <h2>Contact</h2>
-<p>Need help with delivery or a return? Email <a href="mailto:{$email}">{$email}</a> or use our <a href="/contact">contact page</a>.</p>
+<p>Need help with delivery or a return? Use our <a href="/contact">contact page</a> or message us on WhatsApp.</p>
 HTML;
     }
 
@@ -285,7 +285,7 @@ HTML;
 <p>We publish the ingredient information available to us and the list of ingredients we choose not to stock. We hold <strong>no third-party halal certification</strong> and make no certification claim. Please read the label on the product you receive and make your own decision.</p>
 
 <h2>Contact</h2>
-<p>Questions? Email <a href="mailto:{$email}">{$email}</a> or use our <a href="/contact">contact page</a>.</p>
+<p>Questions? Use our <a href="/contact">contact page</a> or message us on WhatsApp.</p>
 HTML;
     }
 }
