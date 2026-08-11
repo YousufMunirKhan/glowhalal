@@ -24,6 +24,7 @@
             'name' => $p['name'],
             'line' => $p['descriptor'] ?: 'A traditional herbal oil — every ingredient published, down to the last one.',
             'price' => $p['price'] ?? null,
+            'compare_at' => $p['compare_at'] ?? null,
             'image' => $p['image'] ?? '/images/hero-scene.svg',
             'image_alt' => $p['image_alt'] ?? ($p['name'] ?? 'Glow Halal product'),
             'slug' => $p['slug'] ?? null,
@@ -109,7 +110,17 @@
                     <p class="mt-4 max-w-read text-lead text-muted-warm">{{ $slide['line'] }}</p>
 
                     @if ($slide['price'])
-                        <p class="tnum mt-4 text-price text-charcoal">PKR&nbsp;{{ number_format($slide['price']) }}</p>
+                        <p class="tnum mt-4 text-price text-charcoal">
+                            @if (!empty($slide['compare_at']))
+                                <s class="me-2 text-title-sm font-normal text-muted-warm">PKR&nbsp;{{ number_format($slide['compare_at']) }}</s>
+                            @endif
+                            PKR&nbsp;{{ number_format($slide['price']) }}
+                            @if (!empty($slide['compare_at']))
+                                <span class="ms-2 align-middle rounded-full bg-luxe-black px-3 py-1 text-meta font-semibold text-ivory">
+                                    Save PKR {{ number_format($slide['compare_at'] - $slide['price']) }}
+                                </span>
+                            @endif
+                        </p>
                     @endif
 
                     <div class="mt-6 flex flex-col gap-3 xs:flex-row">
