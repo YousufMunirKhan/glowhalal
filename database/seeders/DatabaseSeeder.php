@@ -28,6 +28,9 @@ class DatabaseSeeder extends Seeder
             BilingualBlogSeeder::class,
             WinnableBlogSeeder::class,
             WinnableBlogUrduSeeder::class,
+            // Catalogue-expansion drip: 8 posts (4 EN + 4 Roman Urdu), one
+            // going live per day at 06:00 PKT via future published_at.
+            CatalogueExpansionBlogSeeder::class,
             // After the posts, so it backfills category + author onto every one.
             BlogDefaultsSeeder::class,
             RedirectSeeder::class,
