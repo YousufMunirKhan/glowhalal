@@ -88,14 +88,15 @@ class StorefrontServiceProvider extends ServiceProvider
     {
         $store = $this->settings();
 
+        // Settings-only, no invented fallbacks: a fake phone/email shown to a
+        // customer is worse than an empty slot, and every consuming view
+        // already renders these conditionally.
         return [
             'name' => 'Glow Halal',
-            'address' => $store?->formattedAddress()
-                ?? 'Saddar, Karachi 7550, Pakistan',
-            'mobile' => $store?->contact_phone ?? '+92 300 1234567',
-            'whatsapp' => $store?->whatsappLink('Hi, I have a question about Glow Halal')
-                ?? 'https://wa.me/923001234567',
-            'email' => $store?->contact_email ?? 'hello@glowhalal.com',
+            'address' => $store?->formattedAddress(),
+            'mobile' => $store?->contact_phone,
+            'whatsapp' => $store?->whatsappLink('Hi, I have a question about Glow Halal'),
+            'email' => $store?->contact_email,
         ];
     }
 

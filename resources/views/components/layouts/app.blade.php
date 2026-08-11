@@ -36,7 +36,8 @@
         : asset('storage/products/lookman-e-hayat-100ml.jpg');
 
     // WhatsApp link — single source of truth: Admin → Store settings.
-    $whatsappHref = ($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923001234567';
+    // Settings-only — a fake fallback number must never reach a customer.
+    $whatsappHref = ($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal');
 @endphp
 <!DOCTYPE html>
 <html lang="{{ $htmlLang }}" dir="{{ $htmlDir }}" class="antialiased">
@@ -167,18 +168,20 @@
          chrome that lives at the bottom: on pages with the bottom nav it floats
          above it; on the PDP / cart / checkout it floats above the 72px sticky
          buy bar. On desktop (no bottom nav) it returns to the corner. --}}
-    <a href="{{ $whatsappHref }}"
-        target="_blank" rel="noopener"
-        @class([
-            'fixed end-6 z-[var(--z-fab)] grid h-14 w-14 place-items-center rounded-full lg:bottom-6',
-            'bg-whatsapp text-white shadow-md hover:bg-whatsapp-hover',
-            'transition-[background-color] duration-[var(--motion-fast)] ease-standard',
-            'bottom-[calc(var(--h-bottom-nav)+var(--safe-bottom)+1rem)]' => $bottomNav,
-            'bottom-[calc(var(--h-buy-bar)+var(--safe-bottom)+1rem)]' => ! $bottomNav,
-        ])
-        aria-label="Message us on WhatsApp (opens in a new tab)">
-        <x-ui.icon name="whatsapp" :size="28" />
-    </a>
+    @if (filled($whatsappHref))
+        <a href="{{ $whatsappHref }}"
+            target="_blank" rel="noopener"
+            @class([
+                'fixed end-6 z-[var(--z-fab)] grid h-14 w-14 place-items-center rounded-full lg:bottom-6',
+                'bg-whatsapp text-white shadow-md hover:bg-whatsapp-hover',
+                'transition-[background-color] duration-[var(--motion-fast)] ease-standard',
+                'bottom-[calc(var(--h-bottom-nav)+var(--safe-bottom)+1rem)]' => $bottomNav,
+                'bottom-[calc(var(--h-buy-bar)+var(--safe-bottom)+1rem)]' => ! $bottomNav,
+            ])
+            aria-label="Message us on WhatsApp (opens in a new tab)">
+            <x-ui.icon name="whatsapp" :size="28" />
+        </a>
+    @endif
 
     <x-site.mobile-menu :products="$products" />
 

@@ -120,7 +120,7 @@
 
             <div class="mt-12 flex flex-wrap gap-4">
                 <x-ui.button href="{{ route('shop.index') }}">Keep shopping</x-ui.button>
-                <x-ui.button href="{{ ($store ?? null)?->whatsappLink('Hi, about order ' . $order->order_number) ?? ('https://wa.me/923001234567?text=Hi%2C%20about%20order%20' . $order->order_number) }}"
+                <x-ui.button href="{{ ($store ?? null)?->whatsappLink('Hi, about order ' . $order->order_number) ?? '/contact' }}"
                     variant="whatsapp" external>Message us about this order</x-ui.button>
             </div>
 

@@ -50,7 +50,7 @@
 
     <p class="mt-6 text-meta text-text-secondary">
         Send the receipt on WhatsApp to
-        <a href="{{ ($store ?? null)?->whatsappLink() ?? 'https://wa.me/923001234567' }}" class="text-text-gold underline decoration-1 underline-offset-4">{{ ($store ?? null)?->contact_phone ?? '+92 300 1234567' }}</a>
+        <a href="{{ ($store ?? null)?->whatsappLink() ?? '/contact' }}" class="text-text-gold underline decoration-1 underline-offset-4">{{ ($store ?? null)?->contact_phone ?? 'our contact page' }}</a>
         and we will verify it within one business day.
     </p>
 </div>

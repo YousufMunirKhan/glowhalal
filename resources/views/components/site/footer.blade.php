@@ -20,7 +20,9 @@
     // hardcoded fallback: an unmonitored inbox shown to customers is worse
     // than none.
     $email = ($store ?? null)?->contact_email ?: ($company['email'] ?? null);
-    $whatsappHref = ($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923001234567';
+    // Settings-only — never a fake fallback number.
+    $whatsappHref = ($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal')
+        ?? ($company['whatsapp'] ?? null);
 @endphp
 
 <footer data-surface="dark" class="bg-luxe-black text-text-secondary">
@@ -42,11 +44,13 @@
                         <a href="mailto:{{ $email }}"
                             class="text-ivory underline decoration-champagne decoration-1 underline-offset-[3px] hover:text-soft-gold">{{ $email }}</a>
                     @endif
-                    <a href="{{ $whatsappHref }}"
-                        target="_blank" rel="noopener"
-                        class="inline-flex items-center gap-1.5 text-ivory hover:text-soft-gold">
-                        <x-ui.icon name="whatsapp" :size="18" class="text-champagne" /> WhatsApp
-                    </a>
+                    @if (filled($whatsappHref))
+                        <a href="{{ $whatsappHref }}"
+                            target="_blank" rel="noopener"
+                            class="inline-flex items-center gap-1.5 text-ivory hover:text-soft-gold">
+                            <x-ui.icon name="whatsapp" :size="18" class="text-champagne" /> WhatsApp
+                        </a>
+                    @endif
                 </div>
             </div>
 
