@@ -287,6 +287,14 @@
             @endif
 
             @if ($approvedReviews->isNotEmpty())
+                {{-- Honest framing for the testimonials below — keeps them clearly
+                     as personal experience, not a medical claim (also what keeps
+                     the burn-mark reviews inside Merchant Center / Meta policy). --}}
+                <p class="mt-3 max-w-read text-meta text-text-muted">
+                    Reviews are individual customer experiences shared with us. Lookman-e-Hayat is a
+                    traditional cosmetic herbal oil for external use — not a medicine — and results vary
+                    from person to person.
+                </p>
                 <ul class="mt-6 grid gap-6">
                     @foreach ($approvedReviews as $review)
                         <li class="border-t border-border-subtle pt-5">
