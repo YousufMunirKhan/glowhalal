@@ -88,8 +88,9 @@
     {{-- CSRF token for fetch()-based posts (Google One Tap). --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Search-engine ownership proofs, managed in Admin → SEO & Integrations.
-         Google Search Console + Bing Webmaster Tools (Bing also verifies Yahoo).
+    {{-- Site ownership proofs, managed in Admin → SEO & Integrations.
+         Google Search Console + Bing Webmaster Tools (Bing also verifies Yahoo)
+         + Meta Business Suite domain verification.
          Resolved defensively so a fresh, un-migrated install still boots. --}}
     @php $seoVerify = rescue(fn () => app(\App\Settings\SeoSettings::class), null, false); @endphp
     @if ($seoVerify?->google_site_verification)
@@ -97,6 +98,9 @@
     @endif
     @if ($seoVerify?->bing_site_verification)
         <meta name="msvalidate.01" content="{{ $seoVerify->bing_site_verification }}">
+    @endif
+    @if ($seoVerify?->facebook_domain_verification)
+        <meta name="facebook-domain-verification" content="{{ $seoVerify->facebook_domain_verification }}">
     @endif
 
     {{-- Exactly two preloads (§2.1). Playfair is deliberately NOT preloaded:

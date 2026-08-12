@@ -46,6 +46,9 @@ class SeoSettings extends Settings
     /** Bing Webmaster Tools <meta name="msvalidate.01">. Also verifies Yahoo. */
     public ?string $bing_site_verification;
 
+    /** Meta Business Suite <meta name="facebook-domain-verification">. */
+    public ?string $facebook_domain_verification;
+
     // ---- Google sign-in (OAuth) --------------------------------------------
     public ?string $google_oauth_client_id;
 

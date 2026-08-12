@@ -109,8 +109,8 @@ class ManageSeoSettings extends SettingsPage
                     ]),
                 ]),
 
-            Section::make('Search Console verification (Google, Bing & Yahoo)')
-                ->description('These prove to the search engines that you own the site, so you can submit your sitemap and see your traffic. Each engine gives you a code — paste it here, then click "Verify" on their side.')
+            Section::make('Site ownership verification (Google, Bing & Facebook)')
+                ->description('These prove to Google, Bing and Meta that you own the site — needed to submit your sitemap, see your search traffic, and connect the product catalog to Facebook/Instagram. Each platform gives you a code — paste it here, then click "Verify" on their side.')
                 ->collapsed()
                 ->schema([
                     TextInput::make('google_site_verification')->label('Google site verification code')
@@ -119,6 +119,9 @@ class ManageSeoSettings extends SettingsPage
                     TextInput::make('bing_site_verification')->label('Bing site verification code (also verifies Yahoo)')
                         ->maxLength(120)
                         ->helperText('Yahoo runs on Bing, so this one code covers Bing + Yahoo + DuckDuckGo. Where to get it: bing.com/webmasters → add your site → "HTML Meta Tag". Copy only the content="..." value (the msvalidate.01 code) and paste it here.'),
+                    TextInput::make('facebook_domain_verification')->label('Facebook (Meta) domain verification code')
+                        ->maxLength(120)
+                        ->helperText('Proves to Meta that you own glowhalal.com — required for the product catalog and ad domain claims. Where to get it: business.facebook.com → Settings → Brand Safety → Domains → "Meta-tag verification". Copy only the content="..." value and paste it here.'),
                 ]),
 
             Section::make('Sign in with Google (customer login)')
