@@ -63,9 +63,16 @@ return [
     | will be used by the PHP date and date-time functions. The timezone
     | is set to "UTC" by default as it is suitable for most use cases.
     |
+    | Asia/Karachi, deliberately: this store sells only in Pakistan. Scheduled
+    | blog posts carry published_at values the owner reads as Pakistan time —
+    | under UTC the daily post appeared five hours "late" (06:00 PKT instead of
+    | 01:00 PKT) and the homepage looked a day stale to everyone in Pakistan.
+    | Cron task times in routes/console.php pin ->timezone('Asia/Karachi')
+    | explicitly, so they are unaffected either way.
+    |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Karachi',
 
     /*
     |--------------------------------------------------------------------------

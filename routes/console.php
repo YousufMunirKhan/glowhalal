@@ -34,12 +34,14 @@ Schedule::command('queue:work --stop-when-empty --max-time=50 --tries=3')
 // needed for the publish itself). Five minutes later this generates the cover
 // for any newly-live post that has none — Gemini first (when billing enables
 // its quota), free Pollinations fallback — with the brand watermark stamped on.
+// 01:05 pairs with the drip's 01:00 publish moment (app timezone is
+// Asia/Karachi, so published_at means Pakistan time).
 Schedule::command('blog:generate-images')
-    ->dailyAt('06:05')
+    ->dailyAt('01:05')
     ->timezone('Asia/Karachi');
 
 // AEO: keep Bing (and Copilot/ChatGPT search, which ride its index) fresh on
-// every public URL — daily now that a post goes live every morning.
+// every public URL — daily now that a post goes live every night at 01:00.
 Schedule::command('indexnow:ping')
-    ->dailyAt('06:20')
+    ->dailyAt('01:20')
     ->timezone('Asia/Karachi');
