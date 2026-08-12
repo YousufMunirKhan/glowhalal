@@ -134,6 +134,19 @@ class GoogleAuthController extends Controller
 
         $user->save();
 
+        // A person who signs in with Google IS a customer — tag them with the
+        // 'customer' role so they appear in Admin → Customers (the list is scoped
+        // to that role). Guarded: never re-tag an existing staff/admin (they keep
+        // their higher role and are excluded from the customer list), and tolerate
+        // a DB where the role row is missing rather than 500 the sign-in.
+        if ($user->roles()->count() === 0) {
+            try {
+                $user->assignRole('customer');
+            } catch (\Throwable $e) {
+                report($e);
+            }
+        }
+
         // NOTE: deliberately does NOT set accepts_marketing — consent is separate.
 
         Auth::login($user, remember: true);      // fires Login → MergeGuestCartOnLogin

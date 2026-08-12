@@ -315,9 +315,13 @@
                 <p class="mt-3 max-w-read text-body text-text-secondary">
                     This product has no reviews yet. We only publish reviews from real customers who have bought
                     this product, so this space stays empty until the first one arrives — we never copy reviews from
-                    anywhere else. Bought it? Message us on WhatsApp to leave an honest review.
+                    anywhere else. Bought it? Leave your honest review below.
                 </p>
             @endif
+
+            {{-- Customer review form — submissions are held for moderation
+                 (App\Livewire\Reviews\SubmitReview) before they appear above. --}}
+            <livewire:reviews.submit-review :product="$product" />
         </div>
     </x-ui.section>
 
