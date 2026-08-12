@@ -8,18 +8,20 @@ use Illuminate\Database\Seeder;
 /**
  * Legacy WordPress → Laravel migration redirects.
  *
- * Only the SAFE ones whose targets already exist are seeded here. The three
- * legacy blog-post 301s are intentionally NOT seeded yet — their target
- * /blog/{slug} posts must be published FIRST (a 301 to a missing page loses the
- * equity it was meant to preserve). Add them once the posts exist:
+ * Every published URL of the old WordPress site (extracted from the
+ * backup_old_wp_* DB dump: pages, posts, products, taxonomies, feeds) must
+ * resolve in ONE 301 hop to a live page — a 404 bleeds whatever equity the old
+ * domain earned, permanently.
+ *
+ * The three legacy blog posts point at /blog FOR NOW: their planned 1:1
+ * replacement posts (per docs/seo-migration-and-content-plan.md §A1) were
+ * never written. A 301 to the live blog index today beats a 404 while waiting.
+ * When the dedicated posts get published, RE-POINT these rows (here + rerun,
+ * or directly in Admin → Redirects):
  *
  *   /embrace-natural-care-the-benefits-of-neem-soap                -> /blog/neem-soap-benefits-skin
  *   /the-hidden-dangers-of-market-soaps-...-pimples-in-pakistan     -> /blog/pimples-in-pakistan-heat-humidity
  *   /the-hidden-dangers-of-store-bought-soaps-for-your-skin         -> /blog/whats-really-in-your-bar-soap
- *
- * Also deferred: wp-sitemap.xml -> /sitemap.xml (no sitemap route yet).
- *
- * See docs/seo-migration-and-content-plan.md §A1 for the full map.
  */
 class RedirectSeeder extends Seeder
 {
@@ -43,6 +45,23 @@ class RedirectSeeder extends Seeder
 
             // WooCommerce account page — no account area on the new site.
             ['/my-account', '/'],
+
+            // Legacy blog posts — interim target, see class docblock.
+            ['/embrace-natural-care-the-benefits-of-neem-soap', '/blog'],
+            ['/the-hidden-dangers-of-market-soaps-understanding-the-causes-of-pimples-in-pakistan', '/blog'],
+            ['/the-hidden-dangers-of-store-bought-soaps-for-your-skin', '/blog'],
+
+            // WordPress tag archives (both had published posts).
+            ['/tag/natural-soaps',      '/blog'],
+            ['/tag/store-bought-soaps', '/blog'],
+
+            // WordPress RSS feed — the blog index is the nearest live thing.
+            ['/feed', '/blog'],
+
+            // Old sitemap names Google keeps probing after a migration:
+            // wp-sitemap.xml is WordPress core, sitemap_index.xml is Yoast.
+            ['/wp-sitemap.xml',    '/sitemap.xml'],
+            ['/sitemap_index.xml', '/sitemap.xml'],
         ];
 
         foreach ($redirects as [$from, $to]) {
