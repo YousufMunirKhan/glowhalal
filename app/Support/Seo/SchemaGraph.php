@@ -191,6 +191,34 @@ final class SchemaGraph
         } else {
             $offerNode['price'] = $offer->structuredValue();
             $offerNode['priceValidUntil'] = now()->endOfYear()->toDateString();
+
+            // Explicit UnitPriceSpecification — Search Console's merchant
+            // listings report normalises `price` into `priceSpecification` and
+            // then flags its missing `validFrom`, so spell the whole thing out.
+            // Same values as `price`/`validFrom`/`priceValidUntil` above, never
+            // a second lookup (price parity, §7.4).
+            $spec = array_filter([
+                '@type' => 'UnitPriceSpecification',
+                'price' => $offer->structuredValue(),
+                'priceCurrency' => 'PKR',
+                'validFrom' => $product->updated_at?->toDateString(),
+                'validThrough' => now()->endOfYear()->toDateString(),
+            ], fn ($v) => $v !== null);
+
+            // When the product is discounted, the struck-through old price is
+            // Google's documented sale-price pattern: a second specification
+            // typed StrikethroughPrice, taken from the same compare-at field
+            // the visible strikethrough renders from.
+            $compareAt = $offer->variant?->compare_at_amount;
+
+            $offerNode['priceSpecification'] = ($compareAt && $compareAt->minorUnits > $offer->price->minorUnits)
+                ? [$spec, [
+                    '@type' => 'UnitPriceSpecification',
+                    'priceType' => 'https://schema.org/StrikethroughPrice',
+                    'price' => number_format($compareAt->minorUnits / 100, 2, '.', ''),
+                    'priceCurrency' => 'PKR',
+                ]]
+                : $spec;
         }
 
         // Shipping + returns on the offer node feed Google's merchant listing
@@ -205,11 +233,15 @@ final class SchemaGraph
             '@type' => 'MerchantReturnPolicy',
             // Mirrors /shipping-returns: 7 days for unopened or damaged items,
             // return delivery paid by the customer unless the error is ours.
+            // ReturnFeesCustomerResponsibility (customer arranges + pays their
+            // own courier) — NOT ReturnShippingFees, which means "we charge a
+            // fixed return fee" and forces a returnShippingFeesAmount we don't
+            // have (Search Console flags the missing amount).
             'applicableCountry' => 'PK',
             'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow',
             'merchantReturnDays' => 7,
             'returnMethod' => 'https://schema.org/ReturnByMail',
-            'returnFees' => 'https://schema.org/ReturnShippingFees',
+            'returnFees' => 'https://schema.org/ReturnFeesCustomerResponsibility',
         ];
 
         $node['offers'] = $offerNode;
