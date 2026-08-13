@@ -46,6 +46,15 @@
         . ($stickyPrice ? ' (' . $stickyPrice . ')' : '') . '. ' . $canonical;
     $whatsappOrderHref = ($store ?? null)?->whatsappLink($waOrderMessage)
         ?? 'https://wa.me/923012973886?text=' . urlencode($waOrderMessage);
+
+    // Product context for the whatsapp_click analytics event (partials/tracking).
+    // SKU + name + price so a WhatsApp order lead lines up with the catalogue and
+    // the other ecommerce events. Hex-encoded so it is safe in an HTML attribute.
+    $waData = json_encode([
+        'id' => $offer->sku,
+        'name' => $product->name,
+        'value' => (float) $offer->structuredValue(),
+    ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 @endphp
 
 <x-layouts.app
@@ -142,6 +151,7 @@
                      StoreSettings (with the standard fallback). --}}
                 <div class="flex flex-col gap-2">
                     <a href="{{ $whatsappOrderHref }}" target="_blank" rel="noopener"
+                        data-gh-whatsapp="{{ $waData }}"
                         class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-sm bg-whatsapp px-5
                             text-body font-semibold text-white transition-[background-color]
                             duration-[var(--motion-fast)] ease-standard hover:bg-whatsapp-hover"
@@ -408,6 +418,7 @@
 
             <div class="ms-auto flex items-center gap-2">
                 <a href="{{ $whatsappOrderHref }}" target="_blank" rel="noopener"
+                    data-gh-whatsapp="{{ $waData }}"
                     class="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm bg-whatsapp px-3
                         text-meta font-semibold text-white transition-[background-color]
                         duration-[var(--motion-fast)] ease-standard hover:bg-whatsapp-hover"

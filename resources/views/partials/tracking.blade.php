@@ -106,6 +106,29 @@
                 });
             });
 
+            // ── whatsapp_click / Contact (lead signal) ────────────────────────
+            // WhatsApp order/enquiry links are a primary COD path in this market,
+            // but the sale completes OFF-SITE in the chat. So we fire a LEAD-style
+            // signal (never a purchase) on any wa.me click, so GA4 / Google Ads /
+            // Meta can see WhatsApp intent and the brand campaign can optimise
+            // toward it. Optional product context rides on the link as
+            // data-gh-whatsapp='{"id":..,"name":..,"value":..}'. Delegated so it
+            // also covers the header/footer/sticky-bar links, and survives SPA nav.
+            document.addEventListener('click', function (e) {
+                var a = e.target.closest && e.target.closest('a[href*="wa.me/"], a[href*="api.whatsapp.com"]');
+                if (!a) return;
+                var ctx = {};
+                try { ctx = JSON.parse(a.getAttribute('data-gh-whatsapp') || '{}'); } catch (x) {}
+                var value = num(ctx.value);
+                ga('event', 'whatsapp_click', {
+                    method: 'whatsapp', currency: CURRENCY, value: value,
+                    items: ctx.id ? [{ item_id: ctx.id, item_name: ctx.name, price: value, quantity: 1 }] : undefined
+                });
+                fb('track', 'Contact', ctx.id
+                    ? { value: value, currency: CURRENCY, content_ids: [ctx.id], content_type: 'product' }
+                    : {});
+            });
+
             // ── Page-load events, read from data-* attributes ─────────────────
             // The :not([data-gh-fired]) guard + the flag stamped on fire means a
             // page reached by a full load OR by Livewire SPA navigation fires
