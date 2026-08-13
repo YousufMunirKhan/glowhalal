@@ -119,9 +119,13 @@
                 if (!a) return;
                 var ctx = {};
                 try { ctx = JSON.parse(a.getAttribute('data-gh-whatsapp') || '{}'); } catch (x) {}
+                // `location` tells us WHERE on the site the click came from
+                // (product buy box, mobile sticky bar, header, footer …) — the
+                // "kahan se aaya" signal. Defaults to 'site' for the global links.
+                var loc = a.getAttribute('data-gh-wa-loc') || 'site';
                 var value = num(ctx.value);
                 ga('event', 'whatsapp_click', {
-                    method: 'whatsapp', currency: CURRENCY, value: value,
+                    method: 'whatsapp', location: loc, currency: CURRENCY, value: value,
                     items: ctx.id ? [{ item_id: ctx.id, item_name: ctx.name, price: value, quantity: 1 }] : undefined
                 });
                 fb('track', 'Contact', ctx.id

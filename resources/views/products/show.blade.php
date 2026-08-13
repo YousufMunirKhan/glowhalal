@@ -151,7 +151,7 @@
                      StoreSettings (with the standard fallback). --}}
                 <div class="flex flex-col gap-2">
                     <a href="{{ $whatsappOrderHref }}" target="_blank" rel="noopener"
-                        data-gh-whatsapp="{{ $waData }}"
+                        data-gh-whatsapp="{{ $waData }}" data-gh-wa-loc="product_buybox"
                         class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-sm bg-whatsapp px-5
                             text-body font-semibold text-white transition-[background-color]
                             duration-[var(--motion-fast)] ease-standard hover:bg-whatsapp-hover"
@@ -418,7 +418,7 @@
 
             <div class="ms-auto flex items-center gap-2">
                 <a href="{{ $whatsappOrderHref }}" target="_blank" rel="noopener"
-                    data-gh-whatsapp="{{ $waData }}"
+                    data-gh-whatsapp="{{ $waData }}" data-gh-wa-loc="product_sticky_bar"
                     class="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-sm bg-whatsapp px-3
                         text-meta font-semibold text-white transition-[background-color]
                         duration-[var(--motion-fast)] ease-standard hover:bg-whatsapp-hover"
