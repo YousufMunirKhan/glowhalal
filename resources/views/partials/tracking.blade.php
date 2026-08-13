@@ -157,24 +157,38 @@
                 if (pu) {
                     pu.setAttribute('data-gh-fired', '1');
                     var txn = pu.getAttribute('data-transaction-id');
-                    var value = num(pu.getAttribute('data-value'));
-                    var puItems = items(pu);
-                    ga('event', 'purchase', {
-                        transaction_id: txn, value: value, currency: CURRENCY,
-                        items: puItems.map(function (i) {
-                            return { item_id: i.id, item_name: i.name, price: num(i.price), quantity: num(i.quantity) };
-                        })
-                    });
-                    fb('track', 'Purchase', {
-                        value: value, currency: CURRENCY,
-                        content_ids: puItems.map(function (i) { return i.id; }),
-                        content_type: 'product',
-                        contents: puItems.map(function (i) { return { id: i.id, quantity: num(i.quantity), item_price: num(i.price) }; })
-                    });
-                    if (ADS_SEND_TO && typeof window.gtag === 'function') {
-                        window.gtag('event', 'conversion', {
-                            send_to: ADS_SEND_TO, value: value, currency: CURRENCY, transaction_id: txn
+                    // Fire the purchase conversion AT MOST ONCE per order. The
+                    // confirmation page is a plain GET reachable by token, so a
+                    // reload / back-button / re-open would otherwise re-fire it —
+                    // the DOM guard above resets on every load, so it cannot stop
+                    // that. This localStorage flag (keyed by the order number)
+                    // persists across loads and protects Google Ads + Meta from
+                    // inflated, double-counted conversions. Meta also gets an
+                    // eventID for its own server/browser dedupe.
+                    var puKey = 'gh_purchase:' + txn;
+                    var puDone = false;
+                    try { puDone = !!txn && window.localStorage.getItem(puKey) === '1'; } catch (e) {}
+                    if (!puDone) {
+                        try { if (txn) window.localStorage.setItem(puKey, '1'); } catch (e) {}
+                        var value = num(pu.getAttribute('data-value'));
+                        var puItems = items(pu);
+                        ga('event', 'purchase', {
+                            transaction_id: txn, value: value, currency: CURRENCY,
+                            items: puItems.map(function (i) {
+                                return { item_id: i.id, item_name: i.name, price: num(i.price), quantity: num(i.quantity) };
+                            })
                         });
+                        fb('track', 'Purchase', {
+                            value: value, currency: CURRENCY,
+                            content_ids: puItems.map(function (i) { return i.id; }),
+                            content_type: 'product',
+                            contents: puItems.map(function (i) { return { id: i.id, quantity: num(i.quantity), item_price: num(i.price) }; })
+                        }, txn ? { eventID: txn } : undefined);
+                        if (ADS_SEND_TO && typeof window.gtag === 'function') {
+                            window.gtag('event', 'conversion', {
+                                send_to: ADS_SEND_TO, value: value, currency: CURRENCY, transaction_id: txn
+                            });
+                        }
                     }
                 }
             }
