@@ -128,11 +128,13 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Google Analytics — renders only with a Measurement ID AND cookie consent. --}}
+    {{-- The Google tag (GA4 + Google Ads) with Consent Mode v2 — always loads,
+         runs cookieless-denied until the visitor accepts. --}}
     @include('partials.analytics')
 
     {{-- Conversion tracking — GA4 ecommerce events, Meta Pixel, Google Ads
-         conversion. Same consent gating; emits nothing without consent. --}}
+         conversion. Google events honour Consent Mode; the Meta Pixel stays
+         hard-gated on consent. --}}
     @include('partials.tracking')
 
     {{ $head ?? '' }}

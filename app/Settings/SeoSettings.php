@@ -2,6 +2,7 @@
 
 namespace App\Settings;
 
+use Illuminate\Support\Str;
 use Spatie\LaravelSettings\Settings;
 
 /**
@@ -92,5 +93,34 @@ class SeoSettings extends Settings
     public function hasAnalytics(): bool
     {
         return filled($this->google_analytics_id) || filled($this->google_tag_manager_id);
+    }
+
+    /**
+     * The AW- account for the sitewide Google tag. Falls back to the account
+     * half of the conversion label, so installs configured before
+     * `google_ads_id` existed keep emitting their tag unchanged.
+     */
+    public function googleAdsAccountId(): ?string
+    {
+        if (filled($this->google_ads_id)) {
+            return $this->google_ads_id;
+        }
+
+        return filled($this->google_ads_conversion)
+            ? Str::before($this->google_ads_conversion, '/')
+            : null;
+    }
+
+    /**
+     * The conversion action a purchase is reported against. Needs BOTH halves
+     * ("AW-123/label"): an account ID alone produces a send_to that Google
+     * drops silently, so treat that as unset rather than firing a conversion
+     * that can never be recorded.
+     */
+    public function googleAdsPurchaseSendTo(): ?string
+    {
+        return filled($this->google_ads_conversion) && str_contains($this->google_ads_conversion, '/')
+            ? $this->google_ads_conversion
+            : null;
     }
 }

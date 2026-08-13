@@ -174,7 +174,7 @@ HTML;
   <li><strong>Order &amp; contact details</strong> you provide: name, phone number, delivery address, and (if given) email.</li>
   <li><strong>Sign-in details</strong>, if you choose "Sign in with Google": your name, email address and profile picture, as shared by Google. Signing in is optional — you can shop and pay by Cash on Delivery as a guest.</li>
   <li><strong>Order history</strong> and communications with us (e.g. WhatsApp or SMS about your order).</li>
-  <li><strong>Usage &amp; device data</strong> collected, with your consent, through cookies and Google Analytics — such as pages viewed and general location — to understand and improve the store.</li>
+  <li><strong>Usage &amp; device data</strong> — such as pages viewed and general location — to understand and improve the store. With your consent this is collected through cookies (Google Analytics); if you decline, no cookies are set and Google receives only anonymous, cookieless signals with no personal identifiers, used for aggregated statistics (Google Consent Mode).</li>
 </ul>
 
 <h2>2. How we use your information</h2>
@@ -187,13 +187,13 @@ HTML;
 </ul>
 
 <h2>3. Cookies</h2>
-<p>We use <strong>essential cookies</strong> needed to run the store (for example, your cart and sign-in). With your consent — given through our cookie banner — we also use <strong>analytics cookies</strong> (Google Analytics) to measure and improve the site. If you decline, analytics cookies are not set. You can change your choice at any time by clearing the site's cookies in your browser.</p>
+<p>We use <strong>essential cookies</strong> needed to run the store (for example, your cart and sign-in). With your consent — given through our cookie banner — we also use <strong>analytics and advertising cookies</strong> (Google Analytics, Google Ads) to measure and improve the site and our advertising. If you decline, no analytics or advertising cookies are set and no personal identifiers are collected — Google receives only anonymous, cookieless signals used for aggregated statistics (Google Consent Mode). Any Meta (Facebook) advertising tools run only with your consent. You can change your choice at any time by clearing the site's cookies in your browser.</p>
 
 <h2>4. When we share information</h2>
 <p>We do not sell your personal information. We share it only as needed:</p>
 <ul>
   <li><strong>Courier partners</strong> (such as TCS, Leopards and M&amp;P) — your name, address and phone number, to deliver your order.</li>
-  <li><strong>Google</strong> — for optional sign-in and, with your consent, analytics, under Google's own privacy terms.</li>
+  <li><strong>Google</strong> — for optional sign-in and, with your consent, analytics and advertising measurement, under Google's own privacy terms. Without consent, Google receives only anonymous, cookieless signals.</li>
   <li><strong>Service providers</strong> who help us operate (e.g. hosting), under confidentiality obligations.</li>
   <li><strong>Authorities</strong>, where required by law.</li>
 </ul>

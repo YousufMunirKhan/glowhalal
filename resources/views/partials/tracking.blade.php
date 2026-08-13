@@ -2,15 +2,22 @@
   Conversion tracking layer — GA4 ecommerce events, the Meta (Facebook) Pixel,
   and (optionally) a Google Ads purchase conversion.
 
-  Gating (mirrors partials/analytics.blade.php): this file emits NOTHING unless
-  the visitor has accepted cookies AND at least one tracking ID is configured.
-  No consent → no pixel, no events, no cookies. Events carry product and price
-  data only — never a name, phone, email or address (no PII).
+  Consent model (Consent Mode v2, split by platform):
+    • Google events render for EVERY visitor — gtag.js is loaded unconditionally
+      by partials/analytics.blade.php and honours the consent state it was
+      configured with there. Unconsented, events become anonymous cookieless
+      pings that feed Google's conversion modelling; consented, they are normal
+      measurements.
+    • The Meta Pixel has no equivalent modelling mode, so it stays HARD-gated:
+      no consent → the pixel never loads, and the fb() guard below makes every
+      Meta call a no-op.
+  Events carry product and price data only — never a name, phone, email or
+  address (no PII).
 
   IDs are owner-managed in Admin → SEO & Integrations:
-    • Google Analytics ID   → config('services.google.analytics_id')  (GA4, gtag.js
-                              is loaded by partials/analytics.blade.php)
+    • Google Analytics ID   → config('services.google.analytics_id')  (GA4)
     • Meta Pixel ID         → SeoSettings::meta_pixel_id   (paste the ID, done)
+    • Google Ads tag ID     → SeoSettings::google_ads_id  (AW-XXXX, sitewide tag)
     • Google Ads conversion → SeoSettings::google_ads_conversion  (AW-XXXX/label)
 
   The events themselves (add_to_cart, view_item, begin_checkout, purchase and the
@@ -27,24 +34,14 @@
     // defensively so a fresh, un-migrated install still boots.
     $seoTracking = $seo ?? rescue(fn () => app(\App\Settings\SeoSettings::class), null, false);
     $pixelId = $seoTracking?->meta_pixel_id;
-    $adsConversion = rescue(fn () => $seoTracking?->google_ads_conversion, null, false);
-
-    // The site-wide Google tag (remarketing + campaign optimisation). Falls back
-    // to the account half of the conversion label so installs configured before
-    // this field existed keep emitting their tag unchanged.
-    $adsAccountId = rescue(fn () => $seoTracking?->google_ads_id, null, false)
-        ?: ($adsConversion ? \Illuminate\Support\Str::before($adsConversion, '/') : null);
-
-    // A conversion needs BOTH halves ("AW-123/label"). An account ID pasted into
-    // the conversion field would send a send_to Google silently drops, so treat
-    // it as unset rather than firing a conversion that can never be recorded.
-    $adsSendTo = $adsConversion && str_contains($adsConversion, '/') ? $adsConversion : null;
+    $adsAccountId = rescue(fn () => $seoTracking?->googleAdsAccountId(), null, false);
+    $adsSendTo = rescue(fn () => $seoTracking?->googleAdsPurchaseSendTo(), null, false);
 
     $consented = request()->cookie('cookie_consent') === 'accepted';
 @endphp
 
-@if ($consented && ($gaId || $pixelId || $adsAccountId))
-    @if ($pixelId)
+@if ($gaId || ($pixelId && $consented) || $adsAccountId)
+    @if ($pixelId && $consented)
         {{-- Meta Pixel base code. The owner only pastes their Pixel ID in admin;
              everything below turns on the moment it is set. --}}
         <script>
@@ -63,33 +60,14 @@
             src="https://www.facebook.com/tr?id={{ $pixelId }}&ev=PageView&noscript=1" alt=""/></noscript>
     @endif
 
-    @if ($adsAccountId)
-        {{-- The Google tag for the Ads account, on every page. gtag.js is already
-             loaded by the analytics partial when a GA4 ID is set; load it here
-             only if it is not, then register the Ads account so remarketing and
-             optimisation work sitewide and the purchase conversion has an
-             account to fire against. --}}
-        @unless ($gaId)
-            <script async src="https://www.googletagmanager.com/gtag/js?id={{ $adsAccountId }}"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){ dataLayer.push(arguments); }
-                gtag('js', new Date());
-            </script>
-        @endunless
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
-            gtag('config', @json($adsAccountId));
-        </script>
-    @endif
-
     {{-- Ecommerce event layer. GA4 events fire only when a GA4 ID is set, Meta
-         events only when the Pixel is set — guarded independently. --}}
+         events only when the Pixel is set — guarded independently. The Google
+         tag itself (loader + consent default + config for both accounts) lives
+         in partials/analytics.blade.php. --}}
     <script>
         (function () {
             var HAS_GA = @json((bool) $gaId);
-            var HAS_PIXEL = @json((bool) $pixelId);
+            var HAS_PIXEL = @json((bool) ($pixelId && $consented));
             var ADS_SEND_TO = @json($adsSendTo);
             var CURRENCY = 'PKR';
 

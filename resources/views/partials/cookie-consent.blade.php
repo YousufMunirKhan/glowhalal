@@ -1,8 +1,9 @@
 {{--
-  Cookie consent banner. Shown until the visitor chooses. "Accept" enables
-  analytics cookies (Google Analytics loads on reload); "Decline" keeps only the
-  essential cookies needed to run the store (cart, sign-in). The choice is stored
-  in a first-party cookie for a year.
+  Cookie consent banner. Shown until the visitor chooses. "Accept" grants the
+  Google tag its storage (Consent Mode v2 'update') and loads the Meta Pixel;
+  "Decline" leaves the Google tag in its cookieless denied state and keeps only
+  the essential cookies needed to run the store (cart, sign-in). The choice is
+  stored in a first-party cookie for a year.
 --}}
 @if (! request()->cookie('cookie_consent'))
     <div id="cookie-consent"
@@ -35,8 +36,21 @@
             document.cookie = 'cookie_consent=' + choice + ';path=/;max-age=' + (60 * 60 * 24 * 365) + ';SameSite=Lax';
             var el = document.getElementById('cookie-consent');
             if (el) { el.remove(); }
-            // Reload so analytics can load now that consent has been granted.
-            if (choice === 'accepted') { window.location.reload(); }
+            if (choice === 'accepted') {
+                // Consent Mode v2: flip the already-running Google tag to
+                // 'granted' FIRST, so the pings queued during the denied state
+                // are upgraded on the spot instead of lost, then reload so the
+                // consent-gated pieces (Meta Pixel) load too.
+                if (typeof window.gtag === 'function') {
+                    window.gtag('consent', 'update', {
+                        ad_storage: 'granted',
+                        ad_user_data: 'granted',
+                        ad_personalization: 'granted',
+                        analytics_storage: 'granted'
+                    });
+                }
+                window.location.reload();
+            }
         }
     </script>
 @endif
