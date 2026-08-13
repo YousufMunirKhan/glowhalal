@@ -135,6 +135,25 @@
                     <livewire:cart.add-to-cart :product="$product" />
                 </div>
 
+                {{-- Direct "Order on WhatsApp" — the highest-converting COD path
+                     in this market (research Aug 2026). Always visible here, not
+                     only in the mobile sticky bar. Carries the same prefilled
+                     order message and reads the single store number from
+                     StoreSettings (with the standard fallback). --}}
+                <div class="flex flex-col gap-2">
+                    <a href="{{ $whatsappOrderHref }}" target="_blank" rel="noopener"
+                        class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-sm bg-whatsapp px-5
+                            text-body font-semibold text-white transition-[background-color]
+                            duration-[var(--motion-fast)] ease-standard hover:bg-whatsapp-hover"
+                        aria-label="Order {{ $product->name }} on WhatsApp (opens in a new tab)">
+                        <x-ui.icon name="whatsapp" :size="20" />
+                        Order on WhatsApp
+                    </a>
+                    <p class="text-center text-meta text-text-muted">
+                        Prefer to chat? Message us — pay Cash on Delivery at your door.
+                    </p>
+                </div>
+
                 <dl class="grid gap-3 border-t border-border-subtle pt-6 text-meta text-text-secondary">
                     <div class="flex gap-3">
                         <dt class="font-semibold text-text-primary">Delivery</dt>
