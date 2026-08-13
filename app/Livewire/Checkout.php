@@ -166,6 +166,48 @@ class Checkout extends Component
         unset($this->totals);
     }
 
+    // The three contact fields are wire:model.blur, so these fire when the
+    // shopper tabs out of a field — persisting name/phone/email to the cart the
+    // moment they are entered. That turns a cart abandoned mid-checkout into a
+    // recoverable one (Admin → Abandoned Carts → WhatsApp), with NO extra step
+    // for the shopper. Fully guarded below: never block checkout.
+    public function updatedCustomerName(): void
+    {
+        $this->persistContactToCart();
+    }
+
+    public function updatedPhone(): void
+    {
+        $this->persistContactToCart();
+    }
+
+    public function updatedEmail(): void
+    {
+        $this->persistContactToCart();
+    }
+
+    private function persistContactToCart(): void
+    {
+        try {
+            $cart = $this->cart;
+
+            if (! $cart) {
+                return;
+            }
+
+            $cart->forceFill([
+                'customer_name' => $this->customerName !== '' ? mb_substr($this->customerName, 0, 200) : $cart->customer_name,
+                'phone' => $this->phone !== '' ? mb_substr($this->phone, 0, 20) : $cart->phone,
+                'email' => $this->email !== '' ? mb_substr($this->email, 0, 180) : $cart->email,
+                'last_activity_at' => now(),
+            ])->save();
+        } catch (\Throwable $e) {
+            // Recovery data is a nice-to-have; a write failure must never stop
+            // the shopper from checking out.
+            report($e);
+        }
+    }
+
     /**
      * Fills the province from the city so the shopper types one thing, not two.
      * Only for the handful of cities where it is unambiguous — a wrong guess
