@@ -142,7 +142,7 @@ class WinnableBlogSeeder extends Seeder
 <p>Yes. Message us and we will place the order for you and confirm delivery.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Order online with Cash on Delivery anywhere in Pakistan, or <a href="https://wa.me/923417164556">chat with us on WhatsApp</a> to order in seconds and pay at your door.</p>
+<p>Order online with Cash on Delivery anywhere in Pakistan, or <a href="https://wa.me/923012973886">chat with us on WhatsApp</a> to order in seconds and pay at your door.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: Lookman-e-Hayat oil is a herbal cosmetic product for external use, not a medicine. It is not intended to diagnose, treat, cure or prevent any disease. Prices are current at the time of writing and may change — the live price on the product page applies. Keep out of reach of children and avoid contact with the eyes.</em></p>
 HTML;
@@ -199,7 +199,7 @@ HTML;
 <p>A little goes a long way — roughly a teaspoon for short hair, up to a tablespoon for long, thick hair.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Order online with Cash on Delivery across Pakistan, or <a href="https://wa.me/923417164556">chat with us on WhatsApp</a> to order in seconds and pay at your door.</p>
+<p>Order online with Cash on Delivery across Pakistan, or <a href="https://wa.me/923012973886">chat with us on WhatsApp</a> to order in seconds and pay at your door.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: Lookman-e-Hayat oil is a herbal cosmetic oil for external use, not a medicine. It is not intended to diagnose, treat, cure or prevent any condition, including hair loss or scalp conditions. Do a patch test first, keep it away from the eyes and broken skin, and consult a doctor or dermatologist for any persistent hair or scalp concern. Results vary from person to person.</em></p>
 HTML;
@@ -263,7 +263,7 @@ HTML;
 <p>Yes. Glow Halal is a halal beauty and cosmetics store, and we are adding more honest, plant-based products over time.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Order online with Cash on Delivery across Pakistan, or <a href="https://wa.me/923417164556">chat with us on WhatsApp</a> to order in seconds and pay at your door.</p>
+<p>Order online with Cash on Delivery across Pakistan, or <a href="https://wa.me/923012973886">chat with us on WhatsApp</a> to order in seconds and pay at your door.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: The oils described here are herbal cosmetic products for external use, not medicines. They are not intended to diagnose, treat, cure or prevent any disease. "Halal" refers to our plant-based, transparent ethos; we hold no third-party halal certification and make no certification claim. Always patch test, keep products away from the eyes and broken skin, and consult a doctor for any medical concern.</em></p>
 HTML;

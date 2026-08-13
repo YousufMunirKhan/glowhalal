@@ -6,7 +6,7 @@
 
 @php
     // Single source of truth: Admin → Store settings (WhatsApp number).
-    $whatsapp = $whatsapp ?? (($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923001234567');
+    $whatsapp = $whatsapp ?? (($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923012973886');
 @endphp
 
 {{--

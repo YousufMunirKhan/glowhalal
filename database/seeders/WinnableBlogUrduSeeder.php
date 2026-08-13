@@ -125,7 +125,7 @@ class WinnableBlogUrduSeeder extends Seeder
 <p>Ji haan. Humein message karein, hum aap ka order laga kar delivery confirm kar denge.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Online Cash on Delivery par poore Pakistan mein order karein, ya <a href="https://wa.me/923417164556">WhatsApp par baat karein</a> — seconds mein order aur ghar par pay.</p>
+<p>Online Cash on Delivery par poore Pakistan mein order karein, ya <a href="https://wa.me/923012973886">WhatsApp par baat karein</a> — seconds mein order aur ghar par pay.</p>
 
 <p class="article-disclaimer"><em>Notice: Lookman e Hayat tel ek herbal cosmetic product hai bahri istemal ke liye, dawai nahi. Ye kisi bimari ki tashkhees, ilaj ya rokthaam ke liye nahi hai. Qeemat likhne ke waqt ki hai aur badal sakti hai — product page ki live qeemat lagu hoti hai. Bachon ki pohanch se door rakhein aur aankhon se bachayein.</em></p>
 HTML;
@@ -182,7 +182,7 @@ HTML;
 <p>Thora hi kaafi hota hai — chhote baalon ke liye taqreeban ek chammach, lambe ghane baalon ke liye ek bara chammach tak.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Online Cash on Delivery par poore Pakistan mein order karein, ya <a href="https://wa.me/923417164556">WhatsApp par baat karein</a> — seconds mein order aur ghar par pay.</p>
+<p>Online Cash on Delivery par poore Pakistan mein order karein, ya <a href="https://wa.me/923012973886">WhatsApp par baat karein</a> — seconds mein order aur ghar par pay.</p>
 
 <p class="article-disclaimer"><em>Notice: Lookman e Hayat tel ek herbal cosmetic tel hai bahri istemal ke liye, dawai nahi. Ye baalon ke jharne ya sar ki kisi bimari samet kisi cheez ki tashkhees, ilaj ya rokthaam ke liye nahi hai. Pehle patch test karein, aankhon aur tooti jild se bachayein, aur kisi musalsal baal/sar ke masle ke liye doctor ya skin specialist se rujoo karein. Nataij har shakhs mein alag hote hain.</em></p>
 HTML;
@@ -246,7 +246,7 @@ HTML;
 <p>Ji haan. Glow Halal ek halal beauty aur cosmetics store hai, aur hum waqt ke saath aur imandaar, nabaati products add kar rahe hain.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Online Cash on Delivery par poore Pakistan mein order karein, ya <a href="https://wa.me/923417164556">WhatsApp par baat karein</a> — seconds mein order aur ghar par pay.</p>
+<p>Online Cash on Delivery par poore Pakistan mein order karein, ya <a href="https://wa.me/923012973886">WhatsApp par baat karein</a> — seconds mein order aur ghar par pay.</p>
 
 <p class="article-disclaimer"><em>Notice: Yahan bataye gaye tel herbal cosmetic products hain bahri istemal ke liye, dawaiyan nahi. Ye kisi bimari ki tashkhees, ilaj ya rokthaam ke liye nahi hain. "Halal" hamari nabaati aur shafaaf soch ko zahir karta hai; hamare paas koi third-party halal certification nahi aur hum aisa koi daawa nahi karte. Hamesha patch test karein, aankhon aur tooti jild se bachayein, aur kisi medical masle ke liye doctor se rujoo karein.</em></p>
 HTML;

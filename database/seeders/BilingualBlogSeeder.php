@@ -148,7 +148,7 @@ class BilingualBlogSeeder extends Seeder
 <p>Like most massage oils it can leave a mark, so let it absorb for a few minutes before dressing.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Order online with Cash on Delivery anywhere in Pakistan, or message us to order in seconds. <a href="https://wa.me/923001234567">Chat with us on WhatsApp</a> and we will arrange delivery to your door.</p>
+<p>Order online with Cash on Delivery anywhere in Pakistan, or message us to order in seconds. <a href="https://wa.me/923012973886">Chat with us on WhatsApp</a> and we will arrange delivery to your door.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: Lookman e Hayat oil is a herbal cosmetic massage product, not a medicine. It is not intended to diagnose, treat, cure or prevent any disease. Results vary from person to person. For persistent or severe pain, please consult a qualified doctor. Keep out of reach of children and avoid contact with the eyes.</em></p>
 HTML;
@@ -205,7 +205,7 @@ HTML;
 <p>Baqi maalish tel ki tarah nishan chhor sakta hai, is liye kapre pehanne se pehle isay kuch minute jazb hone dein.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Poore Pakistan mein Cash on Delivery par online order karein, ya seconds mein order dene ke liye humein message karein. <a href="https://wa.me/923001234567">WhatsApp par baat karein</a> aur ghar par delivery le lein.</p>
+<p>Poore Pakistan mein Cash on Delivery par online order karein, ya seconds mein order dene ke liye humein message karein. <a href="https://wa.me/923012973886">WhatsApp par baat karein</a> aur ghar par delivery le lein.</p>
 
 <p class="article-disclaimer"><em>Notice: Lookman e Hayat tel ek herbal cosmetic maalish product hai, dawai nahi. Ye kisi bimari ki tashkhees, ilaj ya rokthaam ke liye nahi hai. Nataij har shakhs mein alag hote hain. Musalsal ya shadeed dard ke liye qualified doctor se rujoo karein. Bachon ki pohanch se door rakhein aur aankhon se bachayein.</em></p>
 HTML;
@@ -266,7 +266,7 @@ HTML;
 <p>Keep it out of reach of children and do not use it on a child's burn or wound — consult a doctor instead.</p>
 
 <h2>How to order (Cash on Delivery)</h2>
-<p>Order online with Cash on Delivery across Pakistan, or message us to order quickly. <a href="https://wa.me/923001234567">Chat with us on WhatsApp</a> for help choosing a size.</p>
+<p>Order online with Cash on Delivery across Pakistan, or message us to order quickly. <a href="https://wa.me/923012973886">Chat with us on WhatsApp</a> for help choosing a size.</p>
 
 <p class="article-disclaimer"><em>Disclaimer: Lookman e Hayat oil is a herbal cosmetic product, not a medicine. It is not intended to diagnose, treat, cure or prevent any disease, and it does not heal wounds or burns. For any burn, cut or skin injury, follow proper first aid and consult a qualified doctor or hospital. Do not apply oil to serious, open or blistered burns. Keep out of reach of children and avoid contact with the eyes.</em></p>
 HTML;
@@ -327,7 +327,7 @@ HTML;
 <p>Bachon ki pohanch se door rakhein aur kisi bachay ke jale ya zakhm par istemal na karein — us ke bajaye doctor se rujoo karein.</p>
 
 <h2>Order kaise karein (Cash on Delivery)</h2>
-<p>Poore Pakistan mein Cash on Delivery par online order karein, ya jaldi order ke liye humein message karein. Size chunne mein madad ke liye <a href="https://wa.me/923001234567">WhatsApp par baat karein</a>.</p>
+<p>Poore Pakistan mein Cash on Delivery par online order karein, ya jaldi order ke liye humein message karein. Size chunne mein madad ke liye <a href="https://wa.me/923012973886">WhatsApp par baat karein</a>.</p>
 
 <p class="article-disclaimer"><em>Notice: Lookman e Hayat tel ek herbal cosmetic product hai, dawai nahi. Ye kisi bimari ki tashkhees, ilaj ya rokthaam ke liye nahi hai, aur ye zakhm ya jale ko theek nahi karta. Kisi bhi jale, kaate ya jild ki chot par sahih first aid karein aur qualified doctor ya hospital se rujoo karein. Shadeed, khule ya chhalay wale jale par tel na lagayein. Bachon ki pohanch se door rakhein aur aankhon se bachayein.</em></p>
 HTML;

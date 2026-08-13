@@ -29,7 +29,7 @@
     $waCardMessage = 'Assalam o Alaikum, I want to order: ' . $product->name
         . ($priceLabel ? ' (' . $priceLabel . ')' : '') . '. ' . $productUrl;
     $waCardHref = ($store ?? null)?->whatsappLink($waCardMessage)
-        ?? 'https://wa.me/923001234567?text=' . urlencode($waCardMessage);
+        ?? 'https://wa.me/923012973886?text=' . urlencode($waCardMessage);
 @endphp
 
 <article class="flex h-full flex-col">

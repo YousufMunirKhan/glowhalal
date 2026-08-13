@@ -337,7 +337,7 @@
                     ['icon' => 'truck', 'title' => 'Free delivery over Rs 5,000', 'body' => 'A flat Rs 300 delivery below that, nationwide.', 'href' => '/shipping-returns'],
                     ['icon' => 'cash', 'title' => 'Cash on Delivery', 'body' => 'Pay in cash when your order arrives.', 'href' => '/shipping-returns'],
                     ['icon' => 'box', 'title' => '7-day returns', 'body' => 'Unopened items, within 7 days.', 'href' => '/shipping-returns'],
-                    ['icon' => 'whatsapp', 'title' => 'Customer support', 'body' => 'Answers on WhatsApp, working days.', 'href' => (($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923001234567'), 'external' => true],
+                    ['icon' => 'whatsapp', 'title' => 'Customer support', 'body' => 'Answers on WhatsApp, working days.', 'href' => (($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923012973886'), 'external' => true],
                 ] as $op)
                     <li class="flex gap-4">
                         <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-champagne/40 bg-white/5 text-champagne">

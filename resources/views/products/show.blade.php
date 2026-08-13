@@ -45,7 +45,7 @@
     $waOrderMessage = 'Assalam o Alaikum, I want to order: ' . $product->name
         . ($stickyPrice ? ' (' . $stickyPrice . ')' : '') . '. ' . $canonical;
     $whatsappOrderHref = ($store ?? null)?->whatsappLink($waOrderMessage)
-        ?? 'https://wa.me/923001234567?text=' . urlencode($waOrderMessage);
+        ?? 'https://wa.me/923012973886?text=' . urlencode($waOrderMessage);
 @endphp
 
 <x-layouts.app

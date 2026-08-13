@@ -7,7 +7,7 @@
     // Single source of truth: Admin → Store settings. Falls back only if settings
     // are somehow unavailable (fresh install before the seed migration runs).
     $phone = $phone ?? (($store ?? null)?->contact_phone ?? '+92 300 1234567');
-    $whatsapp = $whatsapp ?? (($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923001234567');
+    $whatsapp = $whatsapp ?? (($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal') ?? 'https://wa.me/923012973886');
 @endphp
 
 {{--
