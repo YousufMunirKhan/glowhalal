@@ -15,6 +15,13 @@
 --}}
 
 @php
+    // $errors is injected by ShareErrorsFromSession (the `web` middleware
+    // group). Error pages (404/500) and other renders outside that group skip
+    // it, leaving $errors undefined — and the @error('email') directive below
+    // would then fatal, turning the original error into a second one and
+    // hiding it. Default to an empty bag so the footer renders anywhere.
+    $errors ??= new \Illuminate\Support\ViewErrorBag();
+
     // Single source of truth: Admin → Store settings.
     // Email renders ONLY when the owner has set one in Store settings — no
     // hardcoded fallback: an unmonitored inbox shown to customers is worse
