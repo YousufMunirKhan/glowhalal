@@ -103,9 +103,12 @@ class ManageSeoSettings extends SettingsPage
                         TextInput::make('meta_pixel_id')->label('Meta (Facebook) Pixel ID')->maxLength(40)
                             ->placeholder('1234567890')
                             ->helperText('Optional. Paste ONLY your Pixel ID and Facebook/Instagram tracking (ViewContent, AddToCart, InitiateCheckout, Purchase) turns on automatically. Where to get it: business.facebook.com → Events Manager → your pixel → Settings. Leave blank if you do not run Meta ads.'),
+                        TextInput::make('google_ads_id')->label('Google Ads tag ID')
+                            ->maxLength(40)->placeholder('AW-123456789')
+                            ->helperText('What it does: puts your Google tag on every page, which is what builds remarketing audiences and lets Google optimise your campaigns. Where to get it: ads.google.com → Tools → Data manager → Google tag (looks like AW-123456789, no slash). Leave blank if you do not run Google Ads.'),
                         TextInput::make('google_ads_conversion')->label('Google Ads conversion label')
                             ->maxLength(60)->placeholder('AW-123456789/AbCdEfGhIj')
-                            ->helperText('Optional. Fires a Google Ads purchase conversion. Where to get it: ads.google.com → Goals → Conversions → your "Purchase" action → "Tag setup" → the value shown as send_to (looks like AW-123456789/AbCdEfGhIj). Leave blank if you do not run Google Ads.'),
+                            ->helperText('Optional, and separate from the tag ID above — this one records the SALE. Where to get it: ads.google.com → Goals → Conversions → your "Purchase" action → "Tag setup" → the value shown as send_to. It must include the "/" and the label after it; the AW- number on its own cannot record a conversion.'),
                     ]),
                 ]),
 

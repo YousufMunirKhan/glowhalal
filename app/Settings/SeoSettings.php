@@ -35,9 +35,19 @@ class SeoSettings extends Settings
     public ?string $meta_pixel_id;
 
     /**
+     * Google Ads account tag, e.g. "AW-123456789" — the site-wide "Google tag"
+     * that powers remarketing audiences and campaign optimisation. Emitted on
+     * every page when set (and cookie consent is granted).
+     */
+    public ?string $google_ads_id;
+
+    /**
      * Google Ads conversion action, e.g. "AW-123456789/AbCdEfGhIj". Optional and
      * blank-safe — the purchase page fires a Google Ads conversion only when this
      * is set (and cookie consent is granted). Blank means nothing fires.
+     *
+     * Needs the "/label" half to be a usable conversion; the account ID alone
+     * belongs in {@see $google_ads_id}.
      */
     public ?string $google_ads_conversion;
 

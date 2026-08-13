@@ -27,13 +27,23 @@
     // defensively so a fresh, un-migrated install still boots.
     $seoTracking = $seo ?? rescue(fn () => app(\App\Settings\SeoSettings::class), null, false);
     $pixelId = $seoTracking?->meta_pixel_id;
-    $adsConversion = $seoTracking?->google_ads_conversion;
-    $adsAccountId = $adsConversion ? \Illuminate\Support\Str::before($adsConversion, '/') : null;
+    $adsConversion = rescue(fn () => $seoTracking?->google_ads_conversion, null, false);
+
+    // The site-wide Google tag (remarketing + campaign optimisation). Falls back
+    // to the account half of the conversion label so installs configured before
+    // this field existed keep emitting their tag unchanged.
+    $adsAccountId = rescue(fn () => $seoTracking?->google_ads_id, null, false)
+        ?: ($adsConversion ? \Illuminate\Support\Str::before($adsConversion, '/') : null);
+
+    // A conversion needs BOTH halves ("AW-123/label"). An account ID pasted into
+    // the conversion field would send a send_to Google silently drops, so treat
+    // it as unset rather than firing a conversion that can never be recorded.
+    $adsSendTo = $adsConversion && str_contains($adsConversion, '/') ? $adsConversion : null;
 
     $consented = request()->cookie('cookie_consent') === 'accepted';
 @endphp
 
-@if ($consented && ($gaId || $pixelId || $adsConversion))
+@if ($consented && ($gaId || $pixelId || $adsAccountId))
     @if ($pixelId)
         {{-- Meta Pixel base code. The owner only pastes their Pixel ID in admin;
              everything below turns on the moment it is set. --}}
@@ -53,11 +63,12 @@
             src="https://www.facebook.com/tr?id={{ $pixelId }}&ev=PageView&noscript=1" alt=""/></noscript>
     @endif
 
-    @if ($adsConversion)
-        {{-- Google Ads conversion account. gtag.js is already loaded by the
-             analytics partial when a GA4 ID is set; load it here only if it is
-             not, then register the Ads conversion account so the conversion can
-             fire on the purchase page. --}}
+    @if ($adsAccountId)
+        {{-- The Google tag for the Ads account, on every page. gtag.js is already
+             loaded by the analytics partial when a GA4 ID is set; load it here
+             only if it is not, then register the Ads account so remarketing and
+             optimisation work sitewide and the purchase conversion has an
+             account to fire against. --}}
         @unless ($gaId)
             <script async src="https://www.googletagmanager.com/gtag/js?id={{ $adsAccountId }}"></script>
             <script>
@@ -79,7 +90,7 @@
         (function () {
             var HAS_GA = @json((bool) $gaId);
             var HAS_PIXEL = @json((bool) $pixelId);
-            var ADS_SEND_TO = @json($adsConversion);
+            var ADS_SEND_TO = @json($adsSendTo);
             var CURRENCY = 'PKR';
 
             function ga() { if (HAS_GA && typeof window.gtag === 'function') window.gtag.apply(null, arguments); }
