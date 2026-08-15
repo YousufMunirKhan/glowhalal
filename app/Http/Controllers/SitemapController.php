@@ -86,11 +86,29 @@ class SitemapController extends Controller
                     ->setPriority(0.6)
             ));
 
+        // The guard is per-locale, not just "has published posts": a category
+        // whose only posts are Roman-Urdu would otherwise get an English hub
+        // URL with an empty listing (a soft 404), and vice versa. Each locale's
+        // hub enters the sitemap only when it actually has posts to show —
+        // the same rule BlogController::category applies when rendering.
         \App\Models\BlogCategory::query()
             ->where('is_active', true)
-            ->whereHas('posts', fn ($q) => $q->published())
+            ->whereHas('posts', fn ($q) => $q->published()->forLocale('en'))
             ->each(fn ($c) => $sitemap->add(
                 Url::create(url('/blog/category/'.$c->slug))
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                    ->setPriority(0.5)
+            ));
+
+        // Mirrored Roman-Urdu hubs (route `blog.category.ur`). These were
+        // absent from the sitemap entirely, so the hub pages that internally
+        // link every Roman-Urdu post were invisible to crawlers that start
+        // from the sitemap.
+        \App\Models\BlogCategory::query()
+            ->where('is_active', true)
+            ->whereHas('posts', fn ($q) => $q->published()->forLocale('ur-Latn'))
+            ->each(fn ($c) => $sitemap->add(
+                Url::create(url('/ur-roman/blog/category/'.$c->slug))
                     ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
                     ->setPriority(0.5)
             ));
