@@ -66,15 +66,20 @@
                     </button>
 
                     @if ($variant->is_in_stock)
-                        <button type="button"
-                            wire:click="buyNow({{ $variant->id }})"
-                            wire:loading.attr="disabled" wire:target="buyNow({{ $variant->id }})"
-                            class="min-h-11 shrink-0 rounded-sm bg-gold-surface px-3 text-meta font-semibold
-                                text-ink-900 transition-[background-color] duration-[var(--motion-fast)]
-                                ease-standard hover:bg-gold-surface-hover disabled:opacity-70"
-                            aria-label="Buy {{ $variant->name ?? $variant->sku }} now">
-                            Buy now
-                        </button>
+                        {{-- Native POST (BuyNowController), not wire:click — the
+                             same detached-cart flow, but present in the plain
+                             HTML so it works without JavaScript. --}}
+                        <form method="POST" action="{{ route('buy-now', $this->product->slug) }}" class="shrink-0">
+                            @csrf
+                            <input type="hidden" name="variant_id" value="{{ $variant->id }}">
+                            <button type="submit"
+                                class="min-h-11 w-full rounded-sm bg-gold-surface px-3 text-meta font-semibold
+                                    text-ink-900 transition-[background-color] duration-[var(--motion-fast)]
+                                    ease-standard hover:bg-gold-surface-hover"
+                                aria-label="Buy {{ $variant->name ?? $variant->sku }} now">
+                                Buy now
+                            </button>
+                        </form>
                     @endif
                 </div>
             @endforeach
@@ -97,17 +102,19 @@
                 <span wire:loading wire:target="addDefault">Adding…</span>
             </button>
 
-            {{-- Buy Now: detached cart straight to checkout, existing bag untouched. --}}
-            <button type="button"
-                wire:click="buyNowDefault"
-                wire:loading.attr="disabled" wire:target="buyNowDefault"
-                class="inline-flex min-h-11 w-full items-center justify-center rounded-sm border-[1.5px]
-                    border-text-primary bg-transparent px-4 text-meta font-semibold text-text-primary
-                    transition-[background-color] duration-[var(--motion-fast)] ease-standard
-                    hover:bg-surface-sunken disabled:opacity-70">
-                <span wire:loading.remove wire:target="buyNowDefault">Buy now</span>
-                <span wire:loading wire:target="buyNowDefault">Taking you to checkout…</span>
-            </button>
+            {{-- Buy Now: detached cart straight to checkout, existing bag
+                 untouched. A native POST (BuyNowController resolves the default
+                 variant) so the path exists without JavaScript. --}}
+            <form method="POST" action="{{ route('buy-now', $this->product->slug) }}">
+                @csrf
+                <button type="submit"
+                    class="inline-flex min-h-11 w-full items-center justify-center rounded-sm border-[1.5px]
+                        border-text-primary bg-transparent px-4 text-meta font-semibold text-text-primary
+                        transition-[background-color] duration-[var(--motion-fast)] ease-standard
+                        hover:bg-surface-sunken">
+                    Buy now
+                </button>
+            </form>
         </div>
     @endif
 

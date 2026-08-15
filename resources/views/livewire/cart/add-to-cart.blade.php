@@ -89,7 +89,11 @@
                     class="grid h-12 w-12 place-items-center text-text-primary hover:bg-surface-sunken disabled:text-text-muted"
                     @disabled($quantity <= 1) aria-label="Decrease quantity">&minus;</button>
 
+                {{-- name + form associate this input with the Buy Now form
+                     below even though it sits outside it, so the typed
+                     quantity posts on a native (no-JS) submit too. --}}
                 <input id="qty-{{ $productId }}" type="number" inputmode="numeric"
+                    name="quantity" form="gh-buy-now-{{ $productId }}"
                     wire:model.live.blur="quantity"
                     min="1" max="{{ max(1, $max) }}"
                     class="h-12 w-14 border-x border-border-subtle bg-transparent text-center text-body tabular-nums text-text-primary
@@ -107,7 +111,21 @@
         <p class="-mt-4 text-meta text-danger-700">{{ $message }}</p>
     @enderror
 
-    <div class="flex flex-col gap-3">
+    {{-- A REAL form, not a div: Buy Now is a native POST to BuyNowController
+         (the same detached-cart flow the homepage cards use), so the purchase
+         path exists in the plain HTML and works with JavaScript off. The
+         hidden variant_id/quantity are server-rendered from Livewire state, so
+         every shade/size/qty change re-renders them and the form can never
+         post a stale selection. Add-to-bag stays a wire:click type="button"
+         inside the form — it needs the drawer UX and must not submit. --}}
+    <form id="gh-buy-now-{{ $productId }}" method="POST" action="{{ route('buy-now', $this->product->slug) }}"
+        class="flex flex-col gap-3">
+        @csrf
+        <input type="hidden" name="variant_id" value="{{ $variantId }}">
+        {{-- quantity posts from the visible stepper input above, associated via
+             its form attribute — a hidden duplicate here would serialize after
+             it and silently win. --}}
+
         {{-- Add to bag is a <button>, never an <a href>. An anchor that mutates
              a cart invites crawlers into cart-mutation URLs (seo.md §8.8). --}}
         <button type="button" wire:click="add" wire:loading.attr="disabled" wire:target="add"
@@ -121,16 +139,15 @@
 
         {{-- Buy Now writes into a detached cart. The existing bag is neither
              merged into nor cleared. --}}
-        <button type="button" wire:click="buyNow" wire:loading.attr="disabled" wire:target="buyNow"
+        <button type="submit"
             @disabled($max === 0)
             class="inline-flex min-h-14 items-center justify-center rounded-sm border-[1.5px] border-text-primary
                 bg-transparent px-8 text-body font-semibold text-text-primary
                 transition-[background-color] duration-[var(--motion-fast)] ease-standard
                 hover:bg-surface-sunken disabled:border-border-subtle disabled:text-text-muted">
-            <span wire:loading.remove wire:target="buyNow">Buy now</span>
-            <span wire:loading wire:target="buyNow">Taking you to checkout…</span>
+            Buy now
         </button>
-    </div>
+    </form>
 
     <div x-data="{ shown: false, name: '' }"
         x-on:added-to-bag.window="name = $event.detail.name; shown = true; setTimeout(() => shown = false, 5000)"
