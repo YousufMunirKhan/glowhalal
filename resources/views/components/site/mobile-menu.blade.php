@@ -27,7 +27,12 @@
         [
             'title' => 'Shop',
             'items' => array_merge(
-                collect($products)->map(fn ($p) => ['label' => $p['name'], 'href' => '/products/' . $p['slug']])->all(),
+                // Same locale rule as the footer: on /ur-roman pages link the UR
+                // PDP (with its UR name) when one exists. Keys coalesced because
+                // some pages pass bare name/slug arrays.
+                collect($products)->map(fn ($p) => app()->getLocale() === 'ur-Latn' && ! empty($p['slug_ur'] ?? null)
+                    ? ['label' => $p['name_ur'], 'href' => '/ur-roman/products/' . $p['slug_ur']]
+                    : ['label' => $p['name'], 'href' => '/products/' . $p['slug']])->all(),
                 [['label' => 'Shop all', 'href' => '/shop']],
             ),
         ],

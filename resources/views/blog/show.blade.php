@@ -129,10 +129,16 @@
             <h2 class="text-title-lg text-text-primary">Products mentioned</h2>
             <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach ($post->products as $product)
+                    @php
+                        // On the Roman-Urdu mirror, send the reader to the UR PDP
+                        // (with its UR name) when one exists — same rule as the
+                        // footer. EN pages and UR-less products keep the EN link.
+                        $linkUr = app()->getLocale() === 'ur-Latn' && $product->hasRomanUrdu();
+                    @endphp
                     <li class="border-t border-border-subtle pt-4">
                         <p class="text-title-sm text-text-primary">
-                            <a href="/products/{{ $product->slug }}"
-                                class="underline decoration-1 underline-offset-[3px] hover:decoration-2">{{ $product->name }}</a>
+                            <a href="{{ $linkUr ? '/ur-roman/products/'.$product->slug_ur : '/products/'.$product->slug }}"
+                                class="underline decoration-1 underline-offset-[3px] hover:decoration-2">{{ $linkUr ? $product->name_ur : $product->name }}</a>
                         </p>
                     </li>
                 @endforeach

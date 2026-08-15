@@ -68,7 +68,7 @@ final class StorefrontChrome
      * The footer's Shop column. Query-driven, so it is correct at 5 products
      * and at 5,000.
      *
-     * @return array<int, array{name: string, slug: string}>
+     * @return array<int, array{name: string, slug: string, name_ur: string|null, slug_ur: string|null}>
      */
     public static function footerProducts(): array
     {
@@ -76,8 +76,17 @@ final class StorefrontChrome
             ->published()
             ->orderBy('name')
             ->limit(5)
-            ->get(['id', 'name', 'slug'])
-            ->map(fn (Product $p) => ['name' => $p->name, 'slug' => $p->slug])
+            ->get(['id', 'name', 'slug', 'name_ur', 'slug_ur', 'description_ur'])
+            ->map(fn (Product $p) => [
+                'name' => $p->name,
+                'slug' => $p->slug,
+                // Filled only when a real UR page exists — the footer links it
+                // on /ur-roman pages so the reader stays in their language.
+                // Mirrors StorefrontServiceProvider::products(); both feed the
+                // same footer loop.
+                'name_ur' => $p->hasRomanUrdu() ? $p->name_ur : null,
+                'slug_ur' => $p->hasRomanUrdu() ? $p->slug_ur : null,
+            ])
             ->all();
     }
 }
