@@ -46,7 +46,7 @@ final class SchemaGraph
         return $this;
     }
 
-    public function webPage(string $url, string $name, ?string $description = null): self
+    public function webPage(string $url, string $name, ?string $description = null, string $inLanguage = 'en-PK'): self
     {
         $this->nodes[] = array_filter([
             '@type' => 'WebPage',
@@ -55,7 +55,9 @@ final class SchemaGraph
             'name' => $name,
             'description' => $description,
             'isPartOf' => ['@id' => url('/').'/#website'],
-            'inLanguage' => 'en-PK',
+            // 'ur-Latn' on the Roman-Urdu mirror — distinct inLanguage is part
+            // of what keeps the two locales from reading as duplicates.
+            'inLanguage' => $inLanguage,
         ], fn ($v) => $v !== null);
 
         return $this;
@@ -120,9 +122,14 @@ final class SchemaGraph
         return $this;
     }
 
-    public function product(Product $product, ProductOffer $offer, ?Category $category = null): self
+    /**
+     * @param  string|null  $url  Page URL override — the Roman-Urdu PDP passes
+     *                            its own canonical so the Product/Offer @ids
+     *                            anchor to the page actually being rendered.
+     */
+    public function product(Product $product, ProductOffer $offer, ?Category $category = null, ?string $url = null): self
     {
-        $url = route('products.show', $product->slug);
+        $url ??= route('products.show', $product->slug);
 
         $node = [
             '@type' => 'Product',

@@ -67,6 +67,18 @@
     current="shop"
     :bottom-nav="false">
 
+    {{-- Reciprocal hreflang cluster — present only when the product has a
+         published Roman-Urdu twin (controller passes [] otherwise). Emitted
+         here, not via pages.partials.head, because that partial also prints
+         $schema and this page prints its JSON-LD at the end of <body>. --}}
+    @if (!empty($hreflang ?? []))
+        <x-slot:head>
+            @foreach ($hreflang as $alt)
+                <link rel="alternate" hreflang="{{ $alt['hreflang'] }}" href="{{ $alt['href'] }}">
+            @endforeach
+        </x-slot:head>
+    @endif
+
     <x-ui.section>
         <nav aria-label="Breadcrumb" class="mb-8">
             <ol class="flex flex-wrap items-center gap-2 text-meta text-text-secondary">
@@ -285,7 +297,8 @@
                 @foreach ($guides as $guide)
                     <li class="border-t border-border-subtle pt-4">
                         <p class="text-title-sm text-text-primary">
-                            <a href="/blog/{{ $guide->slug }}"
+                            {{-- Locale-aware: UR guides live under /ur-roman/blog. --}}
+                            <a href="{{ (app()->getLocale() === 'ur-Latn' ? '/ur-roman' : '') . '/blog/' . $guide->slug }}"
                                 class="underline decoration-1 underline-offset-[3px] hover:decoration-2">{{ $guide->title }}</a>
                         </p>
                     </li>

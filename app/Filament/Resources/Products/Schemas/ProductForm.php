@@ -215,6 +215,85 @@ class ProductForm
                         ]),
                 ]),
 
+                // ── Roman Urdu content ───────────────────────────────────────
+                // The second content skin of the SAME product (one SKU, one
+                // price, one stock). Filling name + slug + description here
+                // publishes /ur-roman/products/{slug_ur} with reciprocal
+                // hreflang to the English page. Leave empty = no UR page; the
+                // UR URL never falls back to English text (duplicate-content
+                // guard). Same anti-cannibalization rule as the blog: the UR
+                // page must target a DISTINCT primary keyword ("tel" phrasing),
+                // never the English keyword translated.
+                Tabs\Tab::make('Roman Urdu')->icon('heroicon-o-language')->schema([
+                    Section::make('Roman Urdu page (ur-Latn)')
+                        ->description('Optional second page for the same product, in Roman Urdu, at /ur-roman/products/… — with its own title, slug and keyword. Fill the first three fields and it goes live; leave them empty and no Urdu page exists. Prices, photos, stock and INCI stay shared with the English page automatically.')
+                        ->schema([
+                            TextInput::make('name_ur')
+                                ->label('Name (Roman Urdu)')
+                                ->maxLength(200)
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(function (?string $state, Get $get, Set $set) {
+                                    if (blank($get('slug_ur'))) {
+                                        $set('slug_ur', Str::slug((string) $state));
+                                    }
+                                })
+                                ->helperText('E.g. "Lookman-e-Hayat Tel — 100ml". Use "tel", not "oil" — the Urdu page must target its own keyword, never the English one.'),
+
+                            TextInput::make('slug_ur')
+                                ->label('Slug (Roman Urdu URL)')
+                                ->maxLength(220)
+                                ->unique(ignoreRecord: true)
+                                ->helperText('Becomes /ur-roman/products/THIS. Must be different from the English slug.'),
+
+                            Textarea::make('short_description_ur')
+                                ->label('Short description (Roman Urdu)')
+                                ->rows(3)->maxLength(500),
+
+                            RichEditor::make('description_ur')
+                                ->label('Description (Roman Urdu)')
+                                ->toolbarButtons([
+                                    ['bold', 'italic', 'underline', 'link'],
+                                    ['h2', 'h3'],
+                                    ['blockquote', 'bulletList', 'orderedList'],
+                                    ['undo', 'redo'],
+                                ])
+                                ->columnSpanFull(),
+
+                            RichEditor::make('how_to_use_ur')
+                                ->label('How to use (Roman Urdu)')
+                                ->toolbarButtons([['bold', 'italic'], ['bulletList', 'orderedList']])
+                                ->columnSpanFull(),
+                        ]),
+
+                    Repeater::make('faqs_ur')
+                        ->label('FAQs (Roman Urdu)')
+                        ->helperText('Shown on the Roman Urdu page and used for its FAQ rich results. Ask what Pakistani buyers actually ask on WhatsApp.')
+                        ->columnSpanFull()
+                        ->collapsible()
+                        ->reorderable()
+                        ->defaultItems(0)
+                        ->addActionLabel('Add question')
+                        ->itemLabel(fn (array $state): ?string => $state['q'] ?? null)
+                        ->default([])
+                        ->schema([
+                            TextInput::make('q')->label('Question')->required()->maxLength(300)->columnSpanFull(),
+                            Textarea::make('a')->label('Answer')->required()->rows(3)->columnSpanFull(),
+                        ]),
+
+                    Section::make('Roman Urdu SEO')
+                        ->description('Its own meta title and description — the English SEO tab does not apply to the Urdu page.')
+                        ->schema([
+                            TextInput::make('meta_title_ur')
+                                ->label('Meta title (Roman Urdu)')
+                                ->maxLength(255)
+                                ->helperText('≤65 characters renders in full. Falls back to the Roman Urdu name when empty.'),
+                            Textarea::make('meta_description_ur')
+                                ->label('Meta description (Roman Urdu)')
+                                ->rows(3)->maxLength(320)
+                                ->helperText('Aim for 150–160 characters. Falls back to the Roman Urdu short description when empty.'),
+                        ]),
+                ]),
+
                 Tabs\Tab::make('Halal')->icon('heroicon-o-shield-check')->schema([
                     Section::make('Halal profile')
                         ->relationship('halalProfile')     // 1:1 — Filament creates the row on save

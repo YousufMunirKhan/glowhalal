@@ -43,7 +43,34 @@ class Product extends Model
             'is_new_arrival' => 'boolean',
             'reviews_average' => 'decimal:2',
             'faqs' => 'array',
+            'faqs_ur' => 'array',
         ];
+    }
+
+    /**
+     * Whether this product has a publishable Roman Urdu page. The UR URL only
+     * exists when the owner has written real UR content — a slug alone (or a
+     * name alone) must never produce a page of English text on a /ur-roman URL.
+     */
+    public function hasRomanUrdu(): bool
+    {
+        return filled($this->slug_ur) && filled($this->name_ur) && filled($this->description_ur);
+    }
+
+    /**
+     * Swap the content-bearing attributes for their Roman Urdu counterparts,
+     * in memory only, so the show view, WhatsApp message, analytics data-*
+     * attributes and JSON-LD all render UR text without a single view change.
+     * `slug` is deliberately NOT swapped — route generation must keep working —
+     * and nothing on the GET path ever saves the model.
+     */
+    public function presentInRomanUrdu(): void
+    {
+        $this->setAttribute('name', $this->name_ur);
+        $this->setAttribute('short_description', $this->short_description_ur ?: $this->short_description);
+        $this->setAttribute('description', $this->description_ur);
+        $this->setAttribute('how_to_use', $this->how_to_use_ur ?: $this->how_to_use);
+        $this->setAttribute('faqs', $this->faqs_ur ?: []);
     }
 
     // ---- Catalogue relations -------------------------------------------------

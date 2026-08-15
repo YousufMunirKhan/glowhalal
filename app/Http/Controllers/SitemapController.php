@@ -113,18 +113,35 @@ class SitemapController extends Controller
                     ->setPriority(0.5)
             ));
 
-        // ── Products ──────────────────────────────────────────────────────
+        // ── Products, BOTH locales ────────────────────────────────────────
+        // A product with Roman-Urdu content gets two entries (EN + UR), each
+        // carrying the same xhtml:link alternate cluster the on-page hreflang
+        // emits — exactly the blog-post pattern. English-only products get a
+        // single, alternate-free entry.
         Product::query()
             ->published()
             ->with('seoMeta')
-            ->get(['id', 'slug', 'updated_at'])
+            ->get(['id', 'name_ur', 'slug', 'slug_ur', 'description_ur', 'updated_at'])
             ->reject(fn (Product $p) => ! $p->isIndexable())
-            ->each(fn (Product $p) => $sitemap->add(
-                Url::create(url('/products/'.$p->slug))
-                    ->setLastModificationDate($p->updated_at)
-                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
-                    ->setPriority(0.8)
-            ));
+            ->each(function (Product $p) use ($sitemap) {
+                $en = url('/products/'.$p->slug);
+                $ur = $p->hasRomanUrdu() ? url('/ur-roman/products/'.$p->slug_ur) : null;
+
+                foreach (array_filter([$en, $ur]) as $loc) {
+                    $url = Url::create($loc)
+                        ->setLastModificationDate($p->updated_at)
+                        ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                        ->setPriority(0.8);
+
+                    if ($ur) {
+                        $url->addAlternate($en, 'en')
+                            ->addAlternate($ur, 'ur-Latn')
+                            ->addAlternate($en, 'x-default');
+                    }
+
+                    $sitemap->add($url);
+                }
+            });
 
         // ── Blog posts, BOTH locales, with mirrored hreflang alternates ───
         $this->addBlogPosts($sitemap);

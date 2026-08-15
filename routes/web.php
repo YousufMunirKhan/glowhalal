@@ -389,6 +389,12 @@ Route::prefix('ur-roman')
             ->name('blog.category.ur');
         Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])
             ->name('blog.show.ur');
+
+        // Roman-Urdu PDPs — same alternate-not-duplicate contract as the posts.
+        // Resolved by products.slug_ur inside the controller (the implicit
+        // binding would resolve the ENGLISH slug); 404 when no UR content.
+        Route::get('/products/{slug}', [\App\Http\Controllers\ProductController::class, 'showUr'])
+            ->name('products.show.ur');
     });
 
 /*
