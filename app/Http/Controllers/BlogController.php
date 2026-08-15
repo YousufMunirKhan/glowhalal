@@ -280,9 +280,16 @@ class BlogController extends Controller
                     'dateModified' => $post->updated_at?->toIso8601String(),
                     // No author node unless a real user record is attached. A
                     // "Glow Halal Team" byline is explicitly a negative signal
-                    // for this kind of content (SEO §5.4).
+                    // for this kind of content (SEO §5.4). The url anchors the
+                    // Person to /about — the page that says who runs the store —
+                    // and matches the visible byline link, so the entity is the
+                    // same one a reader can verify by clicking.
                     'author' => $post->author
-                        ? ['@type' => 'Person', 'name' => $post->author->name]
+                        ? [
+                            '@type' => 'Person',
+                            'name' => $post->author->name,
+                            'url' => url('/about'),
+                        ]
                         : null,
                 ]),
             ]),

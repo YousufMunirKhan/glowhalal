@@ -26,9 +26,15 @@ class BlogDefaultsSeeder extends Seeder
 {
     public const CATEGORY_SLUG = 'herbal-care';
 
-    public const AUTHOR_EMAIL = 'editorial@glowhalal.com';
+    // The standing byline is a NAMED HUMAN, not a corporate label. It was
+    // 'editorial@glowhalal.com' / "Glow Halal Editorial" until 15 Aug 2026;
+    // for YMYL herbal content a corporate byline is an E-E-A-T ceiling, and
+    // the migration plan (§B4) forbids Admin/Team bylines. Existing posts were
+    // reassigned by 2026_08_15_000300_byline_named_author; these constants
+    // keep every FUTURE post (drip and admin default) on the same byline.
+    public const AUTHOR_EMAIL = 'yousufmunir59@gmail.com';
 
-    public const AUTHOR_NAME = 'Glow Halal Editorial';
+    public const AUTHOR_NAME = 'Yousuf Munir';
 
     public function run(): void
     {
@@ -42,8 +48,10 @@ class BlogDefaultsSeeder extends Seeder
             ],
         );
 
-        // The author is a byline record, not a login. It gets a random,
-        // unusable password so no one can sign in as it.
+        // On production this row already exists (the owner's real account) and
+        // firstOrCreate leaves it untouched. On a fresh database it is created
+        // as a byline record with a random, unusable password — sign-in comes
+        // from a password reset, never from a seeded credential.
         $author = User::firstOrCreate(
             ['email' => self::AUTHOR_EMAIL],
             [

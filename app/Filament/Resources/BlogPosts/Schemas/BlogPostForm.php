@@ -30,13 +30,16 @@ class BlogPostForm
                     ->default(fn () => BlogCategory::where('slug', 'herbal-care')->value('id')),
 
                 // Defaults to the standing byline so every post is "published by"
-                // the same name unless the editor picks someone else.
+                // the same name unless the editor picks someone else. The email
+                // is duplicated from BlogDefaultsSeeder::AUTHOR_EMAIL rather
+                // than referenced: seeders live in composer's autoload-dev and
+                // do not exist in a production autoloader.
                 Select::make('author_id')
                     ->label('Author (published by)')
                     ->relationship('author', 'name')
                     ->searchable()
                     ->preload()
-                    ->default(fn () => User::where('email', 'editorial@glowhalal.com')->value('id')),
+                    ->default(fn () => User::where('email', 'yousufmunir59@gmail.com')->value('id')),
 
                 TextInput::make('title')
                     ->required()

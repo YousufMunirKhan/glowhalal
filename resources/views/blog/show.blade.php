@@ -40,7 +40,10 @@
 
                 @if ($post->author)
                     <p class="mt-4 text-meta text-text-muted">
-                        By {{ $post->author->name }}
+                        {{-- The byline links to /about (who runs the store),
+                             matching the Person.url in the JSON-LD author node
+                             so the visible claim and the machine claim agree. --}}
+                        By <a href="/about" class="underline decoration-1 underline-offset-[3px] hover:text-text-primary">{{ $post->author->name }}</a>
                         {{-- Visible freshness that matches JSON-LD dateModified —
                              answer engines cross-check the two. Only shown when a
                              real later edit exists. --}}
