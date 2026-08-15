@@ -77,12 +77,23 @@
                          includes "me" — the microformats convention that marks a
                          profile as the same entity, and the visible counterpart
                          to sameAs in the Organization schema. --}}
+                    @php
+                        // ucfirst() would announce "Tiktok" and "Youtube" — these
+                        // are brand names, and a screen reader reads the label
+                        // aloud, so spell them the way the brand does.
+                        $networkNames = [
+                            'instagram' => 'Instagram',
+                            'facebook' => 'Facebook',
+                            'tiktok' => 'TikTok',
+                            'youtube' => 'YouTube',
+                        ];
+                    @endphp
                     <ul class="mt-5 flex items-center gap-4" aria-label="Glow Halal on social media">
                         @foreach ($socials as $network => $href)
                             <li>
                                 <a href="{{ $href }}"
                                     target="_blank" rel="me noopener"
-                                    aria-label="Glow Halal on {{ ucfirst($network) }}"
+                                    aria-label="Glow Halal on {{ $networkNames[$network] ?? ucfirst($network) }}"
                                     class="inline-flex text-text-secondary transition-colors hover:text-soft-gold">
                                     <x-ui.icon :name="$network" :size="20" />
                                 </a>
