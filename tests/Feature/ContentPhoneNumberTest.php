@@ -29,6 +29,14 @@ class ContentPhoneNumberTest extends TestCase
      */
     public function test_content_never_contains_a_foreign_pakistani_mobile_number(): void
     {
+        // This is a lint over REAL content, meant for a database that has some
+        // (local dev, a production snapshot). The default test connection is an
+        // empty in-memory sqlite with no settings table at all — resolving
+        // StoreSettings there throws before content could be scanned, so skip.
+        if (! Schema::hasTable('settings')) {
+            $this->markTestSkipped('No settings table on this connection — content lint needs a real database.');
+        }
+
         $store = $this->storeDigits();
 
         if ($store === null) {

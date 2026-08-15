@@ -177,9 +177,14 @@
                 {{-- Honeypot. Off-screen rather than display:none — some bots
                      skip hidden inputs but fill positioned ones. Never
                      announced, never focusable. --}}
+                {{-- Honeypot. The field name is deliberately meaningless:
+                     it was `website`, which is a standard autocomplete token —
+                     a password manager or browser autofill could fill it for a
+                     REAL person, silently killing their message. Bots fill
+                     every field regardless of name, so the trap loses nothing. --}}
                 <div class="absolute -start-[9999px]" aria-hidden="true">
-                    <label for="website">Do not fill this in</label>
-                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                    <label for="gh_extra">Do not fill this in</label>
+                    <input type="text" id="gh_extra" name="gh_extra" tabindex="-1" autocomplete="off">
                 </div>
 
                 <input type="hidden" name="rendered_at" value="{{ time() }}">

@@ -92,7 +92,26 @@ class ContactController extends Controller
         // Honeypot. A real browser never fills a field it cannot see; a bot
         // fills every input it finds. Fail silently — telling a spammer which
         // check caught them is how the next attempt gets past it.
-        if (filled($request->input('website'))) {
+        //
+        // BUT: silent means silent to the SENDER, never to us. This trap used
+        // to discard the message entirely, which is the worst failure mode a
+        // contact form can have — a false positive (browser autofill, a
+        // legitimate assistant filling the form for a user) looked like
+        // success to the sender while the business never received a word. The
+        // tripped submission is now logged in full, so a real message caught
+        // here is recoverable from the log instead of gone.
+        //
+        // `website` is still checked alongside the new field name: any page
+        // cached before the rename still posts the old field.
+        if (filled($request->input('gh_extra')) || filled($request->input('website'))) {
+            Log::warning('Contact form honeypot tripped — message NOT delivered', [
+                'name' => (string) $request->input('name'),
+                'email' => (string) $request->input('email'),
+                'subject' => (string) $request->input('subject'),
+                'message' => (string) $request->input('message'),
+                'ip' => $request->ip(),
+            ]);
+
             return redirect()->to(route('contact.thank-you'), 303);
         }
 
