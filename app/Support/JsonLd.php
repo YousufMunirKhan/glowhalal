@@ -151,7 +151,9 @@ final class JsonLd
             'name' => app(SeoSettings::class)->site_name ?: 'Glow Halal',
             'description' => 'Cosmetics from Pakistan that publish every ingredient in full.',
             'publisher' => ['@id' => self::id('/#organization')],
-            'inLanguage' => 'en-PK',
+            // The site publishes in BOTH languages — a lone 'en-PK' here would
+            // contradict the ur-Latn WebPage nodes that share this @graph.
+            'inLanguage' => ['en-PK', 'ur-Latn'],
         ];
     }
 
