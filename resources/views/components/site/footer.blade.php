@@ -108,9 +108,16 @@
                 <p class="text-overline uppercase tracking-caps text-champagne">Shop</p>
                 <ul class="mt-4 space-y-3">
                     @foreach ($products as $p)
+                        {{-- On /ur-roman pages, link the Roman-Urdu PDP when one
+                             exists so the reader stays in their language. Keys are
+                             coalesced because some pages pass their own product
+                             arrays without the _ur fields. --}}
+                        @php
+                            $footerUr = app()->getLocale() === 'ur-Latn' && ! empty($p['slug_ur'] ?? null);
+                        @endphp
                         <li>
-                            <a href="/products/{{ $p['slug'] }}"
-                                class="text-body text-text-secondary no-underline hover:text-ivory">{{ \Illuminate\Support\Str::limit($p['name'], 30) }}</a>
+                            <a href="{{ $footerUr ? '/ur-roman/products/'.$p['slug_ur'] : '/products/'.$p['slug'] }}"
+                                class="text-body text-text-secondary no-underline hover:text-ivory">{{ \Illuminate\Support\Str::limit($footerUr ? $p['name_ur'] : $p['name'], 30) }}</a>
                         </li>
                     @endforeach
                     <li><a href="/shop" class="text-body text-text-secondary no-underline hover:text-ivory">Shop all</a></li>

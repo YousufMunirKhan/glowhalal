@@ -70,8 +70,15 @@ class StorefrontServiceProvider extends ServiceProvider
                 ->orderByDesc('is_featured')
                 ->orderBy('position')
                 ->limit(8)
-                ->get(['id', 'name', 'slug'])
-                ->map(fn (Product $p) => ['name' => $p->name, 'slug' => $p->slug])
+                ->get(['id', 'name', 'slug', 'name_ur', 'slug_ur', 'description_ur'])
+                ->map(fn (Product $p) => [
+                    'name' => $p->name,
+                    'slug' => $p->slug,
+                    // Filled only when a real UR page exists, so the footer can
+                    // keep a Roman-Urdu reader inside the /ur-roman experience.
+                    'name_ur' => $p->hasRomanUrdu() ? $p->name_ur : null,
+                    'slug_ur' => $p->hasRomanUrdu() ? $p->slug_ur : null,
+                ])
                 ->all();
         } catch (\Throwable) {
             return [];

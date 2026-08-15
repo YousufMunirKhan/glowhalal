@@ -136,6 +136,30 @@
                     @if ($product->short_description)
                         <p class="mt-4 text-lead text-text-secondary">{{ $product->short_description }}</p>
                     @endif
+
+                    {{-- Language switcher — the VISIBLE counterpart of the hreflang
+                         cluster (same pattern as the blog posts). Renders only when
+                         the product actually has both language versions; this is how
+                         a human reader discovers the other-language page, since
+                         hreflang alone is invisible metadata. --}}
+                    @php
+                        $pdpSwitchLabels = ['en' => 'Read in English', 'ur-Latn' => 'Roman Urdu میں پڑھیں / parhein'];
+                        $pdpAltLinks = collect($hreflang ?? [])
+                            ->filter(fn ($a) => in_array($a['hreflang'], ['en', 'ur-Latn'], true) && $a['hreflang'] !== app()->getLocale())
+                            ->unique('hreflang');
+                    @endphp
+                    @if ($pdpAltLinks->isNotEmpty())
+                        <div class="mt-4 flex flex-wrap items-center gap-2">
+                            @foreach ($pdpAltLinks as $alt)
+                                <a href="{{ $alt['href'] }}"
+                                    class="inline-flex items-center rounded-full border border-border-subtle px-4 py-1.5
+                                        text-meta font-semibold text-text-gold no-underline transition-colors
+                                        hover:border-text-gold hover:bg-ink-50">
+                                    {{ $pdpSwitchLabels[$alt['hreflang']] ?? $alt['hreflang'] }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
 
                 @if ($product->verifiedFreeFromAttributes->isNotEmpty())
