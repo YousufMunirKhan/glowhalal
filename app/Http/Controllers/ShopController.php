@@ -44,15 +44,20 @@ class ShopController extends Controller
         $page = max(1, (int) $request->query('page', 1));
         $isFiltered = $sort !== null;
 
+        // "Shop all products" targeted no query anyone types; the head term for
+        // this page is the category itself. "Everything we make" and "will not
+        // formulate with" were both manufacturer claims — Glow Halal resells,
+        // it does not formulate — so they are replaced with the stocking
+        // language the footer and /about already use.
         $title = $category
             ? "Halal {$category->name} in Pakistan"
-            : 'Shop all products';
+            : 'Herbal Oils & Halal Personal Care in Pakistan';
 
-        $heading = $category ? $category->name : 'Everything we make';
+        $heading = $category ? $category->name : 'Halal Herbal Oils & Personal Care';
 
         $intro = $category
             ? ($category->description ?: null)
-            : 'Every product below publishes its full INCI ingredient list and the list of ingredients we will not formulate with. Cash on Delivery nationwide.';
+            : 'Every product below publishes its full INCI ingredient list and the list of ingredients we will not stock. Cash on Delivery nationwide.';
 
         // Category intro copy renders on page 1 only (seo.md §2.3) — repeating
         // it on every page of a paginated set is duplicate content.

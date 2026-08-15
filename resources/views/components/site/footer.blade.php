@@ -30,6 +30,18 @@
     // Settings-only — never a fake fallback number.
     $whatsappHref = ($store ?? null)?->whatsappLink('Hi, I have a question about Glow Halal')
         ?? ($company['whatsapp'] ?? null);
+
+    // Same Admin → Store rows that feed `sameAs` in the Organization schema, so
+    // a profile the search engines are told about is always one a visitor can
+    // actually click. socialLinks() returns only the ones that are set, so an
+    // unset channel (youtube today) simply does not render.
+    //
+    // WhatsApp is dropped here even though socialLinks() includes it: it already
+    // renders as a labelled link directly above, and a second icon pointing at
+    // the same wa.me URL is noise, not reach.
+    $socials = collect(($store ?? null)?->socialLinks() ?? [])
+        ->except('whatsapp')
+        ->all();
 @endphp
 
 <footer data-surface="dark" class="bg-luxe-black text-text-secondary">
@@ -59,6 +71,25 @@
                         </a>
                     @endif
                 </div>
+
+                @if (filled($socials))
+                    {{-- Icon-only, so each link carries its own aria-label. rel
+                         includes "me" — the microformats convention that marks a
+                         profile as the same entity, and the visible counterpart
+                         to sameAs in the Organization schema. --}}
+                    <ul class="mt-5 flex items-center gap-4" aria-label="Glow Halal on social media">
+                        @foreach ($socials as $network => $href)
+                            <li>
+                                <a href="{{ $href }}"
+                                    target="_blank" rel="me noopener"
+                                    aria-label="Glow Halal on {{ ucfirst($network) }}"
+                                    class="inline-flex text-text-secondary transition-colors hover:text-soft-gold">
+                                    <x-ui.icon :name="$network" :size="20" />
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </div>
 
             {{-- Shop --}}
