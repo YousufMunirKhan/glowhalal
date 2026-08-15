@@ -18,11 +18,13 @@ use Illuminate\Database\Seeder;
  * order row, so NO "Verified purchase" badge is shown — which is the honest
  * state.
  *
- * ⚠️ NOTE FOR THE OWNER: several reviews describe burn marks fading. They are
- * real customer experiences, but they read as strong efficacy claims. Google
- * Merchant Center / Meta Commerce can treat health claims on the landing page
- * as misrepresentation and suspend the catalog. If that becomes a problem,
- * reviews can be edited/hidden in Admin → Reviews without touching this file.
+ * ⚠️ RESOLVED 15 Aug 2026: the four reviews describing burn marks and scars
+ * fading are now seeded as `rejected` (unpublished). They are real customer
+ * experiences, but they read as strong efficacy claims, and Google Merchant
+ * Center / Meta Commerce can treat health claims on the landing page as
+ * misrepresentation and suspend the catalog. Only the one claim-free review
+ * stays `approved`, so `aggregateRating` is built from that alone. The owner
+ * can re-approve any of them in Admin → Reviews; doing so re-exposes the claim.
  *
  * Idempotent — keyed on (product_id, author_name); re-running updates in place.
  */
@@ -38,23 +40,32 @@ class OwnerReviewSeeder extends Seeder
             return;
         }
 
-        // author, rating, title, body — customers' own words (Roman Urdu).
+        // author, rating, title, body, status — customers' own words (Roman Urdu).
+        //
+        // The four `rejected` rows are kept here verbatim ON PURPOSE: they are
+        // real messages and deleting them would lose the record. They stay
+        // unpublished because they describe burn marks and scars fading, which
+        // reads as a medical efficacy claim on a product page that feeds
+        // Merchant Center and Meta Commerce (owner's decision, 15 Aug 2026 —
+        // see migration 2026_08_15_000100_hide_efficacy_claim_reviews).
+        // Seeding them as `approved` here would silently undo that migration on
+        // the next `db:seed`.
         $reviews = [
-            ['Maira Yousuf', 5, 'Best oil', 'Bohat acha oil hai, best. Zaroor recommend karti hoon.'],
-            ['Owais',        5, 'Daag chala gaya', 'Daag chala gaya — bohat acha oil hai.'],
-            ['Yousuf',       5, 'Jaldi farak para', 'Bohat jaldi farak para, jalne ke daag chale gaye.'],
-            ['Rais',         4, 'Bache ke pair ka daag gaya', 'Mere bache ke pair par jo daag tha, aik mahine mein chala gaya.'],
-            ['Bilal',        5, 'Nishan chala gaya', 'Meri wife ke haath par jalne ka nishan aik mahine mein chala gaya.'],
+            ['Maira Yousuf', 5, 'Best oil', 'Bohat acha oil hai, best. Zaroor recommend karti hoon.', 'approved'],
+            ['Owais',        5, 'Daag chala gaya', 'Daag chala gaya — bohat acha oil hai.', 'rejected'],
+            ['Yousuf',       5, 'Jaldi farak para', 'Bohat jaldi farak para, jalne ke daag chale gaye.', 'rejected'],
+            ['Rais',         4, 'Bache ke pair ka daag gaya', 'Mere bache ke pair par jo daag tha, aik mahine mein chala gaya.', 'rejected'],
+            ['Bilal',        5, 'Nishan chala gaya', 'Meri wife ke haath par jalne ka nishan aik mahine mein chala gaya.', 'rejected'],
         ];
 
-        foreach ($reviews as [$name, $rating, $title, $body]) {
+        foreach ($reviews as [$name, $rating, $title, $body, $status]) {
             ProductReview::updateOrCreate(
                 ['product_id' => $product->id, 'author_name' => $name],
                 [
                     'rating' => $rating,
                     'title' => $title,
                     'body' => $body,
-                    'status' => 'approved',
+                    'status' => $status,
                     'user_id' => null,
                     'order_id' => null,   // not order-linked => no "Verified purchase" badge
                 ],

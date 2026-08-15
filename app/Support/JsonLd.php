@@ -17,10 +17,18 @@ use Illuminate\Support\Arr;
  * TWO HARD RULES, both of which have already been broken once on this project.
  * ---------------------------------------------------------------------------
  *
- * 1. NO `aggregateRating`, and no `review`, anywhere. There are no customer
- *    reviews. Emitting a rating without visible reviews is a structured-data
- *    guidelines violation and a manual-action risk (SEO §4.7). There is
- *    deliberately no method on this class that can produce one.
+ * 1. NO `aggregateRating`, and no `review`, from THIS class — it has no method
+ *    that can produce one, and that is deliberate. A rating emitted without
+ *    correspondingly visible reviews is a structured-data guidelines violation
+ *    and a manual-action risk (SEO §4.7).
+ *
+ *    Updated 15 Aug 2026: real owner-collected reviews now exist, so the
+ *    product node in `Seo\SchemaGraph::product()` DOES emit `aggregateRating`
+ *    — but only from reviews with status `approved`, which are exactly the
+ *    ones rendered on the page, so the rule above still holds. Note that
+ *    approving a review is therefore a structured-data change, not just a
+ *    content one: see 2026_08_15_000100_hide_efficacy_claim_reviews for why
+ *    four genuine reviews are deliberately unpublished.
  *
  * 2. NO third-party halal approval of any kind — no certifier name, no
  *    `hasCertification`, no standard number, no seal, no issuing body. Glow
@@ -94,7 +102,11 @@ final class JsonLd
             '@id' => self::id('/#organization'),
             'name' => 'Glow Halal',
             'url' => self::siteUrl(),
-            'description' => 'Glow Halal is a Pakistani cosmetics brand that publishes the full INCI list for every product it sells, and the full list of the ingredients it will not formulate with.',
+            // "will not formulate with" was a manufacturer claim in the one node
+            // an answer engine is most likely to quote as the definition of this
+            // business. Glow Halal resells; it stocks and refuses to stock. Same
+            // correction as ShopController and the footer.
+            'description' => 'Glow Halal is a Pakistani halal beauty store that publishes the full INCI list for every product it sells, and the full list of the ingredients it will not stock.',
             'areaServed' => ['@type' => 'Country', 'name' => 'Pakistan'],
             'currenciesAccepted' => 'PKR',
             'email' => $store->contact_email,
