@@ -73,6 +73,18 @@ return [
             'replace_placeholders' => true,
         ],
 
+        // AI-crawler telemetry (see App\Http\Middleware\LogAiCrawlerVisits).
+        // Its own file so bot hits are grep-able without wading through app
+        // logs, and 60 days so month-over-month crawl trends are comparable —
+        // AEO impact shows up on that timescale, not day to day.
+        'ai_crawlers' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/ai-crawlers.log'),
+            'level' => 'info',
+            'days' => 60,
+            'replace_placeholders' => true,
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

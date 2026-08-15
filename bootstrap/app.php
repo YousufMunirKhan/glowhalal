@@ -22,6 +22,12 @@ return Application::configure(basePath: dirname(__DIR__))
         // must be exempt from Laravel's cookie encryption or request()->cookie()
         // can't read it — which would keep Google Analytics from ever loading.
         $middleware->encryptCookies(except: ['cookie_consent']);
+
+        // GLOBAL for the same reason as the redirect middleware: AI crawlers
+        // request plenty of URLs that never enter the web group (llms.txt,
+        // sitemap.xml, feeds, legacy 404s), and those hits are exactly the
+        // evidence this log exists to capture. One preg_match per request.
+        $middleware->append(\App\Http\Middleware\LogAiCrawlerVisits::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
