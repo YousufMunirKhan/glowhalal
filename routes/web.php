@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 |                     keys: slug, name, volume, descriptor, price (int, PKR),
 |                           ingredient_count, free_from[], image, image_alt
 |   $neverUse      -> Exclusion::forHomepage()->take(6)  (full list is 8)
-|   $inDevelopment -> Product::inDevelopment()
-|   $journal       -> Post::published()->latest()->take(2)
+|   $journal       -> Post::published()->forLocale('en')->latest()->take(6)
+|   $journalUr     -> Post::published()->forLocale('ur-Latn')->latest()->take(3)
 |   $company       -> config('company') or a Settings singleton
 |   $founder       -> Settings / About page content
 |
@@ -127,71 +127,67 @@ Route::get('/', function () {
         ],
     ];
 
-    $inDevelopment = [
-        [
-            'slug' => 'hydrating-serum',
-            'name' => 'Hydrating Serum',
-            'description' => 'A lightweight hyaluronic serum for Lahore summers, formulated without denatured alcohol.',
-            'target' => 'November 2026',
-            'stage' => 'Ingredient sourcing',
-            'stage_tone' => 'info',
-        ],
-        [
-            'slug' => 'mineral-sunscreen-spf40',
-            'name' => 'Mineral Sunscreen SPF 40',
-            'description' => 'Non-nano zinc oxide, no white cast on medium to deep skin tones.',
-            'target' => 'January 2027',
-            'stage' => 'Formulation complete',
-            'stage_tone' => 'success',
-        ],
-        [
-            'slug' => 'cream-blush',
-            'name' => 'Cream Blush',
-            'description' => 'Three shades, pigmented with iron oxides — never carmine.',
-            'target' => 'March 2027',
-            'stage' => 'Formulation complete',
-            'stage_tone' => 'success',
-        ],
-    ];
+    // NOTE: a hardcoded "$inDevelopment" roadmap (Hydrating Serum, Mineral
+    // Sunscreen, Cream Blush with 2026–27 dates) used to be assembled here and
+    // passed to the view. No template ever rendered it — verified against the
+    // live HTML — and it described products that are not in the actual
+    // expansion plan (docs/keyword-research-aug2026.md: sidr soap, shilajit,
+    // ashwagandha, hair oil, face cream) with formulation-stage claims a
+    // reseller cannot make. Deleted rather than corrected: fictional dead data
+    // is a liability waiting for someone to render it.
 
-    $delivery = [
-        [
-            'title' => 'You order',
-            'body' => 'Six fields, no account required. Cash on Delivery is selected by default.',
-        ],
-        [
-            'title' => 'We confirm by SMS',
-            'body' => 'Within two hours on working days. The SMS states the exact amount to keep ready.',
-        ],
-        [
-            'title' => 'The courier arrives',
-            'body' => '2–3 working days in Lahore, Karachi and Islamabad. 3–5 elsewhere in Pakistan.',
-        ],
-    ];
+    // NOTE: a "$delivery" how-it-works array also used to live here claiming
+    // "2–3 working days in Lahore, Karachi and Islamabad. 3–5 elsewhere" —
+    // contradicting the PDP copy and the Offer schema (2–4 / 4–7). Like the
+    // roadmap above, no template ever rendered it (verified live), so it is
+    // deleted rather than corrected. If a delivery-steps section is ever added
+    // to the homepage, its timings must quote the PDP/schema truth: 2–4
+    // working days to the big five cities, 4–7 elsewhere.
 
     // REAL posts from the database. The previous hardcoded array advertised two
     // articles that were never written; both links 404'd from the homepage.
     // With no posts published this is simply empty and the section renders its
     // empty state — which is honest, and fixes itself the moment the owner
     // publishes a post in the admin.
+    //
+    // WHY SIX + THREE, NOT TWO: the homepage is the most-crawled URL on the
+    // site and this band is the documented discovery path for new posts
+    // (seo-aeo-status-report §5). take(2) meant 13 of 15 live posts — including
+    // every Roman-Urdu one — had no homepage link at all, which slows their
+    // indexation for no reason. Six English cards plus a three-link Roman-Urdu
+    // strip keeps the section compact while giving BOTH locales a crawl path;
+    // Roman Urdu carries most of the modelled search opportunity
+    // (docs/seo-growth-to-10k-aug2026.md §5.2), so hiding it from the homepage
+    // was hiding the growth plan from Google.
+    $mapJournalPost = fn ($post) => [
+        'slug' => $post->slug,
+        'title' => $post->title,
+        'excerpt' => $post->excerpt ?? '',
+        'date' => $post->published_at?->format('j F Y') ?? '',
+        'date_iso' => $post->published_at?->toDateString() ?? '',
+        'read_time' => $post->reading_time_minutes
+            ? $post->reading_time_minutes.' min read'
+            : '',
+    ];
+
     $journal = \App\Models\BlogPost::query()
         ->published()
-        // English homepage shows English posts only — the Roman-Urdu mirror
-        // lives under /ur-roman and must never leak into this list.
+        // English cards link to /blog/{slug}; the Roman-Urdu mirror renders in
+        // its own strip below and must never leak into this list.
         ->forLocale('en')
         ->orderByDesc('published_at')
-        ->take(2)
+        ->take(6)
         ->get()
-        ->map(fn ($post) => [
-            'slug' => $post->slug,
-            'title' => $post->title,
-            'excerpt' => $post->excerpt ?? '',
-            'date' => $post->published_at?->format('j F Y') ?? '',
-            'date_iso' => $post->published_at?->toDateString() ?? '',
-            'read_time' => $post->reading_time_minutes
-                ? $post->reading_time_minutes.' min read'
-                : '',
-        ])
+        ->map($mapJournalPost)
+        ->all();
+
+    $journalUr = \App\Models\BlogPost::query()
+        ->published()
+        ->forLocale('ur-Latn')
+        ->orderByDesc('published_at')
+        ->take(3)
+        ->get()
+        ->map($mapJournalPost)
         ->all();
 
     // Contact details only, from Store settings (single source of truth).
@@ -223,12 +219,10 @@ Route::get('/', function () {
         'products' => $products,
         'neverUse' => $neverUse,
         'neverUseTotal' => 8,
-        'inDevelopment' => $inDevelopment,
-        'delivery' => $delivery,
         'journal' => $journal,
+        'journalUr' => $journalUr,
         'company' => $company,
         'founder' => $founder,
-        'launchMonth' => 'June 2026',
         'meta' => $meta,
     ]);
 })->name('home');
@@ -266,6 +260,9 @@ Route::permanentRedirect('/product/{slug}', '/products/{slug}');
 
 Route::get('/cart', \App\Http\Controllers\CartController::class)->name('cart.index');
 Route::get('/checkout', \App\Http\Controllers\CheckoutController::class)->name('checkout.index');
+// The no-JS fallback for the checkout form. With JS on, Livewire intercepts
+// the submit and this route never fires (see CheckoutController::store).
+Route::post('/checkout', [\App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/order/{token}', \App\Http\Controllers\OrderConfirmationController::class)->name('orders.confirmation');
 
 // Architecture §6.8 — one webhook route, forever. Adding Easypaisa means a

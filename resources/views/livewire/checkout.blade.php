@@ -59,14 +59,34 @@
         </div>
     @endif
 
-    <form wire:submit="placeOrder" class="mt-10 grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-16">
+    {{-- action/method are the no-JS fallback: with JavaScript running,
+         Livewire's wire:submit prevents the native submit and placeOrder()
+         handles everything; without it, the browser posts these fields to
+         CheckoutController::store, which runs the same PlaceOrderAction.
+         That is also why every input carries a name attribute — a native post
+         transmits nothing without them. --}}
+    <form wire:submit="placeOrder" method="POST" action="{{ route('checkout.store') }}"
+        class="mt-10 grid gap-12 lg:grid-cols-[1fr_22rem] lg:gap-16">
+        @csrf
+        <input type="hidden" name="direct" value="{{ $direct ? 1 : 0 }}">
+
+        @if ($errors->has('checkout'))
+            <div class="rounded-sm border border-danger-700/40 bg-danger-700/5 p-4 text-body text-danger-700 lg:col-span-2">
+                <ul class="grid list-disc gap-1 ps-5">
+                    @foreach ($errors->get('checkout') as $problem)
+                        <li>{{ $problem }}</li>
+                    @endforeach
+                </ul>
+                <p class="mt-2 text-meta">Check the summary, then place the order again.</p>
+            </div>
+        @endif
 
         {{-- The six fields ------------------------------------------------- --}}
         <div class="grid gap-6 max-w-[var(--container-form)]">
 
             <div>
                 <label for="customerName" class="block text-meta font-semibold text-text-primary">Full name</label>
-                <input id="customerName" type="text" wire:model.blur="customerName"
+                <input id="customerName" name="customerName" type="text" value="{{ old('customerName') }}" wire:model.blur="customerName"
                     autocomplete="name" required
                     class="mt-2 h-12 w-full rounded-sm border border-border-strong bg-surface px-3 text-body text-text-primary">
                 @error('customerName') <p class="mt-1 text-meta text-danger-700">{{ $message }}</p> @enderror
@@ -74,7 +94,7 @@
 
             <div>
                 <label for="phone" class="block text-meta font-semibold text-text-primary">Mobile number</label>
-                <input id="phone" type="tel" wire:model.blur="phone"
+                <input id="phone" name="phone" type="tel" value="{{ old('phone') }}" wire:model.blur="phone"
                     autocomplete="tel" inputmode="tel" placeholder="0300 1234567" required
                     class="mt-2 h-12 w-full rounded-sm border border-border-strong bg-surface px-3 text-body tabular-nums text-text-primary">
                 <p class="mt-1 text-meta text-text-muted">We confirm every order by SMS before dispatch.</p>
@@ -83,7 +103,7 @@
 
             <div>
                 <label for="email" class="block text-meta font-semibold text-text-primary">Email <span class="font-normal text-text-muted">(optional — for a receipt)</span></label>
-                <input id="email" type="email" wire:model.blur="email"
+                <input id="email" name="email" type="email" value="{{ old('email') }}" wire:model.blur="email"
                     autocomplete="email" inputmode="email"
                     class="mt-2 h-12 w-full rounded-sm border border-border-strong bg-surface px-3 text-body text-text-primary">
                 <p class="mt-1 text-meta text-text-muted">We confirm your order by SMS. Add an email only if you'd like a receipt — no marketing unless you ask.</p>
@@ -92,10 +112,10 @@
 
             <div>
                 <label for="addressLine1" class="block text-meta font-semibold text-text-primary">Delivery address</label>
-                <textarea id="addressLine1" wire:model.blur="addressLine1" rows="3"
+                <textarea id="addressLine1" name="addressLine1" wire:model.blur="addressLine1" rows="3"
                     autocomplete="street-address" required
                     placeholder="House or shop number, street, area"
-                    class="mt-2 w-full rounded-sm border border-border-strong bg-surface p-3 text-body text-text-primary"></textarea>
+                    class="mt-2 w-full rounded-sm border border-border-strong bg-surface p-3 text-body text-text-primary">{{ old('addressLine1') }}</textarea>
                 @error('addressLine1') <p class="mt-1 text-meta text-danger-700">{{ $message }}</p> @enderror
             </div>
 
@@ -103,11 +123,11 @@
             <div class="grid gap-6 sm:grid-cols-2">
                 <div>
                     <label for="province" class="block text-meta font-semibold text-text-primary">Province</label>
-                    <select id="province" wire:model.live="province" required
+                    <select id="province" name="province" wire:model.live="province" required
                         class="mt-2 h-12 w-full rounded-sm border border-border-strong bg-surface px-3 text-body text-text-primary">
                         <option value="">Choose…</option>
                         @foreach ($this->provinces() as $value => $label)
-                            <option value="{{ $value }}">{{ $label }}</option>
+                            <option value="{{ $value }}" @selected(old('province') === $value)>{{ $label }}</option>
                         @endforeach
                     </select>
                     @error('province') <p class="mt-1 text-meta text-danger-700">{{ $message }}</p> @enderror
@@ -115,7 +135,7 @@
 
                 <div>
                     <label for="city" class="block text-meta font-semibold text-text-primary">City</label>
-                    <input id="city" type="text" wire:model.live.blur="city" list="gh-cities"
+                    <input id="city" name="city" type="text" value="{{ old('city') }}" wire:model.live.blur="city" list="gh-cities"
                         autocomplete="address-level2" required
                         class="mt-2 h-12 w-full rounded-sm border border-border-strong bg-surface px-3 text-body text-text-primary">
                     <datalist id="gh-cities">
@@ -161,9 +181,9 @@
                 </button>
 
                 <div wire:show="showNote" class="mt-3">
-                    <textarea wire:model.blur="customerNote" rows="2"
+                    <textarea name="customerNote" wire:model.blur="customerNote" rows="2"
                         placeholder="Landmark, best time to deliver, anything else"
-                        class="w-full rounded-sm border border-border-strong bg-surface p-3 text-body text-text-primary"></textarea>
+                        class="w-full rounded-sm border border-border-strong bg-surface p-3 text-body text-text-primary">{{ old('customerNote') }}</textarea>
                 </div>
             </div>
         </div>
