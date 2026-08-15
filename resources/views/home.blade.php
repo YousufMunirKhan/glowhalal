@@ -280,9 +280,10 @@
     {{-- ── Latest from the Journal ─────────────────────────────────────────
          Not just content marketing: Google crawls the homepage more often than
          any other page, so linking each new post here gets it DISCOVERED the
-         same day it goes live — no manual "Request Indexing" needed. The
-         $journal list is the two newest published English posts and updates
-         itself the morning a scheduled post drips out. --}}
+         same day it goes live — no manual "Request Indexing" needed. Six
+         English cards plus a Roman-Urdu strip, so BOTH locales get a homepage
+         crawl path; each updates itself the morning a scheduled post drips
+         out. --}}
     @if (!empty($journal))
         <section aria-labelledby="journal-heading" class="section-y bg-cream">
             <div class="container-page">
@@ -299,7 +300,7 @@
                     </a>
                 </div>
 
-                <ul class="mt-8 grid gap-6 md:grid-cols-2">
+                <ul class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     @foreach ($journal as $post)
                         <li>
                             <article class="relative h-full rounded-lg border border-luxe-border bg-ivory p-6
@@ -326,6 +327,44 @@
                         </li>
                     @endforeach
                 </ul>
+
+                {{-- Roman-Urdu guides. This strip is the ONLY homepage link
+                     into /ur-roman — without it no Roman-Urdu post has a
+                     homepage crawl path at all, and that locale carries most of
+                     the search opportunity. lang="ur-Latn" because the titles
+                     are Roman Urdu (Latin script, LTR). --}}
+                @if (!empty($journalUr))
+                    <div class="mt-10 border-t border-luxe-border pt-8" lang="ur-Latn">
+                        <div class="flex flex-wrap items-end justify-between gap-4">
+                            <h3 class="font-display text-title tracking-display text-charcoal">
+                                Roman Urdu guides
+                            </h3>
+                            <a href="/ur-roman/blog"
+                                class="text-body font-semibold text-charcoal underline decoration-champagne decoration-1 underline-offset-[3px] hover:decoration-2">
+                                Tamam Roman Urdu guides
+                            </a>
+                        </div>
+
+                        <ul class="mt-6 grid gap-4 md:grid-cols-3">
+                            @foreach ($journalUr as $post)
+                                <li>
+                                    <article class="relative h-full rounded-lg border border-luxe-border bg-ivory p-5
+                                            transition-[border-color,box-shadow] duration-[var(--motion-fast)] ease-standard
+                                            hover:border-champagne hover:shadow-md">
+                                        @if (!empty($post['date_iso']))
+                                            <time datetime="{{ $post['date_iso'] }}" class="text-meta text-muted-warm">{{ $post['date'] }}</time>
+                                        @endif
+                                        <h4 class="mt-2 font-display text-title-sm tracking-display text-charcoal">
+                                            <a href="/ur-roman/blog/{{ $post['slug'] }}"
+                                                class="no-underline after:absolute after:inset-0 after:content-[''] hover:underline
+                                                    hover:decoration-champagne hover:underline-offset-[3px]">{{ $post['title'] }}</a>
+                                        </h4>
+                                    </article>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </section>
     @endif
