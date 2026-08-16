@@ -7,9 +7,31 @@
 </IfModule>
 
 # Dynamic HTML is never cached by the CDN/browser; css/js/images/fonts are.
+#
+# The previous form of this block used `SetEnvIf Request_URI … GLOW_ASSET` with
+# `Header set … env=!GLOW_ASSET`. Under LiteSpeed the env flag never took, so
+# the no-cache header landed on EVERYTHING — verified in production: fonts,
+# /build/assets/*.css and product JPEGs were all served
+# `no-cache, private, must-revalidate`, i.e. re-downloaded on every page view.
+# On the mobile connections this store actually runs on that is a real cost.
+#
+# FilesMatch does not depend on env propagation: the blanket no-cache applies,
+# then the more specific block overrides it for static files.
 <IfModule mod_headers.c>
-    SetEnvIf Request_URI "\.(css|js|mjs|jpg|jpeg|png|webp|svg|woff2?|ttf|ico|gif|map|txt|xml)$" GLOW_ASSET
-    Header set Cache-Control "no-cache, private, must-revalidate" env=!GLOW_ASSET
+    Header set Cache-Control "no-cache, private, must-revalidate"
+
+    # Fingerprinted build output and fonts: safe to cache forever. Vite renames
+    # on every content change, and a font file is replaced under a new name.
+    <FilesMatch "\.(css|js|mjs|map|woff2?|ttf)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+
+    # Uploaded media keeps its filename when the owner swaps a photo, so it gets
+    # a long-but-finite TTL instead of `immutable` — a replaced product image
+    # must not be stuck in caches for a year.
+    <FilesMatch "\.(jpg|jpeg|png|webp|svg|gif|ico)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
 </IfModule>
 
 <IfModule mod_rewrite.c>
