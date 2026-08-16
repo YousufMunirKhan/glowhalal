@@ -40,6 +40,41 @@ Schedule::command('blog:generate-images')
     ->dailyAt('01:05')
     ->timezone('Asia/Karachi');
 
+// Legacy-equity handover: the three old WordPress blog URLs 301 to the generic
+// /blog until their recreated posts exist. This repoints each redirect at its
+// recreated post THE NIGHT THAT POST GOES LIVE — never earlier (a 301 into a
+// scheduled-but-unpublished slug would be a redirect to a 404, which Google
+// treats as a dead end and drops the old URL's equity). Idempotent: once all
+// three point at their posts, every later run is a no-op.
+Artisan::command('blog:repoint-legacy-redirects', function () {
+    $map = [
+        '/embrace-natural-care-the-benefits-of-neem-soap' => 'neem-soap-benefits-skin',
+        '/the-hidden-dangers-of-market-soaps-understanding-the-causes-of-pimples-in-pakistan' => 'pimples-in-pakistan-heat-humidity',
+        '/the-hidden-dangers-of-store-bought-soaps-for-your-skin' => 'whats-really-in-your-bar-soap',
+    ];
+
+    foreach ($map as $from => $slug) {
+        $live = \App\Models\BlogPost::query()->published()->where('slug', $slug)->exists();
+
+        if (! $live) {
+            continue;
+        }
+
+        $updated = \Illuminate\Support\Facades\DB::table('redirects')
+            ->where('from_path', $from)
+            ->where('to_path', '!=', '/blog/'.$slug)
+            ->update(['to_path' => '/blog/'.$slug, 'updated_at' => now()]);
+
+        if ($updated) {
+            $this->info("Repointed {$from} -> /blog/{$slug}");
+        }
+    }
+})->purpose('Point legacy WordPress 301s at their recreated posts once live');
+
+Schedule::command('blog:repoint-legacy-redirects')
+    ->dailyAt('01:15')
+    ->timezone('Asia/Karachi');
+
 // AEO: keep Bing (and Copilot/ChatGPT search, which ride its index) fresh on
 // every public URL — daily now that a post goes live every night at 01:00.
 Schedule::command('indexnow:ping')
