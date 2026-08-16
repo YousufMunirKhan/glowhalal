@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Cart;
 
+use App\Livewire\Concerns\BuildsWhatsAppOrder;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Services\Cart\CartCalculator;
@@ -22,6 +23,8 @@ use Livewire\Component;
  */
 class Page extends Component
 {
+    use BuildsWhatsAppOrder;
+
     /** @var array<int, int> Keyed by cart item id. */
     public array $quantities = [];
 

@@ -191,6 +191,19 @@
                         <x-ui.button href="{{ route('checkout.index') }}" size="lg" width="full">
                             Checkout
                         </x-ui.button>
+
+                        {{-- The channel every real customer so far has actually
+                             ordered on. Renders only when the owner has set a
+                             WhatsApp number; the basket and total are prefilled
+                             so nobody retypes anything. --}}
+                        @php($waOrder = $this->whatsappOrderHref($this->cart, $totals->grandTotal->format()))
+                        @if ($waOrder)
+                            <x-ui.button :href="$waOrder" variant="secondary" width="full" external
+                                data-gh-wa-loc="cart">
+                                Order on WhatsApp instead
+                            </x-ui.button>
+                        @endif
+
                         <x-ui.button href="{{ route('shop.index') }}" variant="secondary" width="full">
                             Keep shopping
                         </x-ui.button>

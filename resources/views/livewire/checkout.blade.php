@@ -256,8 +256,32 @@
                     <span wire:loading wire:target="placeOrder">Placing your order…</span>
                 </button>
 
+                {{-- WhatsApp fallback at the point of maximum hesitation. A
+                     first-time COD buyer facing a six-field address form for an
+                     unknown brand is exactly who abandons; this hands them the
+                     channel every real customer so far actually used, with the
+                     basket and total already filled in. --}}
+                @php($waOrder = $this->whatsappOrderHref($this->cart, $this->totals->grandTotal->format()))
+                @if ($waOrder)
+                    <div class="mt-6 border-t border-border-subtle pt-6">
+                        <p class="text-center text-meta text-text-secondary">Prefer to order in a chat?</p>
+                        <a href="{{ $waOrder }}" target="_blank" rel="noopener"
+                            data-gh-wa-loc="checkout"
+                            class="mt-3 inline-flex min-h-12 w-full items-center justify-center rounded-sm border
+                                border-border-strong px-6 text-body font-semibold text-text-primary no-underline
+                                transition-[background-color] duration-[var(--motion-fast)] ease-standard
+                                hover:bg-surface-sunken">
+                            Order on WhatsApp instead
+                        </a>
+                    </div>
+                @endif
+
                 <p class="mt-4 text-center text-meta text-text-secondary">
-                    <a href="{{ route('cart.index') }}" class="underline decoration-1 underline-offset-4">Back to bag</a>
+                    {{-- Buy Now skips the cart, so "Back to bag" sent those
+                         shoppers to an empty bag — a dead end at the last step.
+                         A direct checkout goes back to the shop instead. --}}
+                    <a href="{{ $direct ? route('shop.index') : route('cart.index') }}"
+                        class="underline decoration-1 underline-offset-4">{{ $direct ? 'Back to shop' : 'Back to bag' }}</a>
                 </p>
             </div>
         </aside>

@@ -275,6 +275,43 @@
         </div>
     </section>
 
+    {{-- ── What we never use — the condensed table ─────────────────────────
+         This is the site's only substantive trust proof: Glow Halal holds no
+         halal accreditation, so the claim it CAN make is disclosure, and this
+         is it. $neverUse has been passed to this view since launch but no
+         template ever rendered <x-home.never-use-table>, so the component sat
+         orphaned and the proof lived only on /what-we-never-use — a page 6 of
+         25 homepage visitors reached. Six of the eight rows here, in the
+         initial HTML, with the full list one link away. --}}
+    @if (!empty($neverUse))
+        <section aria-labelledby="never-use-heading" class="section-y bg-cream">
+            <div class="container-page">
+                <div class="max-w-[var(--container-read)]">
+                    <x-ui.overline>Disclosure</x-ui.overline>
+                    <h2 id="never-use-heading" class="mt-3 font-display text-display-sm text-charcoal">
+                        What we never use
+                    </h2>
+                    <p class="mt-4 text-lead text-muted-warm">
+                        We hold no halal certificate, so we do not claim one. What we can do is
+                        publish exactly what we will not formulate with — and the names those
+                        ingredients hide behind on a label.
+                    </p>
+                </div>
+
+                <div class="mt-8 overflow-x-auto">
+                    <x-home.never-use-table :rows="$neverUse" :total="$neverUseTotal" />
+                </div>
+
+                <p class="mt-6">
+                    <a href="/what-we-never-use"
+                        class="text-body font-semibold text-charcoal underline decoration-1 underline-offset-[3px] hover:decoration-2">
+                        See all {{ $neverUseTotal }} ingredients we never use
+                    </a>
+                </p>
+            </div>
+        </section>
+    @endif
+
     {{-- Trust rail row 2 — the black service bar. Ivory text, champagne icons;
          both PASS AAA on luxe-black. --}}
     {{-- ── Latest from the Journal ─────────────────────────────────────────

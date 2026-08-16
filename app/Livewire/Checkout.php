@@ -7,6 +7,7 @@ use App\Contracts\Payments\PaymentContext;
 use App\Contracts\Payments\PaymentDriver;
 use App\Enums\PakistanProvince;
 use App\Http\Controllers\CheckoutController;
+use App\Livewire\Concerns\BuildsWhatsAppOrder;
 use App\Models\Cart;
 use App\Services\Cart\CartCalculator;
 use App\Services\Cart\CartManager;
@@ -17,7 +18,9 @@ use App\Services\Orders\CheckoutData;
 use App\Services\Orders\CheckoutProblem;
 use App\Services\Orders\CheckoutValidationException;
 use App\Services\Orders\EmptyCartException;
+use App\Services\Orders\PlaceOrderAction;
 use App\Services\Payments\PaymentManager;
+use Illuminate\Validation\Rules\Enum;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -37,6 +40,8 @@ use Livewire\Component;
  */
 class Checkout extends Component
 {
+    use BuildsWhatsAppOrder;
+
     #[Locked]
     public bool $direct = false;
 
@@ -244,7 +249,7 @@ class Checkout extends Component
             'email' => ['nullable', 'email:rfc', 'max:180'],
             'addressLine1' => ['required', 'string', 'min:10', 'max:255'],
             'city' => ['required', 'string', 'max:120'],
-            'province' => ['required', new \Illuminate\Validation\Rules\Enum(PakistanProvince::class)],
+            'province' => ['required', new Enum(PakistanProvince::class)],
             'paymentMethod' => ['required', 'string'],
         ];
     }
@@ -280,7 +285,7 @@ class Checkout extends Component
         }
 
         try {
-            $order = app(\App\Services\Orders\PlaceOrderAction::class)->execute($cart, new CheckoutData(
+            $order = app(PlaceOrderAction::class)->execute($cart, new CheckoutData(
                 customerName: $data['customerName'],
                 phone: $this->normalisePhone($data['phone']),
                 // Blank email becomes null so nothing downstream stores '' as an
