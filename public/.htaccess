@@ -1,4 +1,16 @@
 # ── Production (Hostinger/LiteSpeed) rules ──────────────────────────────────
+#
+# ⚠️  DO NOT `cp` THIS FILE OVER ~/domains/glowhalal.com/public_html/.htaccess
+#
+# The webroot copy carries a line this file deliberately does not:
+#     AddHandler application/x-httpd-alt-php84___lsphp .php
+# It forces PHP 8.4 (the hosting panel default is 8.2, which Laravel refuses to
+# boot on). Overwriting the webroot file drops that line and every page 500s
+# immediately — this happened on 16 Aug 2026.
+#
+# To ship a change from here: edit the webroot file in place, or copy it and
+# re-prepend the handler line, then curl the homepage to confirm 200.
+#
 # Origin full-page cache OFF: this is a dynamic COD store — one shopper's cart
 # must never be served to another. Static assets stay cacheable below.
 <IfModule LiteSpeed>
