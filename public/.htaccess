@@ -68,10 +68,17 @@
     RewriteCond %{HTTP:x-xsrf-token} .
     RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
 
-    # Redirect Trailing Slashes If Not A Folder...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    # Trailing slashes are handled by LegacyRedirectMiddleware, NOT here.
+    #
+    # The stock Laravel slash rule used to live at this spot, and it ran before
+    # PHP — so every slashed legacy URL (e.g. /product/x/feed/, and old
+    # WordPress backlinks are usually written WITH the slash) burned hop #1 on
+    # de-slashing and only reached the redirect table on hop #2. The middleware
+    # already looks the redirect up on the slash-trimmed path and de-slashes
+    # ordinary pages itself, so with the rule gone a slashed legacy URL 301s
+    # ONCE, straight to its final target — the one-hop guarantee the migration
+    # promised. The webserver rule also redirected POSTs (turning them into
+    # GETs); the middleware only ever touches GET/HEAD.
 
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
