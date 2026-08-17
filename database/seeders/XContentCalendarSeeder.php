@@ -61,7 +61,14 @@ class XContentCalendarSeeder extends Seeder
                     'caption_base' => $caption,
                     'cta_type' => $cta,
                     'compliance_checked' => true,
-                    'scheduled_at' => $start->copy()->addDays($day - 1)->setTime(20, 0)->utc(),
+                    // app.timezone IS Asia/Karachi (verified in prod tinker,
+                    // 18 Aug 2026) — do NOT convert to UTC here. Eloquent's
+                    // datetime cast renders a Carbon in the instance's own
+                    // timezone on save but re-parses the stored string in the
+                    // APP timezone on read, so a ->utc() here lands every post
+                    // five hours early. The create_social_posts migration's
+                    // "Stored UTC" comment is wrong.
+                    'scheduled_at' => $start->copy()->addDays($day - 1)->setTime(20, 0),
                 ],
             );
 
