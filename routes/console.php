@@ -14,6 +14,13 @@ Schedule::command('social:due-digest')
     ->dailyAt('08:00')
     ->timezone('Asia/Karachi');
 
+// Phase 2: approved + compliance-checked posts publish themselves on X the
+// moment their scheduled_at passes (other platforms stay manual — the digest
+// above covers them). Cheap no-op when no X keys are configured or nothing is
+// due; failures retry with an hourly cool-off inside the command.
+Schedule::command('social:publish-due')
+    ->everyFiveMinutes();
+
 // Inventory hygiene: hand back stock held by placed-but-never-confirmed orders
 // once their 7-day reservation window lapses, so quantity_available stops
 // drifting down on abandoned COD orders. Idempotent — safe to run daily.

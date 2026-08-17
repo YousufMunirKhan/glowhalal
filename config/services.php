@@ -50,6 +50,18 @@ return [
         'image_model' => env('GEMINI_IMAGE_MODEL', 'gemini-2.5-flash-image'),
     ],
 
+    // X (Twitter) API v2, OAuth 1.0a user context — publishes the brand's own
+    // posts to its own account, nothing else. All four values come ONLY from
+    // .env (never the DB, never this file): they are account credentials, and
+    // the repo is public-ish by policy. Empty values simply disable publishing
+    // — social:publish-due then leaves X targets for the manual flow.
+    'x' => [
+        'api_key' => env('X_API_KEY'),
+        'api_secret' => env('X_API_SECRET'),
+        'access_token' => env('X_ACCESS_TOKEN'),
+        'access_token_secret' => env('X_ACCESS_TOKEN_SECRET'),
+    ],
+
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID', '613174641872-q0sv3bbvkb6tgedgfkvfo58937rlh3hn.apps.googleusercontent.com'),
         // Secret is NEVER hard-coded — it comes from the production .env (and the
