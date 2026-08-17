@@ -20,7 +20,17 @@ use Symfony\Component\HttpFoundation\Response;
  * Order of resolution:
  *   1. redirects-table match (exact, on the normalised path) -> 301/302, or 410
  *      when status_code is 410 (WordPress cruft that should be marked Gone).
- *   2. trailing-slash canonical: any non-root path ending in "/" 301s to the
+ *   2. WordPress cruft-suffix retry: WP generated a whole family of URLs for
+ *      every page (/feed/, /comments/feed/, /embed/, /trackback/, /amp/), and
+ *      Google still probes them years later — GSC surfaced
+ *      /product/natural-glow-skincare-set/feed/ as a 404 on 17 Aug 2026 even
+ *      though the base URL has a redirect row. When the exact lookup misses,
+ *      the suffix is stripped and the table is retried; a hit 301s straight to
+ *      the BASE'S target, still one hop. The retry is table-only on purpose:
+ *      blanket-redirecting "/x/feed" to "/x" would permanently capture a
+ *      future real route ending in /feed (a blog RSS feed is planned), and
+ *      for junk URLs a direct 404 is more honest than a redirect into one.
+ *   3. trailing-slash canonical: any non-root path ending in "/" 301s to the
  *      slash-less form, preserving the query string.
  *
  * Redirect rows are managed in the Filament "Redirects" resource and seeded by
@@ -48,6 +58,24 @@ class LegacyRedirectMiddleware
                     ->where('is_active', true)
                     ->where('from_path', $lookup)
                     ->first();
+
+                // 2) WordPress cruft-suffix retry (see class docblock). Longest
+                //    alternatives first so "/comments/feed" wins over "/feed".
+                if (! $redirect) {
+                    $base = preg_replace(
+                        '#/(comments/feed|feed/(?:rss2?|atom|rdf)|feed|embed|trackback|amp)$#',
+                        '',
+                        $lookup,
+                        1,
+                    );
+
+                    if ($base !== $lookup && $base !== '' && $base !== null) {
+                        $redirect = Redirect::query()
+                            ->where('is_active', true)
+                            ->where('from_path', $base)
+                            ->first();
+                    }
+                }
             } catch (\Throwable $e) {
                 $redirect = null;
             }
@@ -71,7 +99,7 @@ class LegacyRedirectMiddleware
             }
         }
 
-        // 2) Trailing-slash canonical — one 301 to the slash-less form.
+        // 3) Trailing-slash canonical — one 301 to the slash-less form.
         if ($path !== '/' && str_ends_with($path, '/')) {
             $query = $request->getQueryString();
 

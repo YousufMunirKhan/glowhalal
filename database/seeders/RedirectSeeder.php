@@ -55,8 +55,13 @@ class RedirectSeeder extends Seeder
             ['/tag/natural-soaps',      '/blog'],
             ['/tag/store-bought-soaps', '/blog'],
 
-            // WordPress RSS feed — the blog index is the nearest live thing.
+            // WordPress RSS feeds — the blog index is the nearest live thing.
+            // Per-page feed variants (/product/x/feed/ etc.) don't need rows:
+            // LegacyRedirectMiddleware strips the cruft suffix and re-uses the
+            // base URL's row. /comments/feed is listed because its "base"
+            // (/comments) never existed as a page, so the retry can't help it.
             ['/feed', '/blog'],
+            ['/comments/feed', '/blog'],
 
             // Old sitemap names Google keeps probing after a migration:
             // wp-sitemap.xml is WordPress core, sitemap_index.xml is Yoast.
