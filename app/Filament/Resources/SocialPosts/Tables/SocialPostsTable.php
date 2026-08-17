@@ -27,6 +27,27 @@ class SocialPostsTable
                     ->weight('bold')
                     ->description(fn ($record) => str($record->caption_base ?? '')->limit(60)),
 
+                // One-tap copy for the manual flow: the full caption PLUS the
+                // hashtags column (when set) land in the clipboard together,
+                // ready to paste into the platform app. Calendar-seeded posts
+                // carry their tags inline in the caption, so nothing doubles.
+                TextColumn::make('copy_paste')
+                    ->label('Copy')
+                    ->state('Copy caption')
+                    ->badge()
+                    ->color('primary')
+                    ->icon(Heroicon::OutlinedClipboardDocument)
+                    ->copyable()
+                    ->copyableState(function ($record) {
+                        $tags = collect($record->hashtags ?? [])
+                            ->map(fn ($t) => str_starts_with($t, '#') ? $t : '#'.$t)
+                            ->implode(' ');
+
+                        return trim((string) $record->caption_base).($tags !== '' ? "\n\n".$tags : '');
+                    })
+                    ->copyMessage('Copied! Ab X app mein paste kar dein')
+                    ->copyMessageDuration(2000),
+
                 TextColumn::make('status')
                     ->badge()
                     ->sortable(),
