@@ -15,27 +15,24 @@ use Illuminate\Support\Carbon;
 /**
  * 30 days of X (Twitter) captions for the MANUAL copy-paste flow.
  *
- * Context (18 Aug 2026): the auto-publish engine works end-to-end but X's API
- * now bills per-use credits ("HTTP 402 credits depleted") and the owner chose
- * not to pay — so posts are drafted here, surfaced by the 08:00 PKT
- * social:due-digest, and the owner pastes each into the X app and hits the
- * "Mark posted" action. If credits are ever bought, uncommenting the X_* keys
- * in .env turns the same queue fully automatic with no other change.
+ * v2 (owner feedback, 18 Aug 2026): every caption now ends with 2-3 hashtags
+ * INSIDE the caption text (one copy = everything), and every post makes one
+ * concrete point — a product, a price, a usable tip, or a direct question.
+ * The v1 set had deliberately sparse tags and a few abstract musings; the
+ * owner called those out, and the owner posts these daily, so the owner wins.
  *
- * Editorial rules baked into every caption (do not "improve" them away):
+ * Still non-negotiable in every caption (do not "improve" away):
  *  - No cure/treatment claims; cosmetic and traditional-use framing only.
- *  - No "halal certified" (day 14 says the opposite on purpose — the brand's
- *    honesty positioning IS the differentiator).
+ *  - No "halal certified" (day 14 openly says we hold no certificate).
  *  - Reseller language: stock, never make/formulate.
- *  - Hashtags sparingly (0-2, relevant only) and INSIDE the caption text, so
- *    one copy grabs everything; the separate hashtags column stays empty to
- *    avoid double-adding on paste.
- *  - ≤ 280 chars each (free-account cap) — verified by the length guard below.
+ *  - ≤ 280 chars including tags (free-account cap) — guarded below.
  *  - The only phone number that may ever appear: 0301 2973886.
+ *  - Tags stay RELEVANT (#Karachi, niche herbs) — no trend-hijacking.
  *
- * Scheduling: one post/day starting tomorrow, 20:00 PKT (evening peak per
- * docs/twitter-x-plan-aug2026.md). Idempotent — keyed on the internal title,
- * and a re-run never touches a post the owner has already edited or posted.
+ * Re-running is safe: a post whose X target was already posted (or skipped)
+ * is never touched; pending ones are refreshed with the current caption.
+ * Scheduling: one post/day, 20:00 PKT (app timezone IS Asia/Karachi — no UTC
+ * conversion here; see the v1 five-hours-early bug in git history).
  */
 class XContentCalendarSeeder extends Seeder
 {
@@ -47,30 +44,34 @@ class XContentCalendarSeeder extends Seeder
             $day = $i + 1;
 
             if (mb_strlen($caption) > 280) {
-                $this->command?->error("Day {$day} caption is over 280 chars — fix before seeding.");
+                $this->command?->error("Day {$day} caption is ".mb_strlen($caption)." chars — over the 280 cap, fix before seeding.");
 
                 continue;
             }
 
-            $post = SocialPost::firstOrCreate(
-                ['title' => sprintf('X calendar — day %02d', $day)],
-                [
-                    'status' => SocialPostStatus::Scheduled,
-                    'pillar' => $pillar,
-                    'language' => $lang,
-                    'caption_base' => $caption,
-                    'cta_type' => $cta,
-                    'compliance_checked' => true,
-                    // app.timezone IS Asia/Karachi (verified in prod tinker,
-                    // 18 Aug 2026) — do NOT convert to UTC here. Eloquent's
-                    // datetime cast renders a Carbon in the instance's own
-                    // timezone on save but re-parses the stored string in the
-                    // APP timezone on read, so a ->utc() here lands every post
-                    // five hours early. The create_social_posts migration's
-                    // "Stored UTC" comment is wrong.
-                    'scheduled_at' => $start->copy()->addDays($day - 1)->setTime(20, 0),
-                ],
-            );
+            $post = SocialPost::firstOrNew(['title' => sprintf('X calendar — day %02d', $day)]);
+
+            // Never rewrite a post that already went out — the archive should
+            // show what was actually published.
+            $alreadyOut = $post->exists && $post->targets()
+                ->where('platform', SocialPlatform::X)
+                ->whereIn('status', [SocialTargetStatus::PostedManually, SocialTargetStatus::PostedApi])
+                ->exists();
+
+            if ($alreadyOut) {
+                continue;
+            }
+
+            $post->forceFill([
+                'status' => SocialPostStatus::Scheduled,
+                'pillar' => $pillar,
+                'language' => $lang,
+                'caption_base' => $caption,
+                'cta_type' => $cta,
+                'compliance_checked' => true,
+                'scheduled_at' => $post->scheduled_at
+                    ?? $start->copy()->addDays($day - 1)->setTime(20, 0),
+            ])->save();
 
             $post->targets()->firstOrCreate(
                 ['platform' => SocialPlatform::X],
@@ -78,7 +79,7 @@ class XContentCalendarSeeder extends Seeder
             );
         }
 
-        $this->command?->info('X content calendar seeded (30 days, manual flow).');
+        $this->command?->info('X content calendar seeded/refreshed (30 days, manual flow).');
     }
 
     /**
@@ -90,66 +91,68 @@ class XContentCalendarSeeder extends Seeder
         $en = ContentLanguage::English;
 
         return [
-            [$ru, SocialPillar::HowTo, SocialCtaType::None,
-                'Til ka tel (sesame oil) subcontinent mein sadiyon se maalish ke liye istemal hota aa raha hai. Halka hai, jald jazb hota hai, aur rooki jild ko naram rakhta hai. Hamare Lookman-e-Hayat oil ka 97% yehi til ka tel hai — poori list website par chhapi hai. #HerbalPakistan'],
-            [$en, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Every product we sell lists its FULL ingredients — INCI names, everything. And we also publish the list of ingredients we will never stock. No secrets, no "special formula" stories. That\'s the whole brand. #SkincarePakistan'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::WhatsappOrder,
+                'Til ka tel — hamare Lookman-e-Hayat oil ka 97%. Halka, jald jazb hone wala, rooki jild ke liye behtareen. 50ml Rs 1,200, COD poore Pakistan mein. Order: WhatsApp 0301 2973886 #Karachi #Pakistan #HerbalPakistan'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::LearnMore,
+                'Har product ki POORI ingredient list hamari website par chhapi hai — koi "khaas formula" ka parda nahi. Aur jo cheezein hum kabhi stock nahi karenge, unki list bhi public hai. Khud check karein. #SkincarePakistan #Pakistan #GlowHalal'],
             [$ru, SocialPillar::CustomerQa, SocialCtaType::None,
-                'Online herbal products lete waqt 3 sawal zaroor poochein: 1) Poori ingredient list kahan hai? 2) Seller ka asli number/address hai? 3) Return policy likhi hai? Jo seller in teeno ka jawab na de, wahan se kuch na lein.'],
+                'Online herbal products lete waqt 3 sawal: 1) Ingredient list kahan hai? 2) Seller ka asli number/address? 3) Return policy likhi hai? Teeno ka jawab na mile to mat lein. Hamare teeno jawab website par hain. #OnlineShoppingPakistan #Karachi #Pakistan'],
             [$en, SocialPillar::HowTo, SocialCtaType::DmToOrder,
-                'Guggul (Commiphora mukul) is a tree resin used in traditional massage oils for centuries. It\'s the other 3% of our Lookman-e-Hayat oil — the full breakdown is public on our site. Questions? DM us.'],
+                'Guggul (Commiphora mukul) — the tree resin that makes up the other 3% of our Lookman-e-Hayat oil. Used in traditional massage oils for centuries. Full breakdown is public on our site. Questions? DM us. #HerbalPakistan #SkincarePakistan'],
             [$ru, SocialPillar::BehindTheScenes, SocialCtaType::WhatsappOrder,
-                'Pakistan mein online shopping ka sab se bara darr: paisa pehle, maal baad mein. Isi liye hum sirf Cash on Delivery karte hain — maal haath mein aaye, tab paisa dein. Order WhatsApp par: 0301 2973886 #Karachi'],
-            [$ru, SocialPillar::ComfortMassage, SocialCtaType::None,
-                'Champi ka sahi tareeqa: tel ko halka garam karein (garam nahi, halka garam), ungliyon ke poron se scalp par gol dairon mein lagayein, 10 minute. Zor se ragarna balon ko todta hai. Hafte mein 2 baar kafi hai.'],
-            [$en, SocialPillar::CustomerQa, SocialCtaType::None,
-                'Herbal doesn\'t mean magic. No oil "removes" scars in a week — anyone promising that is selling you a story. What good oils do: soften skin, support massage, smell like your nani\'s house. That\'s enough. #HerbalCare'],
-            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Neem ka istemal jild ki dekhbhal mein sadiyon purana hai. Acne-prone jild wale aksar neem sabun pasand karte hain. Hum jald neem soap stock karne wale hain — kis size mein chahiye, batayein? #Karachi'],
-            [$en, SocialPillar::CustomerQa, SocialCtaType::None,
-                'Shilajit sellers won\'t tell you: it can interact with medication, overdoing it causes side effects, and half the market is fake. Before you buy from ANYONE, research it. We\'ll share how to spot the real thing this month. #Salajeet'],
+                'Paisa pehle wala dhoka nahi: hum SIRF Cash on Delivery karte hain. Maal haath mein aaye, tab payment dein. Karachi/Lahore/Islamabad 2-4 din mein. Order: WhatsApp 0301 2973886 #Karachi #Pakistan #OnlineShoppingPakistan'],
+            [$ru, SocialPillar::ComfortMassage, SocialCtaType::WhatsappOrder,
+                'Champi ka sahi tareeqa: tel halka garam karein, ungliyon ke poron se 10 minute gol dairon mein maalish. Zor se ragarna balon ko todta hai. Hafte mein 2 baar kafi hai. Maalish ka tel chahiye? 0301 2973886 #HairCare #Karachi #Pakistan'],
             [$ru, SocialPillar::CustomerQa, SocialCtaType::None,
-                'Asli salajeet ki pehchan ke 5 gharelu tareeqay hum agle hafte share karenge. Tab tak ek mashwara: jo salajeet "guarantee shuda taqat" ka wada kare, wo pehchan khud hi ho gayi — nakli ya dhoka. #Salajeet'],
-            [$en, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Sidr (beri) leaves have been used for hair and skin washing in this region for centuries. We\'re bringing a sidr leaf soap soon — nobody else in Pakistan stocks one. Watch this space.'],
+                '"7 din mein daagh khatam" — aisa wada karne wala aap ko jhoot bech raha hai. Acha tel jild ko naram rakhta hai aur maalish mein kaam aata hai, bas. Hum jhoota wada nahi karte — isi liye customer wapas aata hai. #SkincarePakistan #Pakistan'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
+                'Neem sabun jald aa raha hai Glow Halal par — acne-prone jild walon ka purana pasandida. Launch se pehle demand dekhni hai: kaun kaun lega? Reply karein 👇 #Karachi #Pakistan #SkincarePakistan'],
+            [$en, SocialPillar::CustomerQa, SocialCtaType::None,
+                'Shilajit 101: it can interact with medicines, overdoing it has side effects, and much of the market is fake. Research before buying from anyone — including us. Honest sellers survive scrutiny. #Salajeet #Pakistan'],
+            [$ru, SocialPillar::CustomerQa, SocialCtaType::None,
+                'Asli salajeet ki 2 fori pehchan: 1) Garam pani mein poora ghul jaye, talchhat na chhore. 2) "Guaranteed taqat" ka wada kare to seedha nakli ya dhoka. Salajeet hum jald stock kar rahe hain — sirf asli. #Salajeet #Pakistan #Karachi'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
+                'Beri (sidr) ke patte — is khitte mein sadiyon se jild aur balon ki dhulai ke liye istemal hote aaye hain. Hum Pakistan ka pehla sidr leaf soap la rahe hain. Intezar karein. #Karachi #Pakistan #HerbalPakistan'],
             [$ru, SocialPillar::HowTo, SocialCtaType::None,
-                'Naya oil ya cream lagane se pehle patch test karein: kalai ke andar thora sa lagayein, 24 ghante dekhein. Kharish ya lali ho to istemal na karein. Ye rule HAR brand par lagta hai — hamara bhi.'],
+                'Har naya oil ya cream lagane se pehle: kalai par thora sa lagayein, 24 ghante dekhein. Lali ya kharish ho to na lagayein. Ye rule hamare products par bhi lagta hai — har jild alag hoti hai. #SkinCare #SkincarePakistan #Pakistan'],
             [$ru, SocialPillar::BehindTheScenes, SocialCtaType::WhatsappOrder,
-                'Lookman-e-Hayat Herbal Oil: 50ml Rs 1,200 · 100ml Rs 2,200. Til 97% + guggul 3%. Maalish aur rozana jild ki dekhbhal ke liye. Poore Pakistan COD, 7 din return. WhatsApp: 0301 2973886 #Karachi'],
-            [$en, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'We don\'t claim "halal certified" — because we hold no certificate, and pretending otherwise would be a lie. What we do instead: publish every ingredient so YOU can check. Honesty > badges. #GlowHalal'],
+                'Lookman-e-Hayat Herbal Oil: 50ml Rs 1,200 | 100ml Rs 2,200. Til 97% + guggul 3% — poori list website par. COD poore Pakistan, 7 din return. Order: WhatsApp 0301 2973886 #Karachi #Pakistan #HerbalPakistan'],
             [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Kalonji (black seed) ka zikr tibb ki kitabon mein sadiyon se hai. Balon ke liye kalonji oil subcontinent ka purana totka hai. Hum jald pure kalonji oil stock kar rahe hain. Kaun kaun use karta hai? 👇'],
-            [$en, SocialPillar::SeasonalSkincare, SocialCtaType::None,
-                'Karachi humidity + sweat + sunscreen = clogged skin. Light oils after washing at night (not before going out) is how oil-users manage it. Heavy greasy layers in this weather? Skip them. #Karachi'],
+                'Hum "halal certified" ka dawa NAHI karte — kyunke certificate hamare paas nahi hai. Jhoota badge lagana asaan tha. Hum ne mushkil rasta chuna: har ingredient public. Aap khud check karein. #GlowHalal #Pakistan #SkincarePakistan'],
             [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Amla ko balon ka purana saathi kaha jata hai — dadi nani ke zamane se. Amla oil hum jald la rahe hain. Sawal: aap amla oil khud lagate hain ya mehndi mein mila kar? Har ghar ka apna tareeqa hota hai 😄'],
-            [$en, SocialPillar::CustomerQa, SocialCtaType::DmToOrder,
-                'Q: "Will your oil remove my scars?" A: No — and no oil will. Moisturised skin can LOOK smoother over time, but "scar removal in days" is a marketing lie. We\'d rather lose a sale than lie to you. DM your questions.'],
+                'Kalonji ka tel — tibb ki kitabon se le kar dadi ke totkon tak, balon ke liye subcontinent ka purana bharosa. Hum pure kalonji oil la rahe hain. Aap kalonji kis kaam ke liye istemal karte hain? Reply karein 👇 #Kalonji #Pakistan #HairCare'],
             [$ru, SocialPillar::SeasonalSkincare, SocialCtaType::None,
-                'Multani mitti ka face pack garmiyon ka classic hai: mitti + arq-e-gulab, 10 minute, dho lein. Rooki jild wale hafte mein 1 baar se zyada na karein. Simple cheezain aksar behtreen hoti hain.'],
-            [$en, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Why "Glow Halal"? Because we check every ingredient\'s source — animal-derived glycerin, carmine, alcohol — and publish what we found. Halal-conscious by transparency, not by a sticker. #SkincarePakistan'],
+                'Karachi ki humidity mein chipchipi jild? Din mein heavy oil aur cream skip karein; raat ko munh dho kar sirf halka tel — bas itna. Zyada products = zyada masla. #Karachi #SkinCare #Pakistan'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
+                'Amla — balon ka purana saathi. Koi seedha tel lagata hai, koi mehndi mein mila kar. Aap ke ghar mein kaunsa tareeqa chalta hai? Reply karein 👇 Amla oil jald hamare paas bhi aa raha hai. #HairCare #Pakistan #Karachi'],
             [$ru, SocialPillar::CustomerQa, SocialCtaType::None,
-                'Ashwagandha aaj kal har jagah hai — lekin kya aap jante hain iske side effects bhi hain? Neend, dawaon ke sath interaction, dosage ka masla. Kisi bhi herbal cheez ko "bilkul safe" samajhna ghalti hai. Research karein, phir lein.'],
-            [$en, SocialPillar::BehindTheScenes, SocialCtaType::WhatsappOrder,
-                'How ordering works: WhatsApp us → we confirm by SMS → courier arrives in 2-4 working days (Karachi/Lahore/Islamabad) → you pay cash at the door. Rs 300 delivery, free over Rs 5,000. Simple. 0301 2973886 #Karachi'],
-            [$ru, SocialPillar::HowTo, SocialCtaType::None,
-                'Aloe vera taza patton se nikaal kar lagana behtareen hai — lekin har ghar mein paudha nahi hota. Bazaari aloe products mein asal aloe kitna hai? Ingredient list parhein. 1% wale "aloe" cream se paudha behtar hai.'],
-            [$en, SocialPillar::CustomerQa, SocialCtaType::None,
-                'Whitening creams promising "gora rang in 7 days" often contain mercury or steroids — dangerous, and sold openly. We will NEVER stock a whitening product. Your skin tone was never the problem. #SkincarePakistan'],
-            [$ru, SocialPillar::HowTo, SocialCtaType::None,
-                'Balon mein tel raat bhar rakhna zaroori nahi — 1-2 ghante kafi hain, phir dho lein. Zyada dair scalp par mail jama karti hai. Purane tareeqay achhe hain, lekin har purani baat sahi nahi hoti.'],
-            [$en, SocialPillar::HowTo, SocialCtaType::None,
-                'Read any label: ingredients are listed by QUANTITY, highest first. If "aqua" is #1 and the herb is #9, you\'re buying scented water. This one rule will save you thousands of rupees. #HerbalCare'],
-            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Hamari har review asli hai — WhatsApp par customer se li gayi, jaisi ki waisi. Na paisay de kar likhwai, na khud likhi. Kam reviews sahi, jhooti nahi. Yehi farq hai.'],
-            [$en, SocialPillar::HowTo, SocialCtaType::None,
-                'Sesame (til) oil is one of the most studied traditional oils — light texture, absorbs well, rich in natural antioxidants. It\'s 97% of our flagship oil. Sometimes the boring ingredient is the best one.'],
+                'Sawal: "Kya aap ka oil daagh khatam kar dega?" Jawab: Nahi — koi oil nahi karta. Naram, moisturised jild waqt ke sath behtar NAZAR aa sakti hai, magar "dinon mein daagh gayab" jhoot hai. Hum sale se pehle sach bolte hain. #SkincarePakistan #Pakistan'],
             [$ru, SocialPillar::SeasonalSkincare, SocialCtaType::None,
-                'Sardiyon ki taiyari abhi se: rooki jild walon ke liye Oct-Nov mushkil mahine hote hain. Halka tel roz raat, garam pani se kam nahana, aur loofah ka kam istemal — jild shukriya ada karegi.'],
+                'Garmi ka classic: multani mitti + arq-e-gulab, 10 minute, phir dho lein. Rooki jild wale hafte mein sirf 1 baar karein. Sasta, saada, sadiyon se aazmuda. #SkinCare #Pakistan #Karachi'],
             [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
-                'Ek mahina ho gaya X par! Jo seekha: yahan log sawal poochte hain, hype nahi khareedte. Yehi hamara style hai. Sawal poochte rahein — jild, balon, ingredients ke bare mein. Jawab dena hamara kaam hai. #GlowHalal'],
+                '"Glow Halal" naam kyun? Kyunke hum har ingredient ka source check karte hain — animal glycerin, carmine, alcohol — aur jo mila wo publish kar dete hain. Sticker se nahi, transparency se halal-conscious. #GlowHalal #Pakistan #Karachi'],
+            [$ru, SocialPillar::CustomerQa, SocialCtaType::None,
+                'Ashwagandha har jagah hai — lekin side effects bhi hain: neend par asar, dawaon se interaction, dosage ke masail. "Herbal = 100% safe" sab se bara myth hai. Research karein, phir lein. #HerbalPakistan #Pakistan'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::WhatsappOrder,
+                'Order kaise hota hai: WhatsApp karein → SMS se confirm → 2-4 din mein courier (bare shehr) → darwaze par cash dein. Delivery Rs 300, Rs 5,000 se upar FREE. 0301 2973886 #Karachi #Pakistan #OnlineShoppingPakistan'],
+            [$ru, SocialPillar::HowTo, SocialCtaType::None,
+                'Bazaari "aloe vera" cream mein asal aloe kitna hota hai? Ingredient list mein aloe agar aakhir mein likha hai to na hone ke barabar hai. List parhna seekh lein — hazaron rupay bachenge. #SkincarePakistan #Pakistan'],
+            [$ru, SocialPillar::CustomerQa, SocialCtaType::None,
+                '"7 din mein rang gora" wali creams mein aksar mercury ya steroids hote hain — jild ko tabah kar dete hain. Hum whitening product KABHI stock nahi karenge. Aap ka rang kabhi masla tha hi nahi. #SkincarePakistan #Pakistan #Karachi'],
+            [$ru, SocialPillar::HowTo, SocialCtaType::None,
+                'Balon mein tel raat bhar rakhna zaroori nahi — 1-2 ghante kafi hain, phir dho lein. Zyada dair scalp par mail jamati hai. Har purani baat sahi nahi hoti. #HairCare #Pakistan'],
+            [$ru, SocialPillar::HowTo, SocialCtaType::None,
+                'Label ka usool: ingredients zyada miqdar se kam ki taraf likhe jate hain. "Aqua" pehle number par aur jari booti nauvein par? Aap khushbudar pani khareed rahe hain. Ye ek rule aap ke paise bachayega. #SkincarePakistan #HerbalPakistan #Pakistan'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::None,
+                'Hamari har review WhatsApp par asli customer se aayi hai — jaisi likhi gayi, waisi lagayi. Na paise de kar likhwai, na khud banayi. Kam magar sachi. Yehi hamara tareeqa hai. #GlowHalal #Pakistan #Karachi'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::WhatsappOrder,
+                'Til ka tel duniya ke sab se zyada studied riwayati telon mein se hai — halka, jald jazb, qudrati antioxidants. Isi liye hamare flagship oil ka 97% yehi hai. Order: WhatsApp 0301 2973886 #HerbalPakistan #Pakistan #Karachi'],
+            [$ru, SocialPillar::SeasonalSkincare, SocialCtaType::None,
+                'Sardiyan aane wali hain — rooki jild walon ke liye Oct-Nov mushkil mahine hote hain. Abhi se aadat banayein: raat ko halka tel, garam pani kam, loofah kam. Jild shukriya ada karegi. #SkinCare #Pakistan #Karachi'],
+            [$ru, SocialPillar::CustomerQa, SocialCtaType::None,
+                'Jild ya balon ke bare mein koi sawal? Ingredient ka naam samajh nahi aa raha? Reply karein — seedha, imandar jawab denge. Bechne ke liye nahi, batane ke liye. 👇 #SkincarePakistan #Karachi #Pakistan'],
+            [$ru, SocialPillar::BehindTheScenes, SocialCtaType::WhatsappOrder,
+                'Ek mahina X par mukammal! Aap ke sawalon ne raunaq lagayi. Jild, balon ya kisi ingredient par sawal ho to kabhi bhi reply karein. Order karna ho to WhatsApp: 0301 2973886 #GlowHalal #Karachi #Pakistan'],
         ];
     }
 }
