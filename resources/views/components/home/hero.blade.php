@@ -90,14 +90,25 @@
                     'opacity-0 invisible' => $k !== 0,
                 ])>
 
-                {{-- Image (top on mobile, right on desktop). No badge. --}}
+                {{-- Image (top on mobile, right on desktop). No badge.
+                     On mobile this img IS the LCP element, so it gets the WebP
+                     sibling when images:webp has produced one — roughly half
+                     the bytes of the JPEG on the 4G connections this store
+                     actually serves. <picture> falls back to the original
+                     automatically for browsers without WebP and for images
+                     that have no sibling yet. --}}
                 <div class="lg:order-2">
                     <div class="mx-auto max-w-sm overflow-hidden rounded-lg bg-white ring-1 ring-champagne/25 lg:max-w-none">
-                        <img src="{{ $slide['image'] }}" alt="{{ $slide['image_alt'] }}"
-                            width="800" height="800"
-                            sizes="(min-width: 1024px) 45vw, (min-width: 640px) 24rem, 100vw"
-                            @if ($k === 0) fetchpriority="high" decoding="async" @else loading="lazy" decoding="async" @endif
-                            class="block aspect-square w-full bg-white object-contain p-5 md:p-8">
+                        <picture>
+                            @if ($webp = \App\Support\Images::webp($slide['image']))
+                                <source type="image/webp" srcset="{{ $webp }}">
+                            @endif
+                            <img src="{{ $slide['image'] }}" alt="{{ $slide['image_alt'] }}"
+                                width="800" height="800"
+                                sizes="(min-width: 1024px) 45vw, (min-width: 640px) 24rem, 100vw"
+                                @if ($k === 0) fetchpriority="high" decoding="async" @else loading="lazy" decoding="async" @endif
+                                class="block aspect-square w-full bg-white object-contain p-5 md:p-8">
+                        </picture>
                     </div>
                 </div>
 

@@ -14,6 +14,13 @@ Schedule::command('social:due-digest')
     ->dailyAt('08:00')
     ->timezone('Asia/Karachi');
 
+// WebP siblings for product images (mobile LCP — see GenerateWebpImages).
+// Nightly is enough: a new upload serves its JPEG for at most a day, then
+// halves in weight. Idempotent, skips anything already current.
+Schedule::command('images:webp')
+    ->dailyAt('05:50')
+    ->timezone('Asia/Karachi');
+
 // Phase 2: approved + compliance-checked posts publish themselves on X the
 // moment their scheduled_at passes (other platforms stay manual — the digest
 // above covers them). Cheap no-op when no X keys are configured or nothing is
