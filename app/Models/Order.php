@@ -47,7 +47,55 @@ class Order extends Model
             'delivered_at' => 'datetime',
             'cancelled_at' => 'datetime',
             'refunded_at' => 'datetime',
+            'review_requested_at' => 'datetime',
         ];
+    }
+
+    /** Digits-only wa.me number for the customer, or null if unusable. */
+    public function reviewPhoneDigits(): ?string
+    {
+        $digits = preg_replace('/\D+/', '', (string) $this->phone) ?? '';
+
+        if (str_starts_with($digits, '92')) {
+            // already country-coded
+        } elseif (str_starts_with($digits, '0')) {
+            $digits = '92'.ltrim($digits, '0');
+        } elseif (str_starts_with($digits, '3')) {
+            $digits = '92'.$digits;
+        }
+
+        return strlen($digits) === 12 && str_starts_with($digits, '923') ? $digits : null;
+    }
+
+    /**
+     * A ready-to-send wa.me link asking this customer for a review, pre-filled
+     * with a message that STEERS toward claim-free feedback (packaging,
+     * delivery, value) — not efficacy — so the reviews that come back are the
+     * kind that can be approved and safely rebuild the ⭐ rating snippet. Links
+     * to the ordered product's page, where the review form lives. Null when the
+     * phone is unusable.
+     */
+    public function whatsappReviewUrl(): ?string
+    {
+        $phone = $this->reviewPhoneDigits();
+
+        if (! $phone) {
+            return null;
+        }
+
+        $product = $this->items->first()?->product;
+        $url = $product && \Illuminate\Support\Facades\Route::has('products.show')
+            ? route('products.show', $product->slug)
+            : url('/');
+
+        $name = trim((string) $this->customer_name);
+        $hi = $name !== '' ? "Assalam o Alaikum {$name}!" : 'Assalam o Alaikum!';
+
+        $message = "{$hi} Glow Halal se order ke liye shukriya. 🌿 Aap ka tajurba kaisa raha? "
+            .'30 second mein aik honest review de dein — packaging, delivery aur value ke baare mein: '
+            ."{$url} . Aap ki raay se doosre customers ko madad milti hai!";
+
+        return 'https://wa.me/'.$phone.'?text='.rawurlencode($message);
     }
 
     public function items(): HasMany

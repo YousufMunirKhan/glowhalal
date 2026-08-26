@@ -5,7 +5,9 @@ namespace App\Filament\Resources\Orders\Tables;
 use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Filament\Support\Identifier;
+use App\Models\Order;
 use App\Support\Money;
+use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -14,6 +16,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -110,6 +113,21 @@ class OrdersTable
                 TrashedFilter::make(),
             ])
             ->recordActions([
+                // Claim-free review funnel: on a DELIVERED order, one tap opens
+                // WhatsApp to the customer with a review request that steers to
+                // packaging/delivery/value (not efficacy). Marks the order so it
+                // is not asked again. Hidden once requested or if no usable phone.
+                Action::make('request_review')
+                    ->label('Request review')
+                    ->icon(Heroicon::OutlinedStar)
+                    ->color('warning')
+                    ->url(fn (Order $record) => $record->whatsappReviewUrl())
+                    ->openUrlInNewTab()
+                    ->visible(fn (Order $record) => $record->status === OrderStatus::Delivered
+                        && $record->review_requested_at === null
+                        && $record->whatsappReviewUrl() !== null)
+                    ->after(fn (Order $record) => $record->forceFill(['review_requested_at' => now()])->saveQuietly()),
+
                 ActionGroup::make([ViewAction::make(), EditAction::make(), DeleteAction::make()]),
             ])
             ->toolbarActions([

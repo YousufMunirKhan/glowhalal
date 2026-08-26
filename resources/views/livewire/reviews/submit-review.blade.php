@@ -11,7 +11,8 @@
     @else
         <h3 class="text-title text-text-primary">Write a review</h3>
         <p class="mt-1 text-meta text-text-muted">
-            Bought this product? Share your honest experience. Reviews are checked before they appear.
+            Bought this product? Tell us about the packaging, the delivery, the value, and how it feels to use.
+            Honest reviews only — every one is checked before it appears.
         </p>
 
         <form wire:submit="submit" class="mt-6 grid gap-5" novalidate>
@@ -62,7 +63,7 @@
                 <textarea id="rv-body" wire:model="body" rows="4" maxlength="2000"
                     class="mt-1 w-full rounded-sm border border-border-subtle bg-surface px-3 py-2 text-body
                         text-text-primary focus:border-text-gold focus:outline-none"
-                    placeholder="Aap ka tajurba kaisa raha? What did you use it for, and how was it?"></textarea>
+                    placeholder="Packaging, delivery, value aur khushboo kaisi lagi? Aap ka honest tajurba likhein."></textarea>
                 @error('body') <p class="mt-1 text-meta text-danger-600">{{ $message }}</p> @enderror
             </div>
 
