@@ -123,23 +123,62 @@
         </x-ui.section>
     </article>
 
-    {{-- ── Products this post refers to ──────────────────────────────────── --}}
+    {{-- ── Order CTA — turn the reader of this post into a buyer. Blog posts
+         pull real organic traffic; this converts it. Each attached product
+         shows image + price + a "View & order" and a prefilled "Order on
+         WhatsApp" button (the highest-converting COD path). The WhatsApp link
+         carries data-gh-wa-loc="blog_cta" so GSC/GA see blog-driven orders. --}}
     @if ($post->products->isNotEmpty())
         <x-ui.section surface="sunken">
-            <h2 class="text-title-lg text-text-primary">Products mentioned</h2>
-            <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <x-ui.overline>Order it</x-ui.overline>
+            <h2 class="mt-3 font-display text-display-sm">Get the oil — Cash on Delivery</h2>
+            <ul class="mt-6 grid gap-5 sm:grid-cols-2">
                 @foreach ($post->products as $product)
                     @php
                         // On the Roman-Urdu mirror, send the reader to the UR PDP
                         // (with its UR name) when one exists — same rule as the
                         // footer. EN pages and UR-less products keep the EN link.
                         $linkUr = app()->getLocale() === 'ur-Latn' && $product->hasRomanUrdu();
+                        $pUrl = $linkUr ? '/ur-roman/products/'.$product->slug_ur : '/products/'.$product->slug;
+                        $pName = $linkUr ? $product->name_ur : $product->name;
+                        $pImg = $product->primaryImage?->path
+                            ? asset('storage/'.ltrim($product->primaryImage->path, '/')) : null;
+                        $pPrice = $product->price_min_amount?->format();
+                        $waMsg = 'Assalam o Alaikum, I want to order: '.$pName
+                            .($pPrice ? ' ('.$pPrice.')' : '').'. '.url($pUrl);
+                        $waHref = ($store ?? null)?->whatsappLink($waMsg)
+                            ?? 'https://wa.me/923012973886?text='.urlencode($waMsg);
+                        $waData = json_encode(['name' => $pName, 'value' => (float) ($product->price_min_amount?->toRupees() ?? 0)],
+                            JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
                     @endphp
-                    <li class="border-t border-border-subtle pt-4">
-                        <p class="text-title-sm text-text-primary">
-                            <a href="{{ $linkUr ? '/ur-roman/products/'.$product->slug_ur : '/products/'.$product->slug }}"
-                                class="underline decoration-1 underline-offset-[3px] hover:decoration-2">{{ $linkUr ? $product->name_ur : $product->name }}</a>
-                        </p>
+                    <li class="flex gap-4 rounded-lg border border-border-subtle bg-surface p-4">
+                        @if ($pImg)
+                            <a href="{{ $pUrl }}" class="shrink-0">
+                                <img src="{{ $pImg }}" alt="{{ $pName }}" width="80" height="80"
+                                    loading="lazy" class="h-20 w-20 rounded-md bg-white object-contain">
+                            </a>
+                        @endif
+                        <div class="flex min-w-0 flex-col gap-2">
+                            <a href="{{ $pUrl }}"
+                                class="text-title-sm text-text-primary hover:underline">{{ $pName }}</a>
+                            @if ($pPrice)
+                                <p class="text-body font-semibold text-text-primary tabular-nums">{{ $pPrice }}</p>
+                            @endif
+                            <div class="mt-1 flex flex-wrap gap-2">
+                                <a href="{{ $pUrl }}"
+                                    class="inline-flex min-h-10 items-center rounded-sm bg-gold-surface px-4 text-meta
+                                        font-semibold text-ink-900 transition-[background-color] hover:bg-gold-surface-hover">
+                                    View &amp; order
+                                </a>
+                                <a href="{{ $waHref }}" target="_blank" rel="noopener"
+                                    data-gh-whatsapp="{{ $waData }}" data-gh-wa-loc="blog_cta"
+                                    class="inline-flex min-h-10 items-center gap-1.5 rounded-sm bg-whatsapp px-4 text-meta
+                                        font-semibold text-white transition-[background-color] hover:bg-whatsapp-hover">
+                                    <x-ui.icon name="whatsapp" :size="16" />
+                                    Order on WhatsApp
+                                </a>
+                            </div>
+                        </div>
                     </li>
                 @endforeach
             </ul>
