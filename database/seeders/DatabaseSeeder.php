@@ -32,6 +32,9 @@ class DatabaseSeeder extends Seeder
             // Catalogue-expansion drip: 8 posts (4 EN + 4 Roman Urdu), one
             // going live per day at 06:00 PKT via future published_at.
             CatalogueExpansionBlogSeeder::class,
+            // Audience-growth pair: massage-oil + back-pain, EN + Roman Urdu,
+            // opening new high-intent search doors with current (Rs 1,200/2,200) pricing.
+            GrowthBlogSeeder::class,
             // After the posts, so it backfills category + author onto every one.
             BlogDefaultsSeeder::class,
             RedirectSeeder::class,
