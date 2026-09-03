@@ -100,6 +100,7 @@ class ProductController extends Controller
                 trim(strip_tags((string) ($product->meta_description_ur ?: $product->short_description_ur))),
                 158,
                 '',
+                preserveWords: true,
             ) ?: null;
 
             // One swap localizes the whole render path: view, WhatsApp
@@ -112,6 +113,7 @@ class ProductController extends Controller
                 trim(strip_tags((string) ($product->resolvedMetaDescription() ?? ''))),
                 158,
                 '',
+                preserveWords: true,
             ) ?: null;
         }
 

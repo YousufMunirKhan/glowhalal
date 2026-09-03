@@ -52,8 +52,8 @@ class AboutController extends Controller
 
         return view('pages.about', [
             ...$this->layoutData('about'),
-            'title' => str($title)->limit(65, '')->trim()->toString(),
-            'description' => str($description)->limit(158)->toString(),
+            'title' => str($title)->limit(65, '', preserveWords: true)->trim()->toString(),
+            'description' => str($description)->limit(158, preserveWords: true)->toString(),
             'canonical' => $canonical,
             'page' => $page,
             'store' => $this->storeSettings(),

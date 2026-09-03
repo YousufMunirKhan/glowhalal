@@ -31,12 +31,17 @@ class RedirectSeeder extends Seeder
         // Targets are demo-data-independent (/shop and /shop/oils always exist in
         // production), so redirects never point at a category the deploy lacks.
         $redirects = [
-            // Live WooCommerce products (placeholder creams + a set) — no real 1:1
-            // product exists, so send to the shop / the real oils category.
-            ['/product/nourishing-halal-face-cream',        '/shop/oils'],
-            ['/product/glow-halal-nourishing-face-cream',   '/shop/oils'],
-            ['/product/glow-halal-nourishing-face-cream-2', '/shop/oils'],
-            ['/product/glow-halal-nourishing-cream',        '/shop/oils'],
+            // Live WooCommerce products. The four face-cream URLs pulled 116 GSC
+            // impressions in the 28 days to 3 Sep 2026 and produced zero clicks: they
+            // 301d to /shop/oils, which sells no cream, and Google treats a redirect
+            // to a topically unrelated page as a soft 404 — the signal is not passed
+            // and the dead URL keeps floating. /blog/best-herbal-face-cream-pakistan is
+            // the honest match (there is no face-cream SKU), and "herbal cream for face"
+            // is one of only four queries that has ever converted a click.
+            ['/product/nourishing-halal-face-cream',        '/blog/best-herbal-face-cream-pakistan'],
+            ['/product/glow-halal-nourishing-face-cream',   '/blog/best-herbal-face-cream-pakistan'],
+            ['/product/glow-halal-nourishing-face-cream-2', '/blog/best-herbal-face-cream-pakistan'],
+            ['/product/glow-halal-nourishing-cream',        '/blog/best-herbal-face-cream-pakistan'],
             ['/product/natural-glow-skincare-set',          '/shop'],
 
             // WordPress taxonomy pages.
@@ -48,7 +53,7 @@ class RedirectSeeder extends Seeder
 
             // Legacy blog posts — interim target, see class docblock.
             ['/embrace-natural-care-the-benefits-of-neem-soap', '/blog'],
-            ['/the-hidden-dangers-of-market-soaps-understanding-the-causes-of-pimples-in-pakistan', '/blog'],
+            ['/the-hidden-dangers-of-market-soaps-understanding-the-causes-of-pimples-in-pakistan', '/blog/pimples-in-pakistan-heat-humidity'],
             ['/the-hidden-dangers-of-store-bought-soaps-for-your-skin', '/blog'],
 
             // WordPress tag archives (both had published posts).

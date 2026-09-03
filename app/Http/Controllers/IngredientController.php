@@ -173,8 +173,8 @@ class IngredientController extends Controller
 
         return view('ingredients.show', [
             ...$this->layoutData('ingredient-index'),
-            'title' => str($title)->limit(65, '')->trim()->toString(),
-            'description' => str($description)->limit(158)->toString(),
+            'title' => str($title)->limit(65, '', preserveWords: true)->trim()->toString(),
+            'description' => str($description)->limit(158, preserveWords: true)->toString(),
             'canonical' => $canonical,
             'ingredient' => $ingredient,
             'aliases' => $aliases,

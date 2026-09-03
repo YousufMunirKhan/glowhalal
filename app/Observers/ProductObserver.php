@@ -20,7 +20,7 @@ class ProductObserver
     {
         $product->seoMeta()->firstOrCreate([], [
             'meta_title' => $product->name,
-            'meta_description' => str($product->short_description ?? '')->limit(160)->toString() ?: null,
+            'meta_description' => str($product->short_description ?? '')->limit(160, preserveWords: true)->toString() ?: null,
             'og_type' => 'product',
             'is_indexable' => true,
             'is_followable' => true,

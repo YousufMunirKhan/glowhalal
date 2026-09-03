@@ -52,8 +52,8 @@ class PageController extends Controller
         return view('pages.show', [
             ...$this->layoutData($slug),
             'page' => $page,
-            'title' => str($title)->limit(65, '')->trim()->toString(),
-            'description' => $description ? str($description)->limit(158)->toString() : null,
+            'title' => str($title)->limit(65, '', preserveWords: true)->trim()->toString(),
+            'description' => $description ? str($description)->limit(158, preserveWords: true)->toString() : null,
             'canonical' => $canonical,
             'crumbs' => $crumbs,
             'schema' => $this->schema([
