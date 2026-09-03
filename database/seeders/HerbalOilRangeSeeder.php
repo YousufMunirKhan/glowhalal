@@ -179,36 +179,50 @@ class HerbalOilRangeSeeder extends Seeder
     }
 
     // =========================================================================
-    // 1. ROGHAN-E-SUKOON — warming herbal massage oil
+    // 1. ROGHAN-E-SUKOON — herbal massage oil for tired muscles and joints
+    //
+    // ⚠️ INGREDIENT LIST NOT YET KNOWN. The owner asked for this to go live on
+    //    3 Sep 2026 before the bottle's list was available. Rather than publish
+    //    a guessed list — an ingredient list is a safety document, not marketing
+    //    copy — the page states plainly that the list is being confirmed and
+    //    that we will publish it in full. Every composition-specific claim was
+    //    removed with it: no camphor, no menthol, no "warming", no sensation
+    //    claims, because none of those are known to be true of this bottle.
+    //
+    //    The safety block is deliberately CONSERVATIVE and holds under either
+    //    outcome: traditional maalish oils commonly contain camphor or menthol,
+    //    so until the list is confirmed the page treats the oil as adults-only
+    //    and refuses the chest-rub-on-a-child use outright.
+    //
+    //    WHEN THE LABEL ARRIVES: fill in ingredients_note, add the "why these
+    //    ingredients" section back, and revisit this safety block.
     // =========================================================================
     private function sukoon(): array
     {
         $description = <<<'HTML'
-<p><strong>Roghan-e-Sukoon</strong> is a warming herbal massage oil — a light til (sesame) oil base infused with kalonji, ajwain, sarson and a measured amount of <strong>kafoor (camphor)</strong> and <strong>menthol</strong>. It is made for slow, deliberate massage of tired shoulders, back, knees and legs. Rs&nbsp;1,300 for 100&nbsp;ml, Cash on Delivery across Pakistan.</p>
+<p><strong>Roghan-e-Sukoon</strong> is a herbal massage oil — a maalish ka tel for tired shoulders, neck, back, knees and legs. It is made for the kind of slow, ten-minute massage that people in this part of the world have done at home for generations. Rs&nbsp;1,300 for 100&nbsp;ml, Cash on Delivery across Pakistan.</p>
 
-<h3>What it actually does</h3>
-<p>We will be precise about this, because most sellers are not. Camphor and menthol create a real, physical <strong>warm-then-cool sensation</strong> on the skin — that is the feeling you know from a good maalish. The sesame base carries it, absorbs without a sticky film, and gives your hands enough slip to massage properly for ten minutes instead of two.</p>
-<p>That is the whole product. It is a <strong>comfort and massage oil</strong>, not a medicine. It does not treat, cure or prevent any condition, and we will not pretend otherwise.</p>
+<h3>The ingredient list — and why it is not on this page yet</h3>
+<p>We publish every ingredient in everything we sell. That is the whole basis of this shop. For this oil, <strong>we are still confirming the exact list with the manufacturer, and we are not going to guess.</strong></p>
+<p>So this page says less than our other pages, on purpose. As soon as the confirmed list is in our hands it goes here in full — nothing held back, including anything unflattering. If you want to know before then, <strong>message us on WhatsApp and ask</strong>; we will tell you exactly what we know and exactly what we do not.</p>
+<p>If that is not good enough for you, that is a completely reasonable position. Wait for the list.</p>
 
 <h3>What people use it for</h3>
 <ul>
-  <li><strong>After work</strong> — shoulders, neck and lower back, at the end of a long day.</li>
+  <li><strong>After work</strong> — shoulders, neck and lower back at the end of a long day.</li>
   <li><strong>After exercise or a long walk</strong> — calves, thighs and feet.</li>
-  <li><strong>Winter stiffness</strong> — the warming note is most welcome in cold months.</li>
-  <li><strong>A weekly maalish routine</strong> — the way it has been done at home for generations.</li>
+  <li><strong>Winter stiffness</strong>, when everything feels tighter than usual.</li>
+  <li><strong>A weekly maalish routine</strong>, the way it is done at home.</li>
 </ul>
-
-<h3>Why these ingredients</h3>
-<p><strong>Til (sesame) oil</strong> is the classic South Asian massage base — light, absorbent, slippery enough to work with. <strong>Kalonji (black seed)</strong> and <strong>ajwain</strong> are traditional warming botanicals. <strong>Kafoor (camphor)</strong> and <strong>menthol</strong> are what you can actually feel: a warming tingle that settles into a cool finish. <strong>Sarson (mustard) oil</strong> adds the familiar desi maalish character.</p>
+<p>It is a <strong>comfort and massage oil, not a medicine</strong>. It does not treat, cure or prevent any condition, and we will not pretend otherwise.</p>
 
 <h3>Who this is NOT for</h3>
-<p>Worth reading before you order — it saves you money if the answer is no.</p>
 <ul>
-  <li><strong>Babies and young children — including for chest congestion (resha).</strong> We know warm oil on a child's chest and back is what many families reach for. <strong>Do not use this oil for that.</strong> It contains camphor, which is absorbed through the skin: repeated rubbing on a small child has caused seizures, and the American Academy of Pediatrics advises against camphor use in children altogether. Menthol can also worsen congestion in infants. A blocked, wheezy or struggling child needs a doctor, not an oil.</li>
-  <li><strong>Pregnancy</strong> — ask your doctor first before using a camphor-containing oil.</li>
+  <li><strong>Children — including for chest congestion (resha).</strong> We know warm oil on a child's chest and back is what many families reach for. <strong>Do not use this oil for that.</strong> Traditional maalish oils commonly contain camphor, which is absorbed through the skin — repeated rubbing on a small child has caused seizures, and the American Academy of Pediatrics advises against camphor in children altogether. Until this bottle's list is confirmed, treat this as an <strong>adults-only</strong> oil. A blocked, wheezy or struggling child needs a doctor, not an oil.</li>
+  <li><strong>Pregnancy</strong> — ask your doctor before using any herbal massage oil.</li>
+  <li><strong>Anyone with allergies or sensitive skin.</strong> We cannot yet tell you what is in this bottle, so we cannot tell you it is safe for you. If you react to things, wait for the list.</li>
   <li><strong>Broken skin, open wounds, rashes or fresh burns.</strong> This oil never goes on those.</li>
   <li><strong>Anyone wanting a treatment for a diagnosed condition.</strong> Arthritis, a slipped disc, sciatica, an injury that is not settling — see a doctor. A massage oil is comfort, not care.</li>
-  <li><strong>Very sensitive skin</strong> — the camphor/menthol level that makes this oil worth buying is the same thing that can sting. Patch-test.</li>
 </ul>
 
 <h3>100 ml or 200 ml?</h3>
@@ -223,38 +237,36 @@ class HerbalOilRangeSeeder extends Seeder
 </table>
 
 <h3>The honest part</h3>
-<p>The full ingredient list is published on this page, and the list of things we <a href="/what-we-never-use">never use</a> is public too. We hold <strong>no third-party halal certification and do not claim one</strong> — the ingredients are plant-derived and you can check them yourself.</p>
+<p>We hold <strong>no third-party halal certification and do not claim one</strong>. The list of things we <a href="/what-we-never-use">never use</a> is public. And the ingredient list for this particular oil is <strong>not confirmed yet</strong> — said here rather than hidden behind vague words like "natural herbs".</p>
 
 <h3>Safety note — please read</h3>
-<p><strong>External use only.</strong> Contains camphor and menthol: keep away from the eyes, nose and mouth, and <strong>keep out of reach of children — camphor is harmful if swallowed.</strong> Not for infants under 2. Patch-test on your inner forearm before first use. Do not apply to broken skin, open wounds or burns. Stop if irritation appears. This is a herbal massage oil, not a medicine; it is not intended to diagnose, treat, cure or prevent any condition. Pain that does not settle needs a doctor, not an oil.</p>
+<p><strong>External use only. Adults only until the ingredient list is confirmed.</strong> Patch-test on your inner forearm before first use and wait a few hours. Keep away from the eyes, nose and mouth. Keep out of reach of children. Do not apply to broken skin, open wounds or burns. Stop if irritation appears. This is a herbal massage oil, not a medicine; it is not intended to diagnose, treat, cure or prevent any condition. Pain that does not settle needs a doctor, not an oil.</p>
 HTML;
 
         $descriptionUr = <<<'HTML'
-<p><strong>Roghan-e-Sukoon</strong> ek garam asar wala herbal maalish ka tel hai — halka til ka tel base, jis mein kalonji, ajwain, sarson aur nap-tul kar <strong>kafoor</strong> aur <strong>menthol</strong> shamil hai. Thake huay kandhon, kamar, ghutnon aur tangon ki aaram se maalish ke liye. 100&nbsp;ml Rs&nbsp;1,300, poore Pakistan mein Cash on Delivery.</p>
+<p><strong>Roghan-e-Sukoon</strong> ek herbal maalish ka tel hai — thake huay kandhon, gardan, kamar, ghutnon aur tangon ke liye. Ye us aaram se ki jane wali das minute wali maalish ke liye bana hai jo hamare yahan naslon se ghar mein hoti aayi hai. 100&nbsp;ml Rs&nbsp;1,300, poore Pakistan mein Cash on Delivery.</p>
 
-<h3>Ye asal mein karta kya hai</h3>
-<p>Hum saaf baat karenge, kyunke aksar bechne wale nahi karte. Kafoor aur menthol jild par ek <strong>asli garam phir thandi lehar</strong> paida karte hain — wohi ehsaas jo achi maalish mein hota hai. Til ka tel usay carry karta hai, chipchipahat ke baghair jazb hota hai, aur haathon ko itni slip deta hai ke aap do minute ke bajaye das minute dhang se maalish kar sakein.</p>
-<p>Bas yehi is product ki haqeeqat hai. Ye <strong>maalish aur aaram ka tel</strong> hai, <strong>dawa nahi</strong>. Ye kisi bimari ka ilaj nahi karta, aur hum aisa dawa bhi nahi karte.</p>
+<h3>Ajza ki fehrist — aur ye abhi tak yahan kyun nahi</h3>
+<p>Hum jo bhi bechte hain uska har juzv shaya karte hain. Isi buniyad par ye dukan khari hai. Is tel ke liye <strong>hum abhi manufacturer se asal fehrist confirm kar rahe hain, aur hum andaza nahi lagayenge.</strong></p>
+<p>Isi liye ye safha hamare baqi safhon se kam kehta hai — jaan boojh kar. Jaise hi confirm shuda fehrist hamare haath aayi, poori ki poori yahan aa jayegi — kuch chupaye baghair, chahe woh acha na bhi lage. Us se pehle jaanna ho to <strong>WhatsApp par poochein</strong>; hum aap ko theek theek bata denge ke hum kya jante hain aur kya nahi.</p>
+<p>Agar ye aap ke liye kaafi nahi, to ye bilkul jaiz baat hai. Fehrist ka intezar karein.</p>
 
 <h3>Log ise kis liye istemal karte hain</h3>
 <ul>
   <li><strong>Kaam ke baad</strong> — kandhe, gardan aur kamar, lambe din ke aakhir mein.</li>
   <li><strong>Warzish ya lambi chaal ke baad</strong> — pindliyan, ran aur pair.</li>
-  <li><strong>Sardi ki akran</strong> — garam asar sardiyon mein sab se zyada achha lagta hai.</li>
-  <li><strong>Haftawar maalish ka maamool</strong> — jaise ghar mein naslon se hota aaya hai.</li>
+  <li><strong>Sardi ki akran</strong>, jab sab kuch aam se zyada kasa hua lage.</li>
+  <li><strong>Haftawar maalish ka maamool</strong>, jaise ghar mein hota hai.</li>
 </ul>
-
-<h3>Ye ajza kyun</h3>
-<p><strong>Til ka tel</strong> barr-e-sagheer ki classic maalish base hai — halka, jazb honay wala, aur maalish ke liye kaafi slip wala. <strong>Kalonji</strong> aur <strong>ajwain</strong> riwayati garam taseer wale ajza hain. <strong>Kafoor</strong> aur <strong>menthol</strong> woh cheez hain jo aap waqai mehsoos karte hain: garam sursurahat jo thandak par khatam hoti hai. <strong>Sarson ka tel</strong> desi maalish wala jana pehchana asar deta hai.</p>
+<p>Ye <strong>maalish aur aaram ka tel hai, dawa nahi</strong>. Ye kisi bimari ka ilaj nahi karta, aur hum aisa dawa bhi nahi karte.</p>
 
 <h3>Ye kis ke liye NAHI hai</h3>
-<p>Order se pehle parh lein — agar jawab "nahi" hai to aap ke paise bach jayenge.</p>
 <ul>
-  <li><strong>Chhote bachay — resha (seene ki jakran) ke liye bhi nahi.</strong> Hum jante hain ke bachay ko resha ho to ghar mein garam tel seene aur peeth par malna aam baat hai. <strong>Is tel se ye na karein.</strong> Is mein kafoor hai, jo jild ke raste jism mein jazb hota hai: chhote bachay par baar baar malne se daure (seizures) hone ke wakiyat report ho chuke hain, aur American Academy of Pediatrics bachon par kafoor ke istemal se mana karti hai. Menthol shirkhwar bachon mein resha aur barha sakta hai. Jis bachay ka saans ruk raha ho, khun-khun kar raha ho ya takleef mein ho — usay tel nahi, <strong>doctor</strong> chahiye.</li>
-  <li><strong>Hamal ke douran</strong> — kafoor wala tel istemal karne se pehle doctor se poochein.</li>
+  <li><strong>Bachay — resha (seene ki jakran) ke liye bhi nahi.</strong> Hum jante hain ke bachay ko resha ho to garam tel seene aur peeth par malna aam baat hai. <strong>Is tel se ye na karein.</strong> Riwayati maalish ke telon mein aksar kafoor hota hai, jo jild ke raste jism mein jazb hota hai — chhote bachay par baar baar malne se daure (seizures) hone ke wakiyat report ho chuke hain, aur American Academy of Pediatrics bachon par kafoor ke istemal se mana karti hai. Jab tak is bottle ki fehrist confirm nahi hoti, isay <strong>sirf baron ke liye</strong> samjhein. Jis bachay ka seena band ho, khun-khun ho ya saans mein takleef ho — usay tel nahi, <strong>doctor</strong> chahiye.</li>
+  <li><strong>Hamal ke douran</strong> — koi bhi herbal maalish ka tel istemal karne se pehle doctor se poochein.</li>
+  <li><strong>Jinhein allergy ho ya jild sensitive ho.</strong> Hum abhi aap ko ye nahi bata sakte ke is bottle mein kya hai, is liye ye bhi nahi keh sakte ke ye aap ke liye mehfooz hai. Agar aap ko cheezon se react hota hai to fehrist ka intezar karein.</li>
   <li><strong>Kati phati jild, khule zakham, dane ya taza jalan par</strong> — ye tel kabhi nahi lagta.</li>
   <li><strong>Jise kisi tashkhees shuda bimari ka ilaj chahiye.</strong> Arthritis, disc ka masla, sciatica, ya aisi takleef jo theek nahi ho rahi — doctor ko dikhayein. Maalish ka tel aaram hai, ilaj nahi.</li>
-  <li><strong>Bohot sensitive jild</strong> — kafoor/menthol ki wohi miqdaar jo is tel ko kaam ka banati hai, jalan bhi de sakti hai. Patch test zaroor karein.</li>
 </ul>
 
 <h3>100 ml ya 200 ml?</h3>
@@ -269,92 +281,90 @@ HTML;
 </table>
 
 <h3>Sach wali baat</h3>
-<p>Mukammal ajza ki fehrist isi safhe par mojood hai, aur jo cheezein hum <a href="/what-we-never-use">kabhi istemal nahi karte</a> woh bhi public hain. Hamare paas <strong>koi third-party halal certification nahi hai aur hum aisa dawa bhi nahi karte</strong> — ajza podon se hain, aap khud dekh sakte hain.</p>
+<p>Hamare paas <strong>koi third-party halal certification nahi hai aur hum aisa dawa bhi nahi karte</strong>. Jo cheezein hum <a href="/what-we-never-use">kabhi istemal nahi karte</a> woh public hain. Aur is tel ki ajza ki fehrist <strong>abhi confirm nahi hui</strong> — ye baat yahan likhi hai, "qudrati jari bootiyan" jaise mubham alfaz ke peeche chupayi nahi gayi.</p>
 
 <h3>Ehtiyat — zaroor parhein</h3>
-<p><strong>Sirf bahri istemal.</strong> Kafoor aur menthol shamil hain: aankhon, naak aur munh se door rakhein, aur <strong>bachon ki pohanch se door rakhein — kafoor nigalne par nuqsan deta hai.</strong> 2 saal se chhote bachon ke liye nahi. Pehle istemal se pehle bazu ke andarooni hissay par patch test karein. Kati jild, khule zakham ya jalan par na lagayein. Jalan mehsoos ho to istemal band kar dein. Ye herbal maalish ka tel hai, <strong>dawa nahi</strong>; kisi bimari ki tashkhees, ilaj ya bachao ke liye nahi. Jo dard theek na ho, usay tel nahi, doctor chahiye.</p>
+<p><strong>Sirf bahri istemal. Jab tak ajza confirm nahi hote, sirf baron ke liye.</strong> Pehle istemal se pehle bazu ke andarooni hissay par patch test karein aur chand ghante intezar karein. Aankhon, naak aur munh se door rakhein. Bachon ki pohanch se door rakhein. Kati jild, khule zakham ya jalan par na lagayein. Jalan mehsoos ho to istemal band kar dein. Ye herbal maalish ka tel hai, <strong>dawa nahi</strong>; kisi bimari ki tashkhees, ilaj ya bachao ke liye nahi. Jo dard theek na ho, usay tel nahi, doctor chahiye.</p>
 HTML;
 
         $howToUse = <<<'HTML'
 <ul>
-  <li><strong>Patch test first.</strong> Dab a little on your inner forearm and wait a few hours before using it more widely — this oil contains camphor and menthol.</li>
+  <li><strong>Patch test first — this matters more than usual here,</strong> because we have not yet published this oil's ingredient list. Dab a little on your inner forearm and wait a few hours before using it more widely.</li>
   <li><strong>Warm it in your palms.</strong> Take 5–10 drops and rub your hands together for a few seconds; a warm oil spreads and absorbs better than a cold one.</li>
   <li><strong>Massage slowly, 5–10 minutes.</strong> Firm, circular strokes, working towards the heart. The time you spend matters more than the amount you use.</li>
   <li><strong>Let it sit.</strong> Leave it 20–30 minutes, or overnight under loose cotton clothing. Wash your hands afterwards.</li>
   <li><strong>Best time:</strong> after a warm shower, or last thing at night.</li>
-  <li><strong>External use only.</strong> Avoid eyes, face, broken skin and open wounds. Keep out of reach of children.</li>
+  <li><strong>External use only, adults only.</strong> Avoid eyes, face, broken skin and open wounds. Keep out of reach of children.</li>
 </ul>
 HTML;
 
         $howToUseUr = <<<'HTML'
 <ul>
-  <li><strong>Pehle patch test.</strong> Thora sa bazu ke andarooni hissay par lagayein aur chand ghante intezar karein — is tel mein kafoor aur menthol hai.</li>
+  <li><strong>Pehle patch test — yahan ye aam se zyada zaroori hai,</strong> kyunke hum ne is tel ki ajza ki fehrist abhi shaya nahi ki. Thora sa bazu ke andarooni hissay par lagayein aur chand ghante intezar karein.</li>
   <li><strong>Haathon mein garam karein.</strong> 5–10 qatray lein aur haathon ko chand second ragrein; garam tel behtar phailta aur jazb hota hai.</li>
   <li><strong>Aaram se 5–10 minute maalish karein.</strong> Golayi mein, dil ki taraf. Waqt zyada ahem hai, miqdaar nahi.</li>
   <li><strong>Laga rehne dein.</strong> 20–30 minute, ya raat bhar dheele soti kapre ke neeche. Baad mein haath dho lein.</li>
   <li><strong>Behtareen waqt:</strong> garam pani se nahane ke baad, ya raat ko sonay se pehle.</li>
-  <li><strong>Sirf bahri istemal.</strong> Aankhein, chehra, kati jild aur khule zakham se door. Bachon ki pohanch se door rakhein.</li>
+  <li><strong>Sirf bahri istemal, sirf baron ke liye.</strong> Aankhein, chehra, kati jild aur khule zakham se door. Bachon ki pohanch se door rakhein.</li>
 </ul>
 HTML;
 
         $faqs = [
-            ['q' => 'What is Roghan-e-Sukoon used for?', 'a' => 'It is a warming herbal massage oil used for slow massage of tired shoulders, neck, back, knees and legs — after work, after exercise, or as a weekly maalish routine. It is a comfort oil for external use, not a medicine, and it is not intended to treat or cure any condition.'],
+            ['q' => 'What is in Roghan-e-Sukoon?', 'a' => 'We are still confirming the exact ingredient list with the manufacturer, and we are not going to guess at it. We publish every ingredient in everything we sell, so this list will be added to this page in full as soon as we have it. If you need to know before then, message us on WhatsApp and we will tell you exactly what we know and what we do not.'],
+            ['q' => 'Why would you sell it before publishing the ingredients?', 'a' => 'A fair question. The oil is in stock and people are asking for it, so the page is up — but with the gap stated plainly instead of hidden behind words like "natural herbs". You can order it, or you can wait for the list. If you have allergies or sensitive skin, wait for the list.'],
+            ['q' => 'What is Roghan-e-Sukoon used for?', 'a' => 'It is a herbal massage oil used for slow massage of tired shoulders, neck, back, knees and legs — after work, after exercise, or as a weekly maalish routine. It is a comfort oil for external use, not a medicine, and it is not intended to treat or cure any condition.'],
             ['q' => 'What is the price of Roghan-e-Sukoon in Pakistan?', 'a' => 'Rs 1,300 for 100 ml and Rs 2,200 for 200 ml, with Cash on Delivery across Pakistan. The 200 ml works out cheaper per ml if you use it regularly.'],
-            ['q' => 'Does it actually feel warm?', 'a' => 'Yes. It contains camphor and menthol, which produce a genuine warm-then-cool sensation on the skin. That is a physical effect you can feel, and it is the reason the oil exists — it is not a claim about treating anything.'],
             ['q' => 'Can I use it for joint pain?', 'a' => 'People traditionally massage the knees, shoulders and lower back with oils like this for comfort. It is not a treatment for arthritis or any diagnosed joint condition. If pain is persistent, severe or getting worse, please see a doctor rather than relying on an oil.'],
-            ['q' => 'Can I rub it on my child\'s chest for congestion (resha)?', 'a' => 'No — please do not. This oil contains camphor, and camphor passes through the skin: repeated rubbing on a small child has caused seizures, and the American Academy of Pediatrics advises against camphor in children. Menthol can also make congestion worse in infants. A child with a blocked chest, wheezing or breathing difficulty needs a doctor, not an oil. We would rather lose the sale than have you use it this way.'],
-            ['q' => 'Is it safe for children at all?', 'a' => 'Not for babies or young children. For older children and teenagers, use a very small amount on arms or legs only, patch-test first, and keep the bottle out of reach — camphor is harmful if swallowed. If you want an oil for a small child, choose a plain camphor-free and menthol-free massage oil instead.'],
-            ['q' => 'Is it halal?', 'a' => 'The ingredients are plant-derived and we publish the full list on this page so you can check for yourself. We hold no third-party halal accreditation and do not claim one.'],
+            ['q' => 'Can I rub it on my child\'s chest for congestion (resha)?', 'a' => 'No — please do not. Traditional maalish oils commonly contain camphor, which passes through the skin: repeated rubbing on a small child has caused seizures, and the American Academy of Pediatrics advises against camphor in children. Since we have not yet confirmed what is in this bottle, treat it as adults-only. A child with a blocked chest, wheezing or breathing difficulty needs a doctor, not an oil.'],
+            ['q' => 'Is it halal?', 'a' => 'We hold no third-party halal accreditation and do not claim one. We also cannot yet publish this oil\'s ingredient list, so we are not going to make any claim about it at all until we can. That list is coming.'],
             ['q' => 'Do you deliver in Karachi and the rest of Pakistan?', 'a' => 'Yes — we ship across Pakistan with Cash on Delivery, so you pay when it reaches your door. Karachi orders are usually the fastest. You can also message us on WhatsApp to order or ask anything.'],
         ];
 
         $faqsUr = [
-            ['q' => 'Roghan-e-Sukoon kis liye istemal hota hai?', 'a' => 'Ye garam asar wala herbal maalish ka tel hai — thake huay kandhon, gardan, kamar, ghutnon aur tangon ki aaram se maalish ke liye. Kaam ke baad, warzish ke baad, ya haftawar maalish ke maamool ke tor par. Ye bahri istemal ka aaram dene wala tel hai, dawa nahi, aur kisi bimari ke ilaj ke liye nahi.'],
+            ['q' => 'Roghan-e-Sukoon mein kya hai?', 'a' => 'Hum abhi manufacturer se asal fehrist confirm kar rahe hain, aur hum andaza nahi lagayenge. Hum jo bhi bechte hain uska har juzv shaya karte hain, is liye ye fehrist milte hi poori ki poori isi safhe par aa jayegi. Us se pehle jaanna ho to WhatsApp par poochein — hum theek theek bata denge ke hum kya jante hain aur kya nahi.'],
+            ['q' => 'Ajza shaya kiye baghair bech kyun rahe hain?', 'a' => 'Jaiz sawal hai. Tel stock mein hai aur log poochh rahe hain, is liye safha live hai — magar kami ko saaf likh kar, "qudrati jari bootiyan" jaise alfaz ke peeche chupa kar nahi. Aap chahein to order karein, chahein to fehrist ka intezar karein. Agar aap ko allergy hai ya jild sensitive hai to intezar karein.'],
+            ['q' => 'Roghan-e-Sukoon kis liye istemal hota hai?', 'a' => 'Ye herbal maalish ka tel hai — thake huay kandhon, gardan, kamar, ghutnon aur tangon ki aaram se maalish ke liye. Kaam ke baad, warzish ke baad, ya haftawar maalish ke maamool ke tor par. Ye bahri istemal ka aaram dene wala tel hai, dawa nahi, aur kisi bimari ke ilaj ke liye nahi.'],
             ['q' => 'Roghan-e-Sukoon ki Pakistan mein qeemat kya hai?', 'a' => '100 ml Rs 1,300 aur 200 ml Rs 2,200, poore Pakistan mein Cash on Delivery ke saath. Agar aap regular istemal karte hain to 200 ml fi ml sasta parta hai.'],
-            ['q' => 'Kya ye waqai garam mehsoos hota hai?', 'a' => 'Ji haan. Is mein kafoor aur menthol hai, jo jild par asli garam phir thandi lehar paida karte hain. Ye ek jismani ehsaas hai jo aap mehsoos karte hain — ye kisi bimari ke ilaj ka dawa nahi.'],
             ['q' => 'Kya main jodon ke dard ke liye istemal kar sakta hoon?', 'a' => 'Riwayati tor par log aise tel se ghutnon, kandhon aur kamar ki maalish aaram ke liye karte hain. Ye arthritis ya kisi bhi tashkhees shuda jodon ki bimari ka ilaj nahi hai. Agar dard musalsal hai, shadeed hai ya barh raha hai, to tel par bharosa karne ke bajaye doctor ko dikhayein.'],
-            ['q' => 'Kya bachay ko resha ho to seene par mal sakte hain?', 'a' => 'Nahi — meherbani kar ke na karein. Is tel mein kafoor hai, aur kafoor jild ke raste jism mein chala jata hai: chhote bachay par baar baar malne se daure (seizures) hone ke wakiyat report ho chuke hain, aur American Academy of Pediatrics bachon par kafoor se mana karti hai. Menthol shirkhwar bachon mein resha aur barha sakta hai. Jis bachay ka seena band ho, khun-khun ho ya saans mein takleef ho — usay tel nahi, doctor chahiye. Hamein sale ka nuqsan manzoor hai, magar aap is tarah istemal karein ye nahi.'],
-            ['q' => 'Kya bachon ke liye bilkul mehfooz hai?', 'a' => 'Chhote bachon ke liye bilkul nahi. Bare bachon aur teenagers par sirf bazu ya tangon par bohot thori miqdaar, pehle patch test, aur bottle un ki pohanch se door rakhein — kafoor nigalne par nuqsan deta hai. Agar chhote bachay ke liye tel chahiye to saada, kafoor aur menthol se paak maalish ka tel lein.'],
-            ['q' => 'Kya ye halal hai?', 'a' => 'Ajza podon se hain aur hum mukammal fehrist isi safhe par shaya karte hain taake aap khud dekh sakein. Hamare paas koi third-party halal certification nahi hai aur hum aisa dawa nahi karte.'],
+            ['q' => 'Kya bachay ko resha ho to seene par mal sakte hain?', 'a' => 'Nahi — meherbani kar ke na karein. Riwayati maalish ke telon mein aksar kafoor hota hai, jo jild ke raste jism mein chala jata hai: chhote bachay par baar baar malne se daure (seizures) hone ke wakiyat report ho chuke hain, aur American Academy of Pediatrics bachon par kafoor se mana karti hai. Chunke hum ne abhi tak confirm nahi kiya ke is bottle mein kya hai, isay sirf baron ke liye samjhein. Jis bachay ka seena band ho, khun-khun ho ya saans mein takleef ho — usay tel nahi, doctor chahiye.'],
+            ['q' => 'Kya ye halal hai?', 'a' => 'Hamare paas koi third-party halal certification nahi hai aur hum aisa dawa nahi karte. Hum is tel ki ajza ki fehrist bhi abhi shaya nahi kar sakte, is liye jab tak kar na lein hum is bare mein koi dawa hi nahi karenge. Woh fehrist aa rahi hai.'],
             ['q' => 'Kya Karachi aur baqi Pakistan mein delivery hoti hai?', 'a' => 'Ji haan — poore Pakistan mein Cash on Delivery ke saath bhejte hain, aap darwaze par paise dete hain. Karachi ke orders aam tor par sab se jaldi pohanchte hain. WhatsApp par bhi order ya sawal kar sakte hain.'],
         ];
 
         return [
             'slug' => 'roghan-e-sukoon-massage-oil',
             'slug_ur' => 'roghan-e-sukoon-maalish-ka-tel',
-            // ⚠️ HELD AS DRAFT. The ingredient list below is still OUR formulation
-            //    brief, not the owner's label. Flip to 'active' the moment the real
-            //    list is in (and update ingredients_note + the copy blocks to match).
-            'status' => 'draft',
+            // LIVE at the owner's instruction (3 Sep 2026) BEFORE the ingredient
+            // list was known. The page states that gap outright instead of
+            // publishing a guessed list — see the block comment above.
+            'status' => 'active',
             'stock' => 25,
-            'hold_reason' => 'ingredient list is still our formulation brief, not the bottle label',
-            'name' => 'Roghan-e-Sukoon — Warming Herbal Massage Oil',
+            'hold_reason' => null,
+            'name' => 'Roghan-e-Sukoon — Herbal Massage Oil',
             'name_ur' => 'Roghan-e-Sukoon — Maalish Ka Herbal Tel',
             'sku_prefix' => 'GH-SKN',
-            'short' => 'A warming herbal massage oil — til (sesame) base with kalonji, ajwain, sarson, kafoor and menthol. For slow massage of tired shoulders, back, knees and legs. Full ingredient list on this page. Cash on Delivery across Pakistan.',
-            'short_ur' => 'Garam asar wala herbal maalish ka tel — til ke tel mein kalonji, ajwain, sarson, kafoor aur menthol. Thake huay kandhon, kamar, ghutnon aur tangon ki maalish ke liye. Mukammal ajza isi safhe par. Poore Pakistan mein Cash on Delivery.',
+            'short' => 'A herbal massage oil (maalish ka tel) for tired shoulders, back, knees and legs. We are still confirming this oil\'s ingredient list and say so on the page rather than guessing. Adults only. Cash on Delivery across Pakistan.',
+            'short_ur' => 'Herbal maalish ka tel — thake huay kandhon, kamar, ghutnon aur tangon ke liye. Is tel ki ajza ki fehrist abhi confirm ho rahi hai, aur hum ye safhe par saaf likh rahe hain, andaza nahi laga rahe. Sirf baron ke liye. Poore Pakistan mein Cash on Delivery.',
             'description' => $description,
             'description_ur' => $descriptionUr,
             'how_to_use' => $howToUse,
             'how_to_use_ur' => $howToUseUr,
             'faqs' => $faqs,
             'faqs_ur' => $faqsUr,
-            // ⚠️ FORMULATION BRIEF — this is what to ask the supplier for.
-            //    REPLACE with the verified label list before activating.
-            'ingredients_note' => 'FORMULATION BRIEF (to be replaced with the verified label list before sale): '
-                .'Sesamum Indicum (Til / Sesame) Seed Oil, Brassica Nigra (Sarson / Mustard) Seed Oil, '
-                .'Nigella Sativa (Kalonji / Black Seed) Oil, Trachyspermum Ammi (Ajwain) Extract, '
-                .'Cinnamomum Camphora (Kafoor / Camphor), Menthol, Eucalyptus Globulus Leaf Oil. '
-                .'(Owner must confirm and complete this list from the physical bottle label, including '
-                .'the camphor and menthol percentages, before this product goes on sale.)',
+            // ⚠️ NOT a list. Deliberately states the gap — do not replace this
+            //    with a guess. Replace it with the manufacturer's confirmed list.
+            'ingredients_note' => 'Not yet published. We are confirming the full ingredient list for this oil '
+                .'with the manufacturer and will publish it here in full — we would rather show this line than '
+                .'guess. Ask us on WhatsApp in the meantime. Until the list is confirmed, treat this as an '
+                .'adults-only oil: patch-test before use, and do not use it on children.',
             'variants' => [
                 ['sku' => 'GH-SKN-100', 'volume' => '100 ml', 'price' => 130000, 'weight' => 160],
                 ['sku' => 'GH-SKN-200', 'volume' => '200 ml', 'price' => 220000, 'weight' => 300],
             ],
             'meta_title' => 'Roghan-e-Sukoon Massage Oil — Price in Pakistan, COD',
-            'meta_description' => 'Warming herbal massage oil: til, kalonji, ajwain, kafoor & menthol. Rs 1,300 (100 ml) / Rs 2,200 (200 ml). Full ingredient list, Cash on Delivery across Pakistan.',
+            'meta_description' => 'Herbal maalish ka tel for tired shoulders, back and knees. Rs 1,300 (100 ml) / Rs 2,200 (200 ml), Cash on Delivery. Ingredient list being confirmed — stated openly, not guessed.',
             'meta_title_ur' => 'Maalish Ka Tel — Roghan-e-Sukoon, Qeemat Aur COD',
-            'meta_description_ur' => 'Garam asar wala herbal maalish ka tel: til, kalonji, ajwain, kafoor aur menthol. 100 ml Rs 1,300, 200 ml Rs 2,200. Mukammal ajza, poore Pakistan Cash on Delivery.',
+            'meta_description_ur' => 'Herbal maalish ka tel — kandhon, kamar aur ghutnon ke liye. 100 ml Rs 1,300, 200 ml Rs 2,200, poore Pakistan Cash on Delivery. Ajza ki fehrist confirm ho rahi hai.',
         ];
     }
 
