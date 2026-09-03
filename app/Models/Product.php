@@ -160,7 +160,9 @@ class Product extends Model
 
     public function blogPosts(): BelongsToMany
     {
-        return $this->belongsToMany(BlogPost::class);
+        // `position` curates which guides a PDP surfaces; without it the three
+        // newest attached posts always win. See ProductController::show().
+        return $this->belongsToMany(BlogPost::class)->withPivot('position');
     }
 
     // ---- Scopes (Laravel 13 attribute form) ----------------------------------

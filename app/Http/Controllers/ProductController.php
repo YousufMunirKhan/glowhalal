@@ -144,9 +144,16 @@ class ProductController extends Controller
         // the PDPs, and this passes authority (and a crawl path) back. Each
         // locale links its own language's guides so the reader never bounces
         // between languages mid-journey.
+        // Curated order first, recency second. The pivot carries a `position`
+        // column for exactly this, but ordering by published_at alone meant the
+        // three newest attached posts always won — which buried the Lookman
+        // pillar (37% of all site impressions, published 15 Aug) on both of its
+        // own product pages. Position 0 is the default, so an uncurated product
+        // still falls back to newest-first and nothing changes for it.
         $guides = $product->blogPosts()
             ->published()
             ->forLocale($locale)
+            ->orderByPivot('position')
             ->orderByDesc('published_at')
             ->limit(3)
             ->get(['blog_posts.id', 'blog_posts.title', 'blog_posts.slug']);

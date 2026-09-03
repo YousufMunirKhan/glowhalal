@@ -51,10 +51,12 @@ class RedirectSeeder extends Seeder
             // WooCommerce account page — no account area on the new site.
             ['/my-account', '/'],
 
-            // Legacy blog posts — interim target, see class docblock.
-            ['/embrace-natural-care-the-benefits-of-neem-soap', '/blog'],
+            // Legacy blog posts — the replacement posts now exist, so these
+            // resolve 1:1 instead of dumping the visitor on the blog index (a
+            // redirect to an index is the classic soft-404 pattern).
+            ['/embrace-natural-care-the-benefits-of-neem-soap', '/blog/neem-soap-benefits-skin'],
             ['/the-hidden-dangers-of-market-soaps-understanding-the-causes-of-pimples-in-pakistan', '/blog/pimples-in-pakistan-heat-humidity'],
-            ['/the-hidden-dangers-of-store-bought-soaps-for-your-skin', '/blog'],
+            ['/the-hidden-dangers-of-store-bought-soaps-for-your-skin', '/blog/whats-really-in-your-bar-soap'],
 
             // WordPress tag archives (both had published posts).
             ['/tag/natural-soaps',      '/blog'],
