@@ -314,3 +314,82 @@ Lookman control prompts (1–3) still hold.
 4. **Do not reposition the Lookman oil as a hair oil** unless it genuinely is one.
 5. **Bing indexation is the LLM gate**, so Bing Webmaster Tools joins GSC as a weekly check.
 6. **Sanda oil stays permanently off the list**, despite being the biggest herbal-oil query in PK.
+
+---
+
+## 9. The brand SERP — "glow" vs "glow halal" (added 3 Sep 2026)
+
+The owner asked why the site ranks for **"glow halal"** but not for **"glow"**, and how to fix it.
+
+### 9.1 "Glow" is not winnable, and winning it would not help
+
+Live SERP check, 3 Sep 2026. The first page for `glow` is held by:
+
+| Result | Owner |
+|---|---|
+| Glow (disambiguation) | Wikipedia |
+| GLOW — definition | Cambridge Dictionary |
+| GLOW — definition | Merriam-Webster |
+| GLOW (TV series, Netflix) | Wikipedia + IMDb + Instagram |
+| We Are GLOW | a US digital agency |
+
+Two separate reasons to walk away, and the second matters more than the first:
+
+1. **Authority.** These are dictionaries, Wikipedia and a Netflix property. A two-month-old
+   Pakistani store does not enter that set, at any budget.
+2. **Intent — the real argument.** Nobody typing `glow` is shopping. They want a definition or a
+   wrestling comedy. Ranking #1 for it would convert at roughly zero. It is a vanity metric that
+   costs everything and returns nothing — the equivalent of a chai dhaba trying to rank for "water".
+
+**Ranking for "glow halal" and not "glow" is not a failure. It is branded search working correctly.**
+
+### 9.2 The actual finding: the brand SERP is telling a forbidden story
+
+Searching `glow halal` returns Glow Halal — and describes the brand as selling
+**"handmade, halal-certified skincare products."**
+
+That is the one claim the compliance floor forbids, and it is being published under the brand's name.
+
+Verified live the same day: **the site itself is clean.** `/` and `/contact` contain zero instances
+of "certified"; the single instance on `/about` is an explicit denial ("na banawti 'certified'
+stamps"). The claim is coming from **stale cached WordPress content**, exactly as
+`seo-impact-log.md` warned on 19 Aug. The old URL now 301s correctly
+(`/embrace-natural-care-the-benefits-of-neem-soap/` → `/blog`, verified), so the redirect is not
+the problem — Google's index simply has not caught up, two weeks on.
+
+**This outranks every ranking question in this document.** Priority order:
+
+1. Confirm the GSC removal requests actually processed (Approved, not Processing).
+2. Re-submit the old URLs for re-crawl so the 301s are seen.
+3. Keep the flat denial on `/about` and `/contact` — it is the page a careful model will quote
+   instead, once it is indexed.
+4. Re-run the check monthly as prompt 27–29 of the §5 panel, with the "forbidden claim" column.
+
+### 9.3 Own the whole brand SERP
+
+Page 1 for `glow halal` currently also carries Grace and Glow, Glad 2 Glow, Glow Recipe,
+Glowming and Glow & Lovely — five unrelated brands crowding a query that should be entirely ours.
+Every result on that page should be a property we control:
+
+| Slot | Status |
+|---|---|
+| glowhalal.com | ✅ live |
+| Google Business Profile | ❌ does not exist — also blocks every city query (§2.C) |
+| Instagram / Facebook / TikTok / YouTube, handle exactly "GlowHalal" | ❌ |
+| Daraz / PriceOye listing | ❌ |
+| Wikidata entity | ❌ (needs an independent reference first — see §4) |
+
+This is the same §4 entity work, and it does double duty: it disambiguates the brand from five
+similarly-named companies *and* it is the corroboration an assistant needs before naming us.
+
+### 9.4 The metric that replaces "rank for glow"
+
+**Branded search volume**, not a generic keyword position. This is not a softer goal — it is the
+harder and more valuable one, and the Ahrefs 75,000-brand data in §4.2 says branded web mentions
+(r = 0.664) is the single strongest correlate of being mentioned by AI, ahead of backlinks (0.218).
+
+How it grows: the entity-ladder content in §2 brings people in on generic questions, the honest
+framing makes them remember who answered, and they come back typing "glow halal".
+
+**Track it in GSC → Performance, branded filter `glow ?halal`** — impressions and clicks, month
+over month. That trend line is the answer to "are we getting bigger". A position for `glow` is not.
