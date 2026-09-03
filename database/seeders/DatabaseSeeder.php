@@ -39,6 +39,9 @@ class DatabaseSeeder extends Seeder
             // Audience-growth pair: massage-oil + back-pain, EN + Roman Urdu,
             // opening new high-intent search doors with current (Rs 1,200/2,200) pricing.
             GrowthBlogSeeder::class,
+            // 30-day plan, week 1: Roghan-e-Sukoon content + the Karachi/
+            // Hyderabad/Lahore buying guide (EN + Roman Urdu).
+            Month1Week1BlogSeeder::class,
             // After the posts, so it backfills category + author onto every one.
             BlogDefaultsSeeder::class,
             RedirectSeeder::class,
