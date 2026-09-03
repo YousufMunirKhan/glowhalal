@@ -42,6 +42,9 @@ class DatabaseSeeder extends Seeder
             // 30-day plan, week 1: Roghan-e-Sukoon content + the Karachi/
             // Hyderabad/Lahore buying guide (EN + Roman Urdu).
             Month1Week1BlogSeeder::class,
+            Month1Week2BlogSeeder::class,
+            Month1Week3BlogSeeder::class,
+            Month1Week4BlogSeeder::class,
             // After the posts, so it backfills category + author onto every one.
             BlogDefaultsSeeder::class,
             RedirectSeeder::class,

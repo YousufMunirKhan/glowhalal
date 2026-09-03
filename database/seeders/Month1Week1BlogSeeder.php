@@ -100,7 +100,7 @@ class Month1Week1BlogSeeder extends Seeder
                 'locale' => 'en',
                 'title' => 'Roghan-e-Surkh: What It Is and How It Is Used',
                 'slug' => 'roghan-e-surkh-what-it-is',
-                'excerpt' => 'What is Roghan-e-Surkh? The traditional Unani massage oil explained — what the name means, how families use it, what it is not, and how to choose one honestly.',
+                'excerpt' => 'What is Roghan-e-Surkh? The traditional Unani massage oil explained — what the name means, how families use it, and how to choose one honestly.',
                 'reading_time_minutes' => 6,
                 'published_at' => now()->addDay(),
                 'product' => 'roghan-e-sukoon-massage-oil',
@@ -121,7 +121,7 @@ class Month1Week1BlogSeeder extends Seeder
             [
                 'translation_group_id' => self::GROUP_LOCAL,
                 'locale' => 'en',
-                'title' => 'Where to Buy Herbal Oil in Karachi, Hyderabad & Lahore',
+                'title' => 'Buy Herbal Oil: Karachi, Hyderabad & Lahore',
                 'slug' => 'herbal-oil-shop-karachi-hyderabad-lahore',
                 'excerpt' => 'Where to buy herbal oil in Karachi, Hyderabad and Lahore: the bazaars people actually go to, what a fair price looks like, how to spot a diluted bottle.',
                 'reading_time_minutes' => 8,
