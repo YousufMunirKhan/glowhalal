@@ -74,6 +74,21 @@
     :company="$company" :founder="$founder">
 
     <x-slot:head>
+        {{-- LCP: preload the first hero slide's image.
+
+             GSC field data reported LCP > 2.5s on mobile for this URL. The hero
+             img already carries fetchpriority="high", but that only takes effect
+             once the parser reaches it — which is after the render-blocking
+             stylesheet has been fetched and parsed. A preload in <head> starts
+             the image on the very first connection instead, in parallel with the
+             CSS, which is the whole gap on a slow connection.
+
+             Only slide 0 is preloaded. Preloading the rest would compete with it
+             for bandwidth and make LCP worse, not better — they stay lazy. --}}
+        @if (! empty($products[0]['image']))
+            <link rel="preload" as="image" href="{{ $products[0]['image'] }}" fetchpriority="high">
+        @endif
+
         <script type="application/ld+json">
             {!! json_encode($jsonLd, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) !!}
         </script>
