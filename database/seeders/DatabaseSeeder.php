@@ -25,6 +25,10 @@ class DatabaseSeeder extends Seeder
             LegalPagesSeeder::class,
             AboutPageSeeder::class,
             OwnerProductSeeder::class,
+            // Own-brand range (Roghan-e-Sukoon + Roghan-e-Jarain). Seeds as
+            // DRAFT — see the header of that seeder for the four things the
+            // owner must confirm before either goes on sale.
+            HerbalOilRangeSeeder::class,
             LookmanBlogSeeder::class,
             BilingualBlogSeeder::class,
             WinnableBlogSeeder::class,
