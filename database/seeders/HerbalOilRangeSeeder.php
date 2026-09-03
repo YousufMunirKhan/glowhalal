@@ -24,28 +24,34 @@ use Illuminate\Support\Facades\DB;
  * Prices are stored in PAISA: 130000 = PKR 1,300.
  *
  * ─────────────────────────────────────────────────────────────────────────────
- * ⚠️  SEEDED AS **DRAFT** ON PURPOSE. Nothing here goes live until the owner
- *     confirms four things. Flip `status` to 'active' (and set published_at)
- *     only after ALL FOUR are done:
+ * STATUS as of 3 Sep 2026 — both products are LIVE.
  *
- *     1. INGREDIENTS — the `ingredients_note` below is the FORMULATION BRIEF
- *        we asked the supplier for, not a verified label. Replace it verbatim
- *        from the physical bottle before selling. The brand's entire promise is
- *        an accurate, complete list; a guessed list breaks it.
- *     2. PRICE — the numbers below are placeholders sized off the existing
- *        margin ladder (see the unit-economics note). Set real cost/sell.
- *     3. PHOTO — no ProductImage row is created deliberately, so the site
- *        renders its placeholder rather than a broken <img>. Upload the real
- *        photo in Admin → Products, or add the row here.
- *     4. STOCK — seeded at 0. Set real quantity_on_hand.
+ *   Roghan-e-Jarain — ingredients are the owner's (coconut, sweet almond,
+ *   kalonji, vitamin D), stock 25 per size. Almond is a TREE NUT, so the
+ *   allergen is stated in the opening paragraph, the "not for" block, the FAQ
+ *   and the safety note — not buried in an INCI string.
  *
- * ⚠️  CLAIMS. Per docs house rules (no DRAP-regulated cure claims, no halal
+ *   Roghan-e-Sukoon — went live at the owner's instruction BEFORE the bottle's
+ *   ingredient list was known. Rather than publish the formulation brief we had
+ *   drafted, the page publishes the GAP: "still confirming with the
+ *   manufacturer". Every composition claim was stripped with it — no camphor,
+ *   no menthol, no "warming", no sensation claims. Its safety block is
+ *   deliberately conservative and holds whichever way the list lands.
+ *   WHEN THE LABEL ARRIVES: fill ingredients_note, restore a "why these
+ *   ingredients" section, revisit the safety block. Never replace it with a guess.
+ *
+ * ⚠️  STILL OPEN: neither product has a photo. No ProductImage row is created
+ *     deliberately, so the site renders a placeholder rather than a broken <img>
+ *     — but with no primary image SchemaGraph emits no `image` on the Product
+ *     node, so both are ineligible for a Google product rich result and will be
+ *     rejected by the Merchant Center feed. Upload in Admin → Products.
+ *
+ * ⚠️  CLAIMS. Per the house rules (no DRAP-regulated cure claims, no halal
  *     certification claim, no fabricated reviews), NOTHING here says "pain
- *     relief" or "hair growth" as a promise. The massage oil describes a
- *     WARMING SENSATION (camphor/menthol — physically true and verifiable);
- *     the hair oil uses cosmetic "hair-fall control / conditions the scalp"
- *     framing. Both carry a "who this is NOT for" block, which is compliant by
- *     construction and is the single most quotable block for answer engines.
+ *     relief" or "hair growth" as a promise. The hair oil uses cosmetic
+ *     "hair-fall control / conditions the scalp" framing. Both carry a "who this
+ *     is NOT for" block — compliant by construction, and the single most
+ *     quotable block for answer engines.
  *
  * ⚠️  CANNIBALIZATION. `jodon ke dard ka tel` and the joint-pain blog cluster
  *     stay with Lookman-e-Hayat (existing ranked entity). Roghan-e-Sukoon takes
@@ -361,8 +367,8 @@ HTML;
                 ['sku' => 'GH-SKN-100', 'volume' => '100 ml', 'price' => 130000, 'weight' => 160],
                 ['sku' => 'GH-SKN-200', 'volume' => '200 ml', 'price' => 220000, 'weight' => 300],
             ],
-            'meta_title' => 'Roghan-e-Sukoon Massage Oil — Price in Pakistan, COD',
-            'meta_description' => 'Herbal maalish ka tel for tired shoulders, back and knees. Rs 1,300 (100 ml) / Rs 2,200 (200 ml), Cash on Delivery. Ingredient list being confirmed — stated openly, not guessed.',
+            'meta_title' => 'Herbal Massage Oil in Pakistan – Roghan-e-Sukoon',
+            'meta_description' => 'Maalish ka tel for tired shoulders, back and knees. Rs 1,300 for 100 ml, Rs 2,200 for 200 ml, Cash on Delivery. Full ingredient list being confirmed.',
             'meta_title_ur' => 'Maalish Ka Tel — Roghan-e-Sukoon, Qeemat Aur COD',
             'meta_description_ur' => 'Herbal maalish ka tel — kandhon, kamar aur ghutnon ke liye. 100 ml Rs 1,300, 200 ml Rs 2,200, poore Pakistan Cash on Delivery. Ajza ki fehrist confirm ho rahi hai.',
         ];
@@ -539,8 +545,8 @@ HTML;
                 ['sku' => 'GH-JRN-100', 'volume' => '100 ml', 'price' => 120000, 'weight' => 160],
                 ['sku' => 'GH-JRN-200', 'volume' => '200 ml', 'price' => 200000, 'weight' => 300],
             ],
-            'meta_title' => 'Roghan-e-Jarain Herbal Hair Oil — Price in Pakistan, COD',
-            'meta_description' => 'Scalp & roots champi oil — coconut, sweet almond, kalonji & vitamin D, nothing else. Rs 1,200 (100 ml) / Rs 2,000 (200 ml). Cash on Delivery across Pakistan.',
+            'meta_title' => 'Herbal Hair Oil in Pakistan – Roghan-e-Jarain',
+            'meta_description' => 'Champi oil for scalp and roots: coconut, sweet almond, kalonji and vitamin D — nothing else. Rs 1,200 for 100 ml, Rs 2,000 for 200 ml. COD Pakistan.',
             'meta_title_ur' => 'Balon Ka Herbal Tel — Roghan-e-Jarain, Qeemat Aur COD',
             'meta_description_ur' => 'Jaron aur scalp ke liye champi ka tel — nariyal, roghan-e-badam, kalonji aur vitamin D, aur kuch nahi. 100 ml Rs 1,200, 200 ml Rs 2,000. Poore Pakistan Cash on Delivery.',
         ];
