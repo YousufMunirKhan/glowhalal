@@ -85,8 +85,18 @@
 
              Only slide 0 is preloaded. Preloading the rest would compete with it
              for bandwidth and make LCP worse, not better — they stay lazy. --}}
-        @if (! empty($products[0]['image']))
-            <link rel="preload" as="image" href="{{ $products[0]['image'] }}" fetchpriority="high">
+             The href MUST match what <picture> actually resolves to. The hero
+             serves a WebP sibling via <source type="image/webp"> when one
+             exists, so preloading the JPEG would download BOTH — 76KB wasted
+             and LCP worse than before. Mirror the same Images::webp() lookup
+             and the same type, so the preload and the picture agree. --}}
+        @php($heroImage = $products[0]['image'] ?? null)
+        @if ($heroImage)
+            @if ($heroWebp = \App\Support\Images::webp($heroImage))
+                <link rel="preload" as="image" href="{{ $heroWebp }}" type="image/webp" fetchpriority="high">
+            @else
+                <link rel="preload" as="image" href="{{ $heroImage }}" fetchpriority="high">
+            @endif
         @endif
 
         <script type="application/ld+json">
