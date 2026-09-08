@@ -212,6 +212,18 @@
         @include('partials.google-one-tap')
     @endunless
     @include('partials.cookie-consent')
+
+    {{-- Support chatbot widget (owner-supplied, 8 Sep 2026).
+
+         Loaded async and last, so it cannot block rendering or push the LCP
+         the preload in home.blade.php was added to protect.
+
+         Two things to watch:
+         - It is a third-party script with full DOM access on every page.
+         - Most chat widgets dock bottom-right, which is where the WhatsApp FAB
+           already sits. If they overlap, move one of them. --}}
+    <script async src="https://chatbot.ssepos.co.uk/widget/widget.js"
+        data-bot-id="3ded65443da04b8eb06a813bf220a260"></script>
 </body>
 
 </html>
