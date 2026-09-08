@@ -84,12 +84,13 @@
              CSS, which is the whole gap on a slow connection.
 
              Only slide 0 is preloaded. Preloading the rest would compete with it
-             for bandwidth and make LCP worse, not better — they stay lazy. --}}
-             The href MUST match what <picture> actually resolves to. The hero
-             serves a WebP sibling via <source type="image/webp"> when one
-             exists, so preloading the JPEG would download BOTH — 76KB wasted
-             and LCP worse than before. Mirror the same Images::webp() lookup
-             and the same type, so the preload and the picture agree. --}}
+             for bandwidth and make LCP worse, not better — they stay lazy.
+
+             The href MUST match what the hero's picture element actually
+             resolves to. The hero serves a WebP sibling when Images::webp()
+             finds one, so preloading the JPEG would download BOTH — 76KB wasted
+             and LCP worse than before. Mirror the same lookup and the same
+             type, so the preload and the picture agree. --}}
         @php($heroImage = $products[0]['image'] ?? null)
         @if ($heroImage)
             @if ($heroWebp = \App\Support\Images::webp($heroImage))
