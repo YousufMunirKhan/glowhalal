@@ -369,7 +369,7 @@ HTML;
             ],
             'meta_title' => 'Herbal Massage Oil in Pakistan – Glow Halal Massage Oil',
             'meta_description' => 'Maalish ka tel for tired shoulders, back and knees. Rs 1,300 for 100 ml, Rs 2,200 for 200 ml, Cash on Delivery. Full ingredient list being confirmed.',
-            'meta_title_ur' => 'Maalish Ka Tel — Glow Halal Massage Oil, Qeemat Aur COD',
+            'meta_title_ur' => 'Maalish Ka Tel — Qeemat Aur COD Pakistan',
             'meta_description_ur' => 'Herbal maalish ka tel — kandhon, kamar aur ghutnon ke liye. 100 ml Rs 1,300, 200 ml Rs 2,200, poore Pakistan Cash on Delivery. Ajza ki fehrist confirm ho rahi hai.',
         ];
     }
@@ -547,7 +547,7 @@ HTML;
             ],
             'meta_title' => 'Herbal Hair Oil in Pakistan – Glow Halal Hair Oil',
             'meta_description' => 'Champi oil for scalp and roots: coconut, sweet almond, kalonji and vitamin D — nothing else. Rs 1,200 for 100 ml, Rs 2,000 for 200 ml. COD Pakistan.',
-            'meta_title_ur' => 'Balon Ka Herbal Tel — Glow Halal Hair Oil, Qeemat Aur COD',
+            'meta_title_ur' => 'Balon Ka Herbal Tel — Qeemat Aur COD',
             'meta_description_ur' => 'Jaron aur scalp ke liye champi ka tel — nariyal, roghan-e-badam, kalonji aur vitamin D, aur kuch nahi. 100 ml Rs 1,200, 200 ml Rs 2,000. Poore Pakistan Cash on Delivery.',
         ];
     }
