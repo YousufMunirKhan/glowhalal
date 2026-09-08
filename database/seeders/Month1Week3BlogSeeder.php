@@ -400,7 +400,7 @@ HTML;
 <p>They are comfort and cosmetic products. Judged as that, both are good; judged as medicine, both fail, and so does everything else on the shelf.</p>
 
 <h2>Our recommendation, plainly</h2>
-<p><strong>If you want an oil for hair, buy coconut oil</strong> — or a coconut-led blend if you want the convenience. <a href="/products/roghan-e-jarain-hair-oil">Roghan-e-Jarain</a> is ours (Rs 1,200 / 100 ml, contains almond — a tree nut).</p>
+<p><strong>If you want an oil for hair, buy coconut oil</strong> — or a coconut-led blend if you want the convenience. <a href="/products/herbal-hair-oil">Glow Halal Hair Oil</a> is ours (Rs 1,200 / 100 ml, contains almond — a tree nut).</p>
 <p><strong>If you want an oil for massage</strong>, a traditional blend is worth the difference. <a href="/products/herbal-skin-oil-50ml">Lookman-e-Hayat</a> is Rs 1,200 for 50 ml and Rs 2,200 for 100 ml, with the full ingredient list published on the page. Cash on Delivery across Pakistan.</p>
 <p>We sell both, so take that recommendation with the appropriate pinch of salt — but the coconut-oil point is true whether you buy from us or not.</p>
 

@@ -24,7 +24,7 @@ use Illuminate\Database\Seeder;
  * honesty wedge identified in docs/keyword-research-aug2026.md — the #1 buyer
  * anxiety in this market that almost no seller addresses straight.
  *
- * ⚠️ Roghan-e-Sukoon still has NO published ingredient list. Nothing here
+ * ⚠️ Glow Halal Massage Oil still has NO published ingredient list. Nothing here
  *    states or implies what is in it. Where it is recommended, the gap is
  *    disclosed exactly as the product page does.
  *
@@ -71,7 +71,7 @@ class Month1Week4BlogSeeder extends Seeder
                 'excerpt' => 'Piyaz ka tel balon ke liye waqai kaam karta hai? Tehqeeq kya kehti hai, ghar par banane ka tarika, bu ka masla, aur kin logon ko ye nahi lagana chahiye.',
                 'reading_time_minutes' => 6,
                 'published_at' => now()->addDays(21),
-                'products' => ['roghan-e-jarain-hair-oil' => 5],
+                'products' => ['herbal-hair-oil' => 5],
                 'content' => $this->piyazUr(),
             ],
             [
@@ -81,7 +81,7 @@ class Month1Week4BlogSeeder extends Seeder
                 'excerpt' => 'Kalonji (black seed) oil for hair: what it is traditionally used for, what the research does and does not support, how to use it, and who should avoid it.',
                 'reading_time_minutes' => 6,
                 'published_at' => now()->addDays(22),
-                'products' => ['roghan-e-jarain-hair-oil' => 6],
+                'products' => ['herbal-hair-oil' => 6],
                 'content' => $this->kalonjiEn(),
             ],
             [
@@ -91,7 +91,7 @@ class Month1Week4BlogSeeder extends Seeder
                 'excerpt' => 'Sardi mein jism akar kyun jata hai, garam maalish ka sahi tarika, kaunsa tel sardi mein behtar hai, aur woh alamaat jin par tel nahi doctor chahiye.',
                 'reading_time_minutes' => 6,
                 'published_at' => now()->addDays(23),
-                'products' => ['roghan-e-sukoon-massage-oil' => 7],
+                'products' => ['herbal-massage-oil' => 7],
                 'content' => $this->winterUr(),
             ],
             [
@@ -101,7 +101,7 @@ class Month1Week4BlogSeeder extends Seeder
                 'excerpt' => 'Asli herbal tel ki pehchan kaise karein — 6 ghar ke test, label par kya dekhna hai, milawat ki nishaniyan, aur kab dukan chhor deni chahiye.',
                 'reading_time_minutes' => 7,
                 'published_at' => now()->addDays(24),
-                'products' => ['herbal-skin-oil-50ml' => 12, 'roghan-e-jarain-hair-oil' => 7],
+                'products' => ['herbal-skin-oil-50ml' => 12, 'herbal-hair-oil' => 7],
                 'content' => $this->pehchanUr(),
             ],
             [
@@ -111,7 +111,7 @@ class Month1Week4BlogSeeder extends Seeder
                 'excerpt' => 'Buying herbal oil with Cash on Delivery in Pakistan: how COD works, what it protects you from, delivery times by city, returns, and what to check on arrival.',
                 'reading_time_minutes' => 5,
                 'published_at' => now()->addDays(25),
-                'products' => ['herbal-skin-oil-50ml' => 13, 'roghan-e-sukoon-massage-oil' => 8],
+                'products' => ['herbal-skin-oil-50ml' => 13, 'herbal-massage-oil' => 8],
                 'content' => $this->codEn(),
             ],
         ];
@@ -154,7 +154,7 @@ class Month1Week4BlogSeeder extends Seeder
 </ul>
 
 <h2>Aasan raasta</h2>
-<p>Agar bu ke baghair rozana champi ka tel chahiye to <a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> — nariyal ka tel, roghan-e-badam, kalonji ka tel, vitamin D. Is mein piyaz nahi hai. Rs 1,200 (100 ml), COD.</p>
+<p>Agar bu ke baghair rozana champi ka tel chahiye to <a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> — nariyal ka tel, roghan-e-badam, kalonji ka tel, vitamin D. Is mein piyaz nahi hai. Rs 1,200 (100 ml), COD.</p>
 <p><strong>Is mein badam (tree nut) aur nariyal hai</strong> — allergy ho to na lein.</p>
 <p>Aur ye hum saaf kehte hain: <strong>koi bhi tel — hamara bhi — ganje hissay par baal nahi ugata.</strong> Tootna kam karta hai. Yehi iska asal size hai.</p>
 
@@ -206,7 +206,7 @@ HTML;
 <p>Kalonji has a distinct, slightly peppery smell that lingers. Some people love it; some find it too much. Diluting helps, and washing with a mild shampoo removes most of it. If you dislike strong scents, a coconut- or almond-led blend with only a little kalonji is the better choice.</p>
 
 <h2>In our blend</h2>
-<p><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> uses kalonji alongside coconut oil, sweet almond oil and vitamin D — four ingredients, all named, no mineral oil and no undisclosed fragrance. Rs 1,200 for 100 ml, Rs 2,000 for 200 ml, Cash on Delivery across Pakistan.</p>
+<p><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> uses kalonji alongside coconut oil, sweet almond oil and vitamin D — four ingredients, all named, no mineral oil and no undisclosed fragrance. Rs 1,200 for 100 ml, Rs 2,000 for 200 ml, Cash on Delivery across Pakistan.</p>
 <p><strong>It contains almond, a tree nut, and coconut.</strong> Not suitable if you have those allergies.</p>
 <p>How it compares to the alternatives: <a href="/blog/coconut-almond-kalonji-oil-for-hair">coconut vs almond vs kalonji</a>.</p>
 
@@ -226,7 +226,7 @@ HTML;
     private function winterUr(): string
     {
         return <<<'HTML'
-<p class="answer-box"><strong>Sardi mein pathe sukar jaate hain aur khoon ka daura jild ke qareeb kam ho jata hai — isi liye kandhe, gardan aur ghutne zyada akray hue lagte hain.</strong> Garam pani se nahane ke baad 5–10 minute maalish sab se zyada faida deti hai. Roghan-e-Sukoon Rs 1,300 (100 ml), COD.</p>
+<p class="answer-box"><strong>Sardi mein pathe sukar jaate hain aur khoon ka daura jild ke qareeb kam ho jata hai — isi liye kandhe, gardan aur ghutne zyada akray hue lagte hain.</strong> Garam pani se nahane ke baad 5–10 minute maalish sab se zyada faida deti hai. Glow Halal Massage Oil Rs 1,300 (100 ml), COD.</p>
 
 <h2>Sardi mein akran barhti kyun hai</h2>
 <ul>
@@ -276,7 +276,7 @@ HTML;
 <p>In mein se koi bhi baat ho to maalish rok dein. <strong>Ye alamaat tel ki nahi, doctor ki hain.</strong></p>
 
 <h2>Hamara tel</h2>
-<p><a href="/products/roghan-e-sukoon-massage-oil"><strong>Roghan-e-Sukoon</strong></a> — Rs 1,300 (100 ml), Rs 2,200 (200 ml), poore Pakistan COD, delivery Rs 300.</p>
+<p><a href="/products/herbal-massage-oil"><strong>Glow Halal Massage Oil</strong></a> — Rs 1,300 (100 ml), Rs 2,200 (200 ml), poore Pakistan COD, delivery Rs 300.</p>
 <p><strong>Saaf baat:</strong> is tel ki ajza ki fehrist hum abhi manufacturer se confirm kar rahe hain aur woh safhe par nahi hai. Hum andaza laga kar list nahi likhenge. Agar aap ko allergy hai ya jild sensitive hai to fehrist aane tak intezar karein, ya <a href="/contact">WhatsApp par poochein</a>.</p>
 <p>Maalish ka poora tarika <a href="/blog/maalish-ka-tel-konsa-acha-hai">is guide</a> mein hai.</p>
 
@@ -330,8 +330,8 @@ HTML;
 <p>Yehi test hum par bhi lagte hain, to jawab bhi de dete hain:</p>
 <ul>
   <li><a href="/products/herbal-skin-oil-50ml"><strong>Lookman-e-Hayat</strong></a> — poori ajza ki fehrist safhe par. Hum <strong>bechne wale hain, banane wale nahi</strong>; banane wale ka naam bottle par hai.</li>
-  <li><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> — chaar ajza, sab likhe huay. Is mein <strong>badam (giri) aur nariyal</strong> hai.</li>
-  <li><a href="/products/roghan-e-sukoon-massage-oil"><strong>Roghan-e-Sukoon</strong></a> — <strong>ajza ki fehrist abhi confirm nahi hui</strong>, aur hum ye likh rahe hain, andaza nahi laga rahe. Upar wala pehla asool abhi is par poora nahi utarta.</li>
+  <li><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> — chaar ajza, sab likhe huay. Is mein <strong>badam (giri) aur nariyal</strong> hai.</li>
+  <li><a href="/products/herbal-massage-oil"><strong>Glow Halal Massage Oil</strong></a> — <strong>ajza ki fehrist abhi confirm nahi hui</strong>, aur hum ye likh rahe hain, andaza nahi laga rahe. Upar wala pehla asool abhi is par poora nahi utarta.</li>
 </ul>
 <p>Aur: hamare paas <strong>koi third-party halal certification nahi hai aur hum aisa dawa nahi karte.</strong></p>
 
@@ -388,8 +388,8 @@ HTML;
   <tbody>
     <tr><td><a href="/products/herbal-skin-oil-50ml">Lookman-e-Hayat 50 ml</a></td><td>Rs 1,200</td></tr>
     <tr><td><a href="/products/herbal-skin-oil-100ml">Lookman-e-Hayat 100 ml</a></td><td>Rs 2,200</td></tr>
-    <tr><td><a href="/products/roghan-e-jarain-hair-oil">Roghan-e-Jarain 100 ml</a></td><td>Rs 1,200</td></tr>
-    <tr><td><a href="/products/roghan-e-sukoon-massage-oil">Roghan-e-Sukoon 100 ml</a></td><td>Rs 1,300</td></tr>
+    <tr><td><a href="/products/herbal-hair-oil">Glow Halal Hair Oil 100 ml</a></td><td>Rs 1,200</td></tr>
+    <tr><td><a href="/products/herbal-massage-oil">Glow Halal Massage Oil 100 ml</a></td><td>Rs 1,300</td></tr>
     <tr><td>Delivery, anywhere in Pakistan</td><td>Rs 300 flat</td></tr>
   </tbody>
 </table>

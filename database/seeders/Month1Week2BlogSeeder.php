@@ -7,7 +7,7 @@ use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 /**
- * 30-day content plan, WEEK 2 — Roghan-e-Jarain (hair & scalp).
+ * 30-day content plan, WEEK 2 — Glow Halal Hair Oil (hair & scalp).
  * See docs/30-day-content-plan-sep2026.md.
  *
  * DECONFLICTION — one distinct primary keyword per row, and no Roman-Urdu twin
@@ -24,11 +24,11 @@ use Illuminate\Database\Seeder;
  *    baldness, or treats alopecia. `ganjapan ka ilaj` is on the permanent
  *    cannot-target list and appears only as an honest myth-buster.
  *
- * ⚠️ ALLERGEN. Roghan-e-Jarain contains SWEET ALMOND OIL — a tree nut — and
+ * ⚠️ ALLERGEN. Glow Halal Hair Oil contains SWEET ALMOND OIL — a tree nut — and
  *    coconut oil. Every post that recommends it states this. Do not drop it to
  *    save a line.
  *
- * PRICING: Roghan-e-Jarain Rs 1,200 (100 ml) / Rs 2,000 (200 ml). Delivery
+ * PRICING: Glow Halal Hair Oil Rs 1,200 (100 ml) / Rs 2,000 (200 ml). Delivery
  * Rs 300 flat; free over Rs 5,000, which one bottle does not reach — so no
  * free-delivery claim is made anywhere.
  *
@@ -52,7 +52,7 @@ class Month1Week2BlogSeeder extends Seeder
                 ],
             );
 
-            if ($product = Product::where('slug', 'roghan-e-jarain-hair-oil')->first()) {
+            if ($product = Product::where('slug', 'herbal-hair-oil')->first()) {
                 $product->blogPosts()->syncWithoutDetaching(
                     [$post->id => ['position' => $article['product_position']]]
                 );
@@ -156,7 +156,7 @@ class Month1Week2BlogSeeder extends Seeder
 </ul>
 
 <h2>Ghar par mila kar ya bana banaya</h2>
-<p>Ghar par milana bilkul theek hai aur sasta hai. Agar bana banaya balanced tel chahiye to hamara <a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> hai — nariyal ka tel, roghan-e-badam, kalonji ka tel aur vitamin D, aur kuch nahi. Rs 1,200 (100 ml), poore Pakistan COD.</p>
+<p>Ghar par milana bilkul theek hai aur sasta hai. Agar bana banaya balanced tel chahiye to hamara <a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> hai — nariyal ka tel, roghan-e-badam, kalonji ka tel aur vitamin D, aur kuch nahi. Rs 1,200 (100 ml), poore Pakistan COD.</p>
 <p><strong>Ehtiyat:</strong> is mein <strong>badam hai, jo tree nut hai</strong>, aur nariyal ka tel. Agar ghar mein kisi ko giri ya nariyal se allergy hai to ye na lein.</p>
 
 <h2>Aksar poochay jane wale sawalat</h2>
@@ -218,7 +218,7 @@ HTML;
 </ul>
 
 <h2>Our blend</h2>
-<p><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> uses all three plus vitamin D — coconut oil, sweet almond oil, kalonji oil, vitamin D, and nothing else. No mineral oil, no undisclosed fragrance, no long list of extracts present in amounts too small to matter. Rs 1,200 for 100 ml, Rs 2,000 for 200 ml, Cash on Delivery across Pakistan.</p>
+<p><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> uses all three plus vitamin D — coconut oil, sweet almond oil, kalonji oil, vitamin D, and nothing else. No mineral oil, no undisclosed fragrance, no long list of extracts present in amounts too small to matter. Rs 1,200 for 100 ml, Rs 2,000 for 200 ml, Cash on Delivery across Pakistan.</p>
 <p><strong>It contains almond (a tree nut) and coconut.</strong> Do not use it if you have a nut or coconut allergy.</p>
 
 <h2>FAQ</h2>
@@ -273,7 +273,7 @@ HTML;
 <p>Methi ki bu tez hoti hai aur baalon mein ek do din reh sakti hai. Bohot se log isi wajah se do baar ke baad chhor dete hain. <strong>Jo tel aap waqai lagate rahenge woh us se behtar hai jo almari mein para rahe</strong> — is liye agar bu bardasht na ho to kisi halke tel par chale jayein, ye koi nakami nahi.</p>
 
 <h2>Bana banaya chahiye to</h2>
-<p><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> — nariyal ka tel, roghan-e-badam, kalonji ka tel aur vitamin D. Is mein methi nahi hai; ye rozana champi ke liye halka blend hai. Rs 1,200 (100 ml), COD poore Pakistan.</p>
+<p><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> — nariyal ka tel, roghan-e-badam, kalonji ka tel aur vitamin D. Is mein methi nahi hai; ye rozana champi ke liye halka blend hai. Rs 1,200 (100 ml), COD poore Pakistan.</p>
 <p><strong>Is mein badam (tree nut) aur nariyal hai</strong> — allergy ho to na lein.</p>
 <p>Champi ka mukammal tarika <a href="/blog/balon-ki-jarain-mazboot-karne-ka-tarika">is guide</a> mein hai.</p>
 
@@ -285,7 +285,7 @@ HTML;
     private function buyerGuideEn(): string
     {
         return <<<'HTML'
-<p class="answer-box"><strong>A herbal hair oil is worth buying if the label names every ingredient, the bottle is sealed with a legible batch and expiry, and the seller does not promise regrowth.</strong> Expect roughly Rs 700–2,500 depending on size. Our Roghan-e-Jarain is Rs 1,200 for 100 ml with Cash on Delivery across Pakistan.</p>
+<p class="answer-box"><strong>A herbal hair oil is worth buying if the label names every ingredient, the bottle is sealed with a legible batch and expiry, and the seller does not promise regrowth.</strong> Expect roughly Rs 700–2,500 depending on size. Our Glow Halal Hair Oil is Rs 1,200 for 100 ml with Cash on Delivery across Pakistan.</p>
 
 <h2>Start with what an oil can and cannot do</h2>
 <p>This matters more than any brand comparison, because it decides whether you will be satisfied with what you buy.</p>
@@ -313,7 +313,7 @@ HTML;
 
 <h2>What a fair price looks like</h2>
 <table>
-  <thead><tr><th>Size</th><th>Typical range</th><th>Roghan-e-Jarain</th></tr></thead>
+  <thead><tr><th>Size</th><th>Typical range</th><th>Glow Halal Hair Oil</th></tr></thead>
   <tbody>
     <tr><td>100 ml</td><td>Rs 700 – 2,000</td><td>Rs 1,200</td></tr>
     <tr><td>200 ml</td><td>Rs 1,300 – 3,000</td><td>Rs 2,000</td></tr>
@@ -339,7 +339,7 @@ HTML;
 </ul>
 
 <h2>Ours, and its honest limits</h2>
-<p><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> — coconut oil, sweet almond oil, kalonji oil, vitamin D. Four ingredients, all named, nothing else. Rs 1,200 for 100 ml and Rs 2,000 for 200 ml, Cash on Delivery across Pakistan, delivery Rs 300 flat.</p>
+<p><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> — coconut oil, sweet almond oil, kalonji oil, vitamin D. Four ingredients, all named, nothing else. Rs 1,200 for 100 ml and Rs 2,000 for 200 ml, Cash on Delivery across Pakistan, delivery Rs 300 flat.</p>
 <p>Applying our own checklist honestly: it passes items 1 to 6, and <strong>it contains almond — a tree nut — and coconut</strong>, so it fails item 3 as a product choice for anyone with those allergies. Please buy something else if that is you.</p>
 <p>More on the ingredients in <a href="/blog/coconut-almond-kalonji-oil-for-hair">the coconut vs almond vs kalonji comparison</a>.</p>
 
@@ -359,7 +359,7 @@ HTML;
     private function rootsUr(): string
     {
         return <<<'HTML'
-<p class="answer-box"><strong>Balon ki jarain mazboot karne ka sab se bara faida champi se nahi, <em>tootna kam karne</em> se aata hai — sahi tarah kanghi, geele baalon ko na ragarna, aur tight hairstyle chhorna.</strong> Hafte mein 1–2 baar 5 minute ki champi is ke saath kaam karti hai. Roghan-e-Jarain Rs 1,200 (100 ml), COD.</p>
+<p class="answer-box"><strong>Balon ki jarain mazboot karne ka sab se bara faida champi se nahi, <em>tootna kam karne</em> se aata hai — sahi tarah kanghi, geele baalon ko na ragarna, aur tight hairstyle chhorna.</strong> Hafte mein 1–2 baar 5 minute ki champi is ke saath kaam karti hai. Glow Halal Hair Oil Rs 1,200 (100 ml), COD.</p>
 
 <h2>Pehle ye samjhein: "baal girna" do alag cheezein hain</h2>
 <table>
@@ -405,7 +405,7 @@ HTML;
 <p>In mein se kuch bhi ho to tel ka koi kirdar nahi. <strong>Test karwayein.</strong></p>
 
 <h2>Hamara tel</h2>
-<p><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> — nariyal ka tel, roghan-e-badam, kalonji ka tel, vitamin D. Chaar ajza, sab likhe huay. Rs 1,200 (100 ml) / Rs 2,000 (200 ml), poore Pakistan COD.</p>
+<p><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> — nariyal ka tel, roghan-e-badam, kalonji ka tel, vitamin D. Chaar ajza, sab likhe huay. Rs 1,200 (100 ml) / Rs 2,000 (200 ml), poore Pakistan COD.</p>
 <p><strong>Is mein badam (giri) aur nariyal hai</strong> — allergy ho to na lein.</p>
 <p>Aur ye hum saaf keh dete hain: <strong>ye tel ganje hissay par baal nahi ugata aur mardana ganjapan nahi palat sakta.</strong> Ye tootna kam karta hai aur sar ki khushk jild ko naram karta hai. Yehi iska asal size hai.</p>
 

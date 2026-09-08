@@ -11,7 +11,7 @@ use Illuminate\Database\Seeder;
  *
  * Five posts, two jobs:
  *
- *   A. Give Roghan-e-Sukoon content of its own. It launched 3 Sep with zero
+ *   A. Give Glow Halal Massage Oil content of its own. It launched 3 Sep with zero
  *      posts pointing at it beyond the four GrowthBlogSeeder pieces.
  *   B. Open the LOCAL door — Karachi, Hyderabad, Lahore. The owner wants local
  *      visibility, and the honest way to get it is one genuinely useful
@@ -41,7 +41,7 @@ use Illuminate\Database\Seeder;
  * disease claims; no "halal certified"; no fabricated reviews or statistics.
  * Pain posts lead with "not a medicine, see a doctor".
  *
- * PRICING: live prices — Lookman 50ml Rs 1,200 / 100ml Rs 2,200; Roghan-e-Sukoon
+ * PRICING: live prices — Lookman 50ml Rs 1,200 / 100ml Rs 2,200; Glow Halal Massage Oil
  * 100ml Rs 1,300 / 200ml Rs 2,200. Delivery Rs 300 flat, free over Rs 5,000
  * (a single bottle does not reach it, so no free-delivery claim is made).
  *
@@ -92,7 +92,7 @@ class Month1Week1BlogSeeder extends Seeder
                 'excerpt' => 'Maalish ka tel konsa acha hai? Tel chunne ke 5 asool, ghar par maalish ka sahi tarika, kis ke liye ye theek nahi, aur asli qeemat Rs 1,300 se — COD ke saath.',
                 'reading_time_minutes' => 6,
                 'published_at' => now(),
-                'product' => 'roghan-e-sukoon-massage-oil',
+                'product' => 'herbal-massage-oil',
                 'product_position' => 2,
                 'content' => $this->maalishChoiceUr(),
             ],
@@ -103,7 +103,7 @@ class Month1Week1BlogSeeder extends Seeder
                 'excerpt' => 'What is Roghan-e-Surkh? The traditional Unani massage oil explained — what the name means, how families use it, and how to choose one honestly.',
                 'reading_time_minutes' => 6,
                 'published_at' => now()->addDay(),
-                'product' => 'roghan-e-sukoon-massage-oil',
+                'product' => 'herbal-massage-oil',
                 'product_position' => 3,
                 'content' => $this->roghanESurkhEn(),
             ],
@@ -114,7 +114,7 @@ class Month1Week1BlogSeeder extends Seeder
                 'excerpt' => 'Gardan aur kandhe ki akran ke liye maalish ka tarika: kitni der, kitna tel, kin galtiyon se bachna hai, aur kab tel nahi balke doctor chahiye.',
                 'reading_time_minutes' => 6,
                 'published_at' => now()->addDays(2),
-                'product' => 'roghan-e-sukoon-massage-oil',
+                'product' => 'herbal-massage-oil',
                 'product_position' => 4,
                 'content' => $this->neckShoulderUr(),
             ],
@@ -126,7 +126,7 @@ class Month1Week1BlogSeeder extends Seeder
                 'excerpt' => 'Where to buy herbal oil in Karachi, Hyderabad and Lahore: the bazaars people actually go to, what a fair price looks like, how to spot a diluted bottle.',
                 'reading_time_minutes' => 8,
                 'published_at' => now()->addDays(3),
-                'product' => 'roghan-e-sukoon-massage-oil',
+                'product' => 'herbal-massage-oil',
                 'product_position' => 5,
                 'content' => $this->localGuideEn(),
             ],
@@ -138,7 +138,7 @@ class Month1Week1BlogSeeder extends Seeder
                 'excerpt' => 'Herbal tel kahan se milta hai — Karachi, Hyderabad aur Lahore ke bazaar, munasib qeemat kya hoti hai, milawat kaise pehchanein, aur ghar bethe COD ka option.',
                 'reading_time_minutes' => 8,
                 'published_at' => now()->addDays(4),
-                'product' => 'roghan-e-sukoon-massage-oil',
+                'product' => 'herbal-massage-oil',
                 'product_position' => 6,
                 'content' => $this->localGuideUr(),
             ],
@@ -196,7 +196,7 @@ class Month1Week1BlogSeeder extends Seeder
 </ul>
 
 <h2>Hamara tel</h2>
-<p><a href="/products/roghan-e-sukoon-massage-oil"><strong>Roghan-e-Sukoon</strong></a> hamara maalish ka tel hai — Rs 1,300 (100 ml) aur Rs 2,200 (200 ml), poore Pakistan mein Cash on Delivery, delivery Rs 300.</p>
+<p><a href="/products/herbal-massage-oil"><strong>Glow Halal Massage Oil</strong></a> hamara maalish ka tel hai — Rs 1,300 (100 ml) aur Rs 2,200 (200 ml), poore Pakistan mein Cash on Delivery, delivery Rs 300.</p>
 <p><strong>Ek baat saaf keh dein:</strong> is tel ki ajza ki fehrist hum abhi manufacturer se confirm kar rahe hain aur woh safhe par nahi hai. Hum andaza laga kar list nahi likhenge. Agar upar wala pehla asool aap ke liye ahem hai — aur hona chahiye — to fehrist aane tak intezar karein, ya <a href="/contact">WhatsApp par poochein</a>.</p>
 <p>Agar aap ko abhi mukammal ajza wala tel chahiye to <a href="/products/herbal-skin-oil-50ml">Lookman-e-Hayat</a> (Rs 1,200 / 50 ml) ki poori fehrist us ke safhe par mojood hai.</p>
 
@@ -268,7 +268,7 @@ HTML;
 
 <h2>Where this leaves you</h2>
 <p>If you want a Roghan-e-Surkh specifically, buy it from a seller who will show you the ingredient list, and check the seal and the batch date before you pay.</p>
-<p>Our own massage oil is <a href="/products/roghan-e-sukoon-massage-oil"><strong>Roghan-e-Sukoon</strong></a> — Rs 1,300 for 100 ml, Rs 2,200 for 200 ml, Cash on Delivery across Pakistan. In the spirit of the checklist above, we will be straight with you: <strong>we have not yet published its ingredient list</strong> because we are still confirming it with the manufacturer, and we are not going to guess. If the first row of that table matters to you — and it should — wait for the list, or <a href="/contact">ask us on WhatsApp</a>.</p>
+<p>Our own massage oil is <a href="/products/herbal-massage-oil"><strong>Glow Halal Massage Oil</strong></a> — Rs 1,300 for 100 ml, Rs 2,200 for 200 ml, Cash on Delivery across Pakistan. In the spirit of the checklist above, we will be straight with you: <strong>we have not yet published its ingredient list</strong> because we are still confirming it with the manufacturer, and we are not going to guess. If the first row of that table matters to you — and it should — wait for the list, or <a href="/contact">ask us on WhatsApp</a>.</p>
 <p>If you want a full ingredient list today, <a href="/products/herbal-skin-oil-50ml">Lookman-e-Hayat</a> publishes its own on the product page.</p>
 
 <h2>FAQ</h2>
@@ -289,7 +289,7 @@ HTML;
     private function neckShoulderUr(): string
     {
         return <<<'HTML'
-<p class="answer-box"><strong>Pehli baat sab se ahem: gardan ya kandhe ka dard jo hafton se ho, bazu mein jhunjhunahat ho, ya raat ko jaga deta ho — usay maalish nahi, <em>doctor</em> chahiye.</strong> Maalish ka tel us aam akran ke liye hai jo lambi der baithne, ghalat takiye, ya thakawat se hoti hai. Roghan-e-Sukoon Rs 1,300 (100 ml) se, COD ke saath.</p>
+<p class="answer-box"><strong>Pehli baat sab se ahem: gardan ya kandhe ka dard jo hafton se ho, bazu mein jhunjhunahat ho, ya raat ko jaga deta ho — usay maalish nahi, <em>doctor</em> chahiye.</strong> Maalish ka tel us aam akran ke liye hai jo lambi der baithne, ghalat takiye, ya thakawat se hoti hai. Glow Halal Massage Oil Rs 1,300 (100 ml) se, COD ke saath.</p>
 
 <h2>Pehle ye parhein — kab tel nahi, doctor chahiye</h2>
 <p>Ye section upar isi liye hai ke aksar log ise aakhir mein parhte hain, ya bilkul nahi parhte. In mein se koi bhi baat ho to <strong>maalish rok dein aur doctor ko dikhayein</strong>:</p>
@@ -334,7 +334,7 @@ HTML;
 </ul>
 
 <h2>Kaunsa tel</h2>
-<p><a href="/products/roghan-e-sukoon-massage-oil"><strong>Roghan-e-Sukoon</strong></a> — Rs 1,300 (100 ml), Rs 2,200 (200 ml), poore Pakistan COD, delivery Rs 300. Iski ajza ki fehrist hum abhi confirm kar rahe hain aur safhe par nahi hai — hum andaza laga kar nahi likhenge. Agar aap ko allergy hai ya jild sensitive hai to fehrist aane tak intezar karein.</p>
+<p><a href="/products/herbal-massage-oil"><strong>Glow Halal Massage Oil</strong></a> — Rs 1,300 (100 ml), Rs 2,200 (200 ml), poore Pakistan COD, delivery Rs 300. Iski ajza ki fehrist hum abhi confirm kar rahe hain aur safhe par nahi hai — hum andaza laga kar nahi likhenge. Agar aap ko allergy hai ya jild sensitive hai to fehrist aane tak intezar karein.</p>
 <p>Maalish ka tarika mukammal parhna ho to <a href="/blog/maalish-ka-tel-konsa-acha-hai">maalish ka tel chunne wali guide</a> dekhein.</p>
 
 <p><em>Ye maloomat aam nauiyat ki hain aur tibbi mashwara nahi.</em></p>
@@ -399,8 +399,8 @@ HTML;
 <p>We ship across Pakistan with <strong>Cash on Delivery</strong> — you pay at your door. Karachi is usually 2–4 working days, Hyderabad and Lahore 2–4, elsewhere 4–7. Delivery is Rs 300 flat.</p>
 <ul>
   <li><a href="/products/herbal-skin-oil-50ml"><strong>Lookman-e-Hayat</strong></a> — Rs 1,200 (50 ml) / Rs 2,200 (100 ml). Full ingredient list on the page.</li>
-  <li><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> hair oil — Rs 1,200 (100 ml). Four ingredients, all named. Contains almond, a tree nut.</li>
-  <li><a href="/products/roghan-e-sukoon-massage-oil"><strong>Roghan-e-Sukoon</strong></a> massage oil — Rs 1,300 (100 ml). <strong>Ingredient list still being confirmed</strong> — we say so rather than guess.</li>
+  <li><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> hair oil — Rs 1,200 (100 ml). Four ingredients, all named. Contains almond, a tree nut.</li>
+  <li><a href="/products/herbal-massage-oil"><strong>Glow Halal Massage Oil</strong></a> massage oil — Rs 1,300 (100 ml). <strong>Ingredient list still being confirmed</strong> — we say so rather than guess.</li>
 </ul>
 <p>Applying check #1 to ourselves: two of those three publish a full list today, and one does not. That is the honest state of it.</p>
 
@@ -473,8 +473,8 @@ HTML;
 <p>Hum poore Pakistan mein <strong>Cash on Delivery</strong> bhejte hain — aap darwaze par paise dete hain. Karachi aam tor par 2–4 kaam ke din, Hyderabad aur Lahore 2–4, baqi Pakistan 4–7. Delivery Rs 300.</p>
 <ul>
   <li><a href="/products/herbal-skin-oil-50ml"><strong>Lookman-e-Hayat</strong></a> — Rs 1,200 (50 ml) / Rs 2,200 (100 ml). Poori fehrist safhe par.</li>
-  <li><a href="/products/roghan-e-jarain-hair-oil"><strong>Roghan-e-Jarain</strong></a> balon ka tel — Rs 1,200 (100 ml). Chaar ajza, sab likhe huay. Is mein badam (giri) hai.</li>
-  <li><a href="/products/roghan-e-sukoon-massage-oil"><strong>Roghan-e-Sukoon</strong></a> maalish ka tel — Rs 1,300 (100 ml). <strong>Ajza ki fehrist abhi confirm ho rahi hai</strong> — hum ye likh rahe hain, andaza nahi laga rahe.</li>
+  <li><a href="/products/herbal-hair-oil"><strong>Glow Halal Hair Oil</strong></a> balon ka tel — Rs 1,200 (100 ml). Chaar ajza, sab likhe huay. Is mein badam (giri) hai.</li>
+  <li><a href="/products/herbal-massage-oil"><strong>Glow Halal Massage Oil</strong></a> maalish ka tel — Rs 1,300 (100 ml). <strong>Ajza ki fehrist abhi confirm ho rahi hai</strong> — hum ye likh rahe hain, andaza nahi laga rahe.</li>
 </ul>
 <p>Upar wala check #1 apne aap par lagayen to: teen mein se do aaj poori fehrist detay hain, ek nahi. Yehi sach hai.</p>
 

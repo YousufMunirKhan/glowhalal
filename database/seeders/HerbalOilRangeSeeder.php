@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\DB;
  * The two new own-brand oils that extend the catalogue past the single
  * resold Lookman-e-Hayat SKU:
  *
- *   1. Roghan-e-Sukoon  — warming herbal MASSAGE oil (maalish ka tel)
- *   2. Roghan-e-Jarain  — herbal HAIR & SCALP oil (balon ki jarain ka tel)
+ *   1. Glow Halal Massage Oil  — warming herbal MASSAGE oil (maalish ka tel)
+ *   2. Glow Halal Hair Oil  — herbal HAIR & SCALP oil (balon ki jarain ka tel)
  *
  * Both are seeded in BOTH languages (EN + Roman Urdu) because the Roman-Urdu
  * SERP is the structural gap this brand wins first — see
@@ -26,12 +26,12 @@ use Illuminate\Support\Facades\DB;
  * ─────────────────────────────────────────────────────────────────────────────
  * STATUS as of 3 Sep 2026 — both products are LIVE.
  *
- *   Roghan-e-Jarain — ingredients are the owner's (coconut, sweet almond,
+ *   Glow Halal Hair Oil — ingredients are the owner's (coconut, sweet almond,
  *   kalonji, vitamin D), stock 25 per size. Almond is a TREE NUT, so the
  *   allergen is stated in the opening paragraph, the "not for" block, the FAQ
  *   and the safety note — not buried in an INCI string.
  *
- *   Roghan-e-Sukoon — went live at the owner's instruction BEFORE the bottle's
+ *   Glow Halal Massage Oil — went live at the owner's instruction BEFORE the bottle's
  *   ingredient list was known. Rather than publish the formulation brief we had
  *   drafted, the page publishes the GAP: "still confirming with the
  *   manufacturer". Every composition claim was stripped with it — no camphor,
@@ -54,7 +54,7 @@ use Illuminate\Support\Facades\DB;
  *     quotable block for answer engines.
  *
  * ⚠️  CANNIBALIZATION. `jodon ke dard ka tel` and the joint-pain blog cluster
- *     stay with Lookman-e-Hayat (existing ranked entity). Roghan-e-Sukoon takes
+ *     stay with Lookman-e-Hayat (existing ranked entity). Glow Halal Massage Oil takes
  *     `maalish ka tel`, `kamar dard ka tel`, `body massage oil pakistan`.
  *     Do not point both products at the same primary keyword.
  * ─────────────────────────────────────────────────────────────────────────────
@@ -206,7 +206,7 @@ class HerbalOilRangeSeeder extends Seeder
     private function sukoon(): array
     {
         $description = <<<'HTML'
-<p><strong>Roghan-e-Sukoon</strong> is a herbal massage oil — a maalish ka tel for tired shoulders, neck, back, knees and legs. It is made for the kind of slow, ten-minute massage that people in this part of the world have done at home for generations. Rs&nbsp;1,300 for 100&nbsp;ml, Cash on Delivery across Pakistan.</p>
+<p><strong>Glow Halal Massage Oil</strong> is a herbal massage oil — a maalish ka tel for tired shoulders, neck, back, knees and legs. It is made for the kind of slow, ten-minute massage that people in this part of the world have done at home for generations. Rs&nbsp;1,300 for 100&nbsp;ml, Cash on Delivery across Pakistan.</p>
 
 <h3>The ingredient list — and why it is not on this page yet</h3>
 <p>We publish every ingredient in everything we sell. That is the whole basis of this shop. For this oil, <strong>we are still confirming the exact list with the manufacturer, and we are not going to guess.</strong></p>
@@ -250,7 +250,7 @@ class HerbalOilRangeSeeder extends Seeder
 HTML;
 
         $descriptionUr = <<<'HTML'
-<p><strong>Roghan-e-Sukoon</strong> ek herbal maalish ka tel hai — thake huay kandhon, gardan, kamar, ghutnon aur tangon ke liye. Ye us aaram se ki jane wali das minute wali maalish ke liye bana hai jo hamare yahan naslon se ghar mein hoti aayi hai. 100&nbsp;ml Rs&nbsp;1,300, poore Pakistan mein Cash on Delivery.</p>
+<p><strong>Glow Halal Massage Oil</strong> ek herbal maalish ka tel hai — thake huay kandhon, gardan, kamar, ghutnon aur tangon ke liye. Ye us aaram se ki jane wali das minute wali maalish ke liye bana hai jo hamare yahan naslon se ghar mein hoti aayi hai. 100&nbsp;ml Rs&nbsp;1,300, poore Pakistan mein Cash on Delivery.</p>
 
 <h3>Ajza ki fehrist — aur ye abhi tak yahan kyun nahi</h3>
 <p>Hum jo bhi bechte hain uska har juzv shaya karte hain. Isi buniyad par ye dukan khari hai. Is tel ke liye <strong>hum abhi manufacturer se asal fehrist confirm kar rahe hain, aur hum andaza nahi lagayenge.</strong></p>
@@ -316,10 +316,10 @@ HTML;
 HTML;
 
         $faqs = [
-            ['q' => 'What is in Roghan-e-Sukoon?', 'a' => 'We are still confirming the exact ingredient list with the manufacturer, and we are not going to guess at it. We publish every ingredient in everything we sell, so this list will be added to this page in full as soon as we have it. If you need to know before then, message us on WhatsApp and we will tell you exactly what we know and what we do not.'],
+            ['q' => 'What is in Glow Halal Massage Oil?', 'a' => 'We are still confirming the exact ingredient list with the manufacturer, and we are not going to guess at it. We publish every ingredient in everything we sell, so this list will be added to this page in full as soon as we have it. If you need to know before then, message us on WhatsApp and we will tell you exactly what we know and what we do not.'],
             ['q' => 'Why would you sell it before publishing the ingredients?', 'a' => 'A fair question. The oil is in stock and people are asking for it, so the page is up — but with the gap stated plainly instead of hidden behind words like "natural herbs". You can order it, or you can wait for the list. If you have allergies or sensitive skin, wait for the list.'],
-            ['q' => 'What is Roghan-e-Sukoon used for?', 'a' => 'It is a herbal massage oil used for slow massage of tired shoulders, neck, back, knees and legs — after work, after exercise, or as a weekly maalish routine. It is a comfort oil for external use, not a medicine, and it is not intended to treat or cure any condition.'],
-            ['q' => 'What is the price of Roghan-e-Sukoon in Pakistan?', 'a' => 'Rs 1,300 for 100 ml and Rs 2,200 for 200 ml, with Cash on Delivery across Pakistan. The 200 ml works out cheaper per ml if you use it regularly.'],
+            ['q' => 'What is Glow Halal Massage Oil used for?', 'a' => 'It is a herbal massage oil used for slow massage of tired shoulders, neck, back, knees and legs — after work, after exercise, or as a weekly maalish routine. It is a comfort oil for external use, not a medicine, and it is not intended to treat or cure any condition.'],
+            ['q' => 'What is the price of Glow Halal Massage Oil in Pakistan?', 'a' => 'Rs 1,300 for 100 ml and Rs 2,200 for 200 ml, with Cash on Delivery across Pakistan. The 200 ml works out cheaper per ml if you use it regularly.'],
             ['q' => 'Can I use it for joint pain?', 'a' => 'People traditionally massage the knees, shoulders and lower back with oils like this for comfort. It is not a treatment for arthritis or any diagnosed joint condition. If pain is persistent, severe or getting worse, please see a doctor rather than relying on an oil.'],
             ['q' => 'Can I rub it on my child\'s chest for congestion (resha)?', 'a' => 'No — please do not. Traditional maalish oils commonly contain camphor, which passes through the skin: repeated rubbing on a small child has caused seizures, and the American Academy of Pediatrics advises against camphor in children. Since we have not yet confirmed what is in this bottle, treat it as adults-only. A child with a blocked chest, wheezing or breathing difficulty needs a doctor, not an oil.'],
             ['q' => 'Is it halal?', 'a' => 'We hold no third-party halal accreditation and do not claim one. We also cannot yet publish this oil\'s ingredient list, so we are not going to make any claim about it at all until we can. That list is coming.'],
@@ -327,10 +327,10 @@ HTML;
         ];
 
         $faqsUr = [
-            ['q' => 'Roghan-e-Sukoon mein kya hai?', 'a' => 'Hum abhi manufacturer se asal fehrist confirm kar rahe hain, aur hum andaza nahi lagayenge. Hum jo bhi bechte hain uska har juzv shaya karte hain, is liye ye fehrist milte hi poori ki poori isi safhe par aa jayegi. Us se pehle jaanna ho to WhatsApp par poochein — hum theek theek bata denge ke hum kya jante hain aur kya nahi.'],
+            ['q' => 'Glow Halal Massage Oil mein kya hai?', 'a' => 'Hum abhi manufacturer se asal fehrist confirm kar rahe hain, aur hum andaza nahi lagayenge. Hum jo bhi bechte hain uska har juzv shaya karte hain, is liye ye fehrist milte hi poori ki poori isi safhe par aa jayegi. Us se pehle jaanna ho to WhatsApp par poochein — hum theek theek bata denge ke hum kya jante hain aur kya nahi.'],
             ['q' => 'Ajza shaya kiye baghair bech kyun rahe hain?', 'a' => 'Jaiz sawal hai. Tel stock mein hai aur log poochh rahe hain, is liye safha live hai — magar kami ko saaf likh kar, "qudrati jari bootiyan" jaise alfaz ke peeche chupa kar nahi. Aap chahein to order karein, chahein to fehrist ka intezar karein. Agar aap ko allergy hai ya jild sensitive hai to intezar karein.'],
-            ['q' => 'Roghan-e-Sukoon kis liye istemal hota hai?', 'a' => 'Ye herbal maalish ka tel hai — thake huay kandhon, gardan, kamar, ghutnon aur tangon ki aaram se maalish ke liye. Kaam ke baad, warzish ke baad, ya haftawar maalish ke maamool ke tor par. Ye bahri istemal ka aaram dene wala tel hai, dawa nahi, aur kisi bimari ke ilaj ke liye nahi.'],
-            ['q' => 'Roghan-e-Sukoon ki Pakistan mein qeemat kya hai?', 'a' => '100 ml Rs 1,300 aur 200 ml Rs 2,200, poore Pakistan mein Cash on Delivery ke saath. Agar aap regular istemal karte hain to 200 ml fi ml sasta parta hai.'],
+            ['q' => 'Glow Halal Massage Oil kis liye istemal hota hai?', 'a' => 'Ye herbal maalish ka tel hai — thake huay kandhon, gardan, kamar, ghutnon aur tangon ki aaram se maalish ke liye. Kaam ke baad, warzish ke baad, ya haftawar maalish ke maamool ke tor par. Ye bahri istemal ka aaram dene wala tel hai, dawa nahi, aur kisi bimari ke ilaj ke liye nahi.'],
+            ['q' => 'Glow Halal Massage Oil ki Pakistan mein qeemat kya hai?', 'a' => '100 ml Rs 1,300 aur 200 ml Rs 2,200, poore Pakistan mein Cash on Delivery ke saath. Agar aap regular istemal karte hain to 200 ml fi ml sasta parta hai.'],
             ['q' => 'Kya main jodon ke dard ke liye istemal kar sakta hoon?', 'a' => 'Riwayati tor par log aise tel se ghutnon, kandhon aur kamar ki maalish aaram ke liye karte hain. Ye arthritis ya kisi bhi tashkhees shuda jodon ki bimari ka ilaj nahi hai. Agar dard musalsal hai, shadeed hai ya barh raha hai, to tel par bharosa karne ke bajaye doctor ko dikhayein.'],
             ['q' => 'Kya bachay ko resha ho to seene par mal sakte hain?', 'a' => 'Nahi — meherbani kar ke na karein. Riwayati maalish ke telon mein aksar kafoor hota hai, jo jild ke raste jism mein chala jata hai: chhote bachay par baar baar malne se daure (seizures) hone ke wakiyat report ho chuke hain, aur American Academy of Pediatrics bachon par kafoor se mana karti hai. Chunke hum ne abhi tak confirm nahi kiya ke is bottle mein kya hai, isay sirf baron ke liye samjhein. Jis bachay ka seena band ho, khun-khun ho ya saans mein takleef ho — usay tel nahi, doctor chahiye.'],
             ['q' => 'Kya ye halal hai?', 'a' => 'Hamare paas koi third-party halal certification nahi hai aur hum aisa dawa nahi karte. Hum is tel ki ajza ki fehrist bhi abhi shaya nahi kar sakte, is liye jab tak kar na lein hum is bare mein koi dawa hi nahi karenge. Woh fehrist aa rahi hai.'],
@@ -338,16 +338,16 @@ HTML;
         ];
 
         return [
-            'slug' => 'roghan-e-sukoon-massage-oil',
-            'slug_ur' => 'roghan-e-sukoon-maalish-ka-tel',
+            'slug' => 'herbal-massage-oil',
+            'slug_ur' => 'maalish-ka-tel',
             // LIVE at the owner's instruction (3 Sep 2026) BEFORE the ingredient
             // list was known. The page states that gap outright instead of
             // publishing a guessed list — see the block comment above.
             'status' => 'active',
             'stock' => 25,
             'hold_reason' => null,
-            'name' => 'Roghan-e-Sukoon — Herbal Massage Oil',
-            'name_ur' => 'Roghan-e-Sukoon — Maalish Ka Herbal Tel',
+            'name' => 'Glow Halal Massage Oil — Maalish Ka Tel',
+            'name_ur' => 'Glow Halal Maalish Ka Tel',
             'sku_prefix' => 'GH-SKN',
             'short' => 'A herbal massage oil (maalish ka tel) for tired shoulders, back, knees and legs. We are still confirming this oil\'s ingredient list and say so on the page rather than guessing. Adults only. Cash on Delivery across Pakistan.',
             'short_ur' => 'Herbal maalish ka tel — thake huay kandhon, kamar, ghutnon aur tangon ke liye. Is tel ki ajza ki fehrist abhi confirm ho rahi hai, aur hum ye safhe par saaf likh rahe hain, andaza nahi laga rahe. Sirf baron ke liye. Poore Pakistan mein Cash on Delivery.',
@@ -367,9 +367,9 @@ HTML;
                 ['sku' => 'GH-SKN-100', 'volume' => '100 ml', 'price' => 130000, 'weight' => 160],
                 ['sku' => 'GH-SKN-200', 'volume' => '200 ml', 'price' => 220000, 'weight' => 300],
             ],
-            'meta_title' => 'Herbal Massage Oil in Pakistan – Roghan-e-Sukoon',
+            'meta_title' => 'Herbal Massage Oil in Pakistan – Glow Halal Massage Oil',
             'meta_description' => 'Maalish ka tel for tired shoulders, back and knees. Rs 1,300 for 100 ml, Rs 2,200 for 200 ml, Cash on Delivery. Full ingredient list being confirmed.',
-            'meta_title_ur' => 'Maalish Ka Tel — Roghan-e-Sukoon, Qeemat Aur COD',
+            'meta_title_ur' => 'Maalish Ka Tel — Glow Halal Massage Oil, Qeemat Aur COD',
             'meta_description_ur' => 'Herbal maalish ka tel — kandhon, kamar aur ghutnon ke liye. 100 ml Rs 1,300, 200 ml Rs 2,200, poore Pakistan Cash on Delivery. Ajza ki fehrist confirm ho rahi hai.',
         ];
     }
@@ -380,7 +380,7 @@ HTML;
     private function jarain(): array
     {
         $description = <<<'HTML'
-<p><strong>Roghan-e-Jarain</strong> is a herbal hair oil built for the <strong>scalp and the roots</strong>, not for shine on the surface. Four ingredients, nothing hidden: <strong>nariyal (coconut) oil</strong>, <strong>roghan-e-badam (sweet almond oil)</strong>, <strong>kalonji (black seed) oil</strong> and <strong>vitamin D</strong>. It conditions the scalp, softens dry hair and helps reduce the breakage that makes hair look thinner. Rs&nbsp;1,200 for 100&nbsp;ml, Cash on Delivery across Pakistan.</p>
+<p><strong>Glow Halal Hair Oil</strong> is a herbal hair oil built for the <strong>scalp and the roots</strong>, not for shine on the surface. Four ingredients, nothing hidden: <strong>nariyal (coconut) oil</strong>, <strong>roghan-e-badam (sweet almond oil)</strong>, <strong>kalonji (black seed) oil</strong> and <strong>vitamin D</strong>. It conditions the scalp, softens dry hair and helps reduce the breakage that makes hair look thinner. Rs&nbsp;1,200 for 100&nbsp;ml, Cash on Delivery across Pakistan.</p>
 <p><strong>Contains almond — a tree nut.</strong> If anyone in your house has a nut allergy, please do not order this.</p>
 
 <h3>What it does — and what it does not</h3>
@@ -424,7 +424,7 @@ HTML;
 HTML;
 
         $descriptionUr = <<<'HTML'
-<p><strong>Roghan-e-Jarain</strong> woh herbal tel hai jo <strong>sar ki jild aur balon ki jarain</strong> ke liye banaya gaya hai — sirf uparse chamak ke liye nahi. Chaar ajza, kuch chupa hua nahi: <strong>nariyal ka tel</strong>, <strong>roghan-e-badam</strong>, <strong>kalonji ka tel</strong> aur <strong>vitamin D</strong>. Ye sar ki khushk jild ko naram karta hai, rookhe baal mulaim karta hai, aur woh tootna kam karta hai jis se baal patle lagne lagte hain. 100&nbsp;ml Rs&nbsp;1,200, poore Pakistan mein Cash on Delivery.</p>
+<p><strong>Glow Halal Hair Oil</strong> woh herbal tel hai jo <strong>sar ki jild aur balon ki jarain</strong> ke liye banaya gaya hai — sirf uparse chamak ke liye nahi. Chaar ajza, kuch chupa hua nahi: <strong>nariyal ka tel</strong>, <strong>roghan-e-badam</strong>, <strong>kalonji ka tel</strong> aur <strong>vitamin D</strong>. Ye sar ki khushk jild ko naram karta hai, rookhe baal mulaim karta hai, aur woh tootna kam karta hai jis se baal patle lagne lagte hain. 100&nbsp;ml Rs&nbsp;1,200, poore Pakistan mein Cash on Delivery.</p>
 <p><strong>Is mein badam hai — yaani giri (tree nut).</strong> Agar ghar mein kisi ko giri se allergy hai to meherbani kar ke ye order na karein.</p>
 
 <h3>Ye kya karta hai — aur kya NAHI karta</h3>
@@ -494,8 +494,8 @@ HTML;
 HTML;
 
         $faqs = [
-            ['q' => 'What is Roghan-e-Jarain hair oil used for?', 'a' => 'It is a scalp-and-roots champi oil: it conditions a dry or flaky scalp, softens rough lengths and helps reduce the breakage that makes hair look thinner. It is a cosmetic hair oil, not a treatment for hair loss.'],
-            ['q' => 'What is the price of Roghan-e-Jarain in Pakistan?', 'a' => 'Rs 1,200 for 100 ml and Rs 2,000 for 200 ml, with Cash on Delivery across Pakistan. The 200 ml is better value if you oil twice a week or have long hair.'],
+            ['q' => 'What is Glow Halal Hair Oil hair oil used for?', 'a' => 'It is a scalp-and-roots champi oil: it conditions a dry or flaky scalp, softens rough lengths and helps reduce the breakage that makes hair look thinner. It is a cosmetic hair oil, not a treatment for hair loss.'],
+            ['q' => 'What is the price of Glow Halal Hair Oil in Pakistan?', 'a' => 'Rs 1,200 for 100 ml and Rs 2,000 for 200 ml, with Cash on Delivery across Pakistan. The 200 ml is better value if you oil twice a week or have long hair.'],
             ['q' => 'Will this oil regrow my hair?', 'a' => 'No, and we will not pretend otherwise. No oil regrows hair on a bald patch or reverses pattern baldness. What a good oil can do is reduce breakage and condition the scalp, so you lose less hair to snapping. If your hair loss is sudden, patchy or getting worse, please see a doctor — it can point to thyroid, iron or medication issues.'],
             ['q' => 'How often should I use it?', 'a' => 'Twice a week is plenty. Apply to the scalp, massage 5–10 minutes, leave 1–2 hours or overnight, then wash out properly with a mild shampoo. Leaving oil in for days does more harm than good.'],
             ['q' => 'What is in it?', 'a' => 'Four things: coconut oil, sweet almond oil (roghan-e-badam), kalonji (black seed) oil and vitamin D. That is the complete list — no mineral oil, no hidden fragrance. Important: it contains almond, which is a tree nut, and coconut. Do not use it if you have a nut or coconut allergy.'],
@@ -504,8 +504,8 @@ HTML;
         ];
 
         $faqsUr = [
-            ['q' => 'Roghan-e-Jarain kis liye istemal hota hai?', 'a' => 'Ye sar ki jild aur jaron ke liye champi ka tel hai: khushk ya papri wali scalp ko naram karta hai, rookhi lambai mulaim karta hai, aur woh tootna kam karta hai jis se baal patle lagte hain. Ye cosmetic hair oil hai, baal girne ka ilaj nahi.'],
-            ['q' => 'Roghan-e-Jarain ki Pakistan mein qeemat kya hai?', 'a' => '100 ml Rs 1,200 aur 200 ml Rs 2,000, poore Pakistan mein Cash on Delivery. Agar aap hafte mein do baar tel lagate hain ya baal lambe hain to 200 ml zyada faida mand hai.'],
+            ['q' => 'Glow Halal Hair Oil kis liye istemal hota hai?', 'a' => 'Ye sar ki jild aur jaron ke liye champi ka tel hai: khushk ya papri wali scalp ko naram karta hai, rookhi lambai mulaim karta hai, aur woh tootna kam karta hai jis se baal patle lagte hain. Ye cosmetic hair oil hai, baal girne ka ilaj nahi.'],
+            ['q' => 'Glow Halal Hair Oil ki Pakistan mein qeemat kya hai?', 'a' => '100 ml Rs 1,200 aur 200 ml Rs 2,000, poore Pakistan mein Cash on Delivery. Agar aap hafte mein do baar tel lagate hain ya baal lambe hain to 200 ml zyada faida mand hai.'],
             ['q' => 'Kya is tel se baal wapas ug jayenge?', 'a' => 'Nahi, aur hum jhoot nahi bolenge. Koi tel ganje hissay par baal wapas nahi laata aur na hi mordana ganjapan palat sakta hai. Acha tel itna kar sakta hai ke tootna kam ho aur scalp ki halat behtar ho, taake baal toot kar kam giren. Agar baal achanak, chittiyon mein ya barhte huay gir rahe hain to doctor ko dikhayein — ye thyroid, iron ki kami ya dawaon ki taraf ishara ho sakta hai.'],
             ['q' => 'Kitni baar lagana chahiye?', 'a' => 'Hafte mein do baar kaafi hai. Sar ki jild par lagayein, 5–10 minute maalish karein, 1–2 ghante ya raat bhar chhor dein, phir halke shampoo se achi tarah dho lein. Kai din tak tel laga rakhna faida nahi, nuqsan deta hai.'],
             ['q' => 'Is mein kya kya hai?', 'a' => 'Chaar cheezein: nariyal ka tel, roghan-e-badam, kalonji ka tel aur vitamin D. Bas yehi mukammal fehrist hai — na mineral oil, na chupi hui khushbu. Ahem baat: is mein badam hai jo tree nut hai, aur nariyal. Agar giri ya nariyal se allergy hai to istemal na karein.'],
@@ -514,14 +514,14 @@ HTML;
         ];
 
         return [
-            'slug' => 'roghan-e-jarain-hair-oil',
-            'slug_ur' => 'roghan-e-jarain-balon-ka-tel',
+            'slug' => 'herbal-hair-oil',
+            'slug_ur' => 'balon-ka-tel',
             // LIVE. Ingredients are owner-supplied (3 Sep 2026), stock confirmed.
             'status' => 'active',
             'stock' => 25,
             'hold_reason' => null,
-            'name' => 'Roghan-e-Jarain — Herbal Hair Oil for Scalp & Roots',
-            'name_ur' => 'Roghan-e-Jarain — Balon Ki Jarain Ka Herbal Tel',
+            'name' => 'Glow Halal Hair Oil — Balon Ka Tel',
+            'name_ur' => 'Glow Halal Balon Ka Tel',
             'sku_prefix' => 'GH-JRN',
             'short' => 'A scalp-and-roots champi oil, four ingredients only: coconut oil, sweet almond oil, kalonji (black seed) oil and vitamin D. Conditions the scalp and helps reduce breakage. Contains almond (tree nut) and coconut. Cash on Delivery across Pakistan.',
             'short_ur' => 'Sar ki jild aur jaron ke liye champi ka tel, sirf chaar ajza: nariyal ka tel, roghan-e-badam, kalonji ka tel aur vitamin D. Scalp ko naram karta hai aur tootna kam karta hai. Is mein badam (giri) aur nariyal hai. Poore Pakistan mein Cash on Delivery.',
@@ -545,9 +545,9 @@ HTML;
                 ['sku' => 'GH-JRN-100', 'volume' => '100 ml', 'price' => 120000, 'weight' => 160],
                 ['sku' => 'GH-JRN-200', 'volume' => '200 ml', 'price' => 200000, 'weight' => 300],
             ],
-            'meta_title' => 'Herbal Hair Oil in Pakistan – Roghan-e-Jarain',
+            'meta_title' => 'Herbal Hair Oil in Pakistan – Glow Halal Hair Oil',
             'meta_description' => 'Champi oil for scalp and roots: coconut, sweet almond, kalonji and vitamin D — nothing else. Rs 1,200 for 100 ml, Rs 2,000 for 200 ml. COD Pakistan.',
-            'meta_title_ur' => 'Balon Ka Herbal Tel — Roghan-e-Jarain, Qeemat Aur COD',
+            'meta_title_ur' => 'Balon Ka Herbal Tel — Glow Halal Hair Oil, Qeemat Aur COD',
             'meta_description_ur' => 'Jaron aur scalp ke liye champi ka tel — nariyal, roghan-e-badam, kalonji aur vitamin D, aur kuch nahi. 100 ml Rs 1,200, 200 ml Rs 2,000. Poore Pakistan Cash on Delivery.',
         ];
     }

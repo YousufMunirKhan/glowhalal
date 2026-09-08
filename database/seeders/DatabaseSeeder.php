@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             LegalPagesSeeder::class,
             AboutPageSeeder::class,
             OwnerProductSeeder::class,
-            // Own-brand range (Roghan-e-Sukoon + Roghan-e-Jarain). Seeds as
+            // Own-brand range (Glow Halal Massage Oil + Hair Oil). Seeds as
             // DRAFT — see the header of that seeder for the four things the
             // owner must confirm before either goes on sale.
             HerbalOilRangeSeeder::class,
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             // Audience-growth pair: massage-oil + back-pain, EN + Roman Urdu,
             // opening new high-intent search doors with current (Rs 1,200/2,200) pricing.
             GrowthBlogSeeder::class,
-            // 30-day plan, week 1: Roghan-e-Sukoon content + the Karachi/
+            // 30-day plan, week 1: massage-oil content + the Karachi/
             // Hyderabad/Lahore buying guide (EN + Roman Urdu).
             Month1Week1BlogSeeder::class,
             Month1Week2BlogSeeder::class,
